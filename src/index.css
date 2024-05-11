@@ -298,7 +298,7 @@ input[type="number"] {
   display: none;
 }
 .sidebaraside .parenttext,.submenuchildtext{
-      width: 220px;
+      width: 210px;
 }
 /* .parenttext::after {
   content: '';
