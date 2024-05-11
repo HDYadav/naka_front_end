@@ -1,0 +1,503 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+    font-family: 'Poppins';
+    background-color: #F1F6F9;
+
+}
+
+
+input,select{
+    border: 1px solid #D2DAE1;
+    height: 35px;
+  }
+  input::placeholder{
+    color: #AFAFAF;
+    font-size: 14px !important;
+    font-weight: 200 !important;
+    font-style: italic;
+  }
+  
+  input{
+    font-size: 14px;
+    font-weight: 400 !important;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+  input:focus{
+       outline: 0;
+  }
+  button:focus{
+    outline: none;
+  }
+  label{
+    font-size: 14px !important;
+  }
+  select{
+    font-size: 14px;
+  }
+  h1{
+    font-size: 2em;
+  }
+  h2{
+    font-size: 1.5em;
+  }
+  h3{
+    font-size: 1.17em;
+  }
+  h4{
+    font-size: 1em;
+  }
+  h5{
+    font-size: .83em;
+  }
+  h6{
+    font-size: .67em;
+  }
+  /* No Scrollbar overflow auto */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+  .dropshadow1{
+    filter: drop-shadow(0px 0px 10px rgba(44, 73, 93, 0.30));
+  }
+  .form-select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8' fill='none'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M13.055 0.292877C13.427 0.683379 13.427 1.31658 13.055 1.70709L7.34074 7.70712C6.96883 8.09763 6.36578 8.09763 5.99388 7.70712L0.27958 1.70709C-0.0923253 1.31658 -0.0923252 0.683379 0.27958 0.292876C0.651486 -0.0976262 1.25453 -0.0976262 1.62644 0.292876L6.66731 5.58581L11.7082 0.292877C12.0801 -0.0976257 12.6831 -0.0976257 13.055 0.292877Z' fill='%23535252'/%3e%3c/svg%3e");
+    background-size: 0.7rem;
+    background-position: right 0.7rem center;
+    background-repeat: no-repeat;
+    appearance: none;
+  }
+  .modal-footer{
+      border-radius: 10px 10px 5px 5px;
+      border-top: 1px solid #DADCDE;
+      background: #FFF;
+  }
+  .cancel-btn{ border: 1px solid #EAE2E2; }
+  .save-btn{ border: 1px solid #123251; }
+  .bi-plus, .bi-pencil { color: #2C495D; }
+
+  @layer utilities {
+    .scrollbar::-webkit-scrollbar {
+      width: 10px; /* Adjust width as needed */
+    }
+    .scrollbar::-webkit-scrollbar-track {
+      background: #f7f4ed; /* Track background color */
+      border-radius: 10px; /* Rounded corners */
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+      background: #e0cbcb; /* Thumb background color */
+      border-radius: 10px; /* Rounded corners for thumb */
+      border: 3px solid #f6f7ed; /* Add a border */
+    }
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #c0a0b9; /* Change on hover */
+    }
+  }
+
+
+  .menubottomborder{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+  }
+
+  .chk-color{
+    color:#F16136;
+    }
+    .chk-color.grey{
+        color:#D9D9D9;
+    }
+
+    .toggle-label {
+        position: relative;
+     
+        &:before {
+           position: absolute;
+           top: 0.125rem;
+           left: 0.125rem;
+     
+           display: block;
+           content: "";
+           width: 1.25rem;
+           height: 1.25rem;
+     
+           border-radius: 9999%;
+           background-color: #1d4469;
+           background-position: center;
+           background-repeat: no-repeat;
+     
+           background-size: 40%;
+           background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23a0aec0" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>');
+     
+           transition: transform .15s cubic-bezier(0, 0, 0.2, 1);
+     
+           transform: translateX(0); 
+           box-shadow: 0px 7px 7px 1px rgba(0, 0, 0, 0.1), 0 4px 4px 0px rgba(0, 0, 0, 0.06);
+        }
+     }
+
+
+     .toggle-checkbox:checked + .toggle-label:before {
+        transform: translateX(1.5rem);
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23a0aec0" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>');
+     }
+
+
+     .toggle {
+        &.slim {
+           .toggle-label:before {
+              top: -0.15rem;
+              left: 0;
+           }
+     
+           .toggle-checkbox:checked + .toggle-label:before {
+              transform: translateX(1.75rem);
+           }
+        }
+     
+        &.colour {
+           .toggle-label {
+              background-color: #feb2b2;
+           }
+     
+           .toggle-checkbox:checked + .toggle-label {
+              background-color: #9ae6b4;
+           }
+        }
+     }
+
+     .arrow {
+      border: solid #2999BC;
+      border-width: 0 4px 4px 0;
+      display: inline-block;
+      width: 12px;
+      height: 20px;
+    }
+
+
+    
+.checkarrow {
+   transform: rotate(45deg);
+   -webkit-transform: rotate(45deg);
+   position: absolute;
+   bottom: 4px;
+   left: 7px;
+ }
+
+.customercalendar{
+  position: absolute !important;
+  z-index: 10;
+}
+.customercalendar .react-datepicker__header{
+  background-color: transparent;
+  border-bottom: 0px;
+  padding: 0;
+}
+.customercalendar .react-datepicker__current-month{
+  padding: 10px;
+  background-color: #1D4469;
+  color: #EFEFEF;
+  font-family: poppins;
+  font-size: 11px;
+}
+.customercalendar .react-datepicker__navigation{
+  margin-top: 3px;
+}
+.customercalendar .react-datepicker__navigation-icon::before{
+  border-color: #F8FAFB;
+}
+.customercalendar .react-datepicker__day-names .react-datepicker__day-name{
+  font-family: barlow;
+  font-size: 10px;
+  font-weight: 600;
+  color: #3E3E3E;
+}
+.customercalendar .react-datepicker__day-names .react-datepicker__day-name:nth-last-child(2), .customercalendar .react-datepicker__day-names .react-datepicker__day-name:nth-last-child(1) {
+  color: #179BC5;
+}
+
+.customercalendar .montofriweek{
+  color: #565656;
+  font-family: barlow;
+  font-size: 10px;
+  font-weight: 500;
+}
+.customercalendar .satsunweek{
+  color: #179BC5;
+  font-family: barlow;
+  font-size: 10px;
+  font-weight: 500;
+
+}
+.customercalendar .react-datepicker__day--selected{
+  color: white;
+}
+
+.save-icon:hover path {
+  fill: #1D4469; 
+}
+
+
+/* Sidebar Start */
+.sidebarscroll::-webkit-scrollbar {
+  display: none;
+}
+.sidebarscroll{
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+}
+.sidebaraside .sidebarscroll{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebaraside ul li .parenttext{
+      display: none;
+      background-color: #1D4469;
+      border: 1px solid #FFF;
+      position: absolute;
+      margin-top: 12px !important;
+      left: 64px;
+      padding: 4px;
+      margin: 0;
+      font-weight: 400;
+}
+.sidebaraside ul li .sidebarmenutab{
+    justify-content: center;
+}
+.sidebaraside ul li ul{
+  /* display: none; */
+  background-color: #1D4469;
+  border: 1px solid #FFF;
+  border-top: 0;
+  position: absolute;
+  /* top: 174px; */
+  left: 64px;
+  padding: 4px;
+}
+.sidebaraside ul li ul a{
+  padding-left: 25px;
+  text-wrap: nowrap;
+}
+.sidebaraside ul li:hover .parenttext{
+  display: block;
+}
+.sidebaraside .sidedownarrow{
+  display: none;
+}
+.sidebaraside .parenttext,.submenuchildtext{
+      width: 220px;
+}
+/* .parenttext::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid currentColor; 
+  margin-left: 5px; 
+} */
+
+.sidebaraside ul li:hover .submenuchildtext{
+  display: block;
+}
+
+
+/* Sidebar End */
+
+
+.firstmodal{
+  background: rgba(44, 73, 93, 0.35);
+  backdrop-filter: blur(1.5499999523162842px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0px;
+}
+body.modal-open {
+  overflow: hidden;
+}
+
+.formeditbtn{
+  display: none;
+}
+
+.contentsdiv:hover .formeditbtn {
+      display: inline-block;
+}
+
+
+.notes {
+  display: none;
+  transition: display 0.3s ease;
+}
+
+.notes.show {
+  display: block;
+}
+
+.ck-powered-by-balloon{
+  display: none !important;
+}
+
+
+
+.color-input {
+  opacity: 0;
+  z-index: 9999;
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.customcolorbox {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  /* border: 5px solid #FBB244; */
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.customcolorbox:hover {
+  cursor: pointer;
+  /* box-shadow: 0px 0px 50px 5px #4e4e4e; */
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.color-input:hover {
+  cursor: pointer;
+}
+
+.color-input:hover + .customcolorbox {
+  /* box-shadow: 0px 0px 50px 5px #4e4e4e; */
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+/* Undo icon */
+.undo-icon {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs,1));
+  width: 14px;
+  height: 14px;
+  border: 2px solid;
+  border-left-color: transparent;
+  border-radius: 100px
+ }
+ 
+ .undo-icon::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+  top: -3px;
+  left: -1px;
+  transform: rotate(-68deg)
+ } 
+
+/* End Undo icon */
+
+/* Redo icon */
+.redo-icon {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs,1));
+  width: 14px;
+  height: 14px;
+  border: 2px solid;
+  border-right-color: transparent;
+  border-radius: 100px
+}
+.redo-icon::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+  top: -3px;
+  right: -1px;
+  transform: rotate(68deg)
+}
+/* End Redo icon */
+
+/* Start Notes Editor */
+/* .notesckeditor > p:first-of-type::before {
+  content: "Type or paste your content here!";
+  position: absolute;
+  color: #bbb;
+} */
+/* End Notes Editor */
+
+/* animation start */
+.spin-animation-right{
+  animation: spin 0.5s linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+.spin-animation-left{
+  animation: spin-left 0.5s linear;
+}
+
+@keyframes spin-left {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-90deg);
+  }
+}
+/* animation end */
+
+
+
+
+.emojiRibbon {
+  width: 60px;
+  font-size: 10px;
+  padding: 4px;
+  position: absolute;
+  right: -25px;
+  top: -12px;
+  text-align: center;
+  border-radius: 25px;
+  transform: rotate(20deg);
+  background-color: #ff9800;
+  color: white;
+}
