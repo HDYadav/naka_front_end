@@ -237,7 +237,7 @@ const JobsList = () => {
                     currentJobs.map((job) => (
                       <tr key={job.id} className="border border-neutral-200 ">
                         <td className="whitespace-nowrap border-b border-e border-s border-neutral-200 text-2999BC px-6 py-2 font-medium text-left">
-                          {job.jobPosiiton}
+                          <Link to="/candidate-details">{job.jobPosiiton}</Link>
                         </td>
                         <td className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left">
                           {job.company}
