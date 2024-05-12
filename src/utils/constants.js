@@ -25,13 +25,10 @@ export const SAVE_ADDRESS = "https://api.vadsconsulting.com/api/company/store_ad
 export const CHARTS_OF_ACCOUNTS = "https://api.vadsconsulting.com/api/charts_of_accounts";
 export const COMPANY_DUPLICATE = "https://api.vadsconsulting.com/api/company/check_duplicate_company"; 
 export const COMPANY_DISPLAY = "https://api.vadsconsulting.com/api/company/check_display"; 
-
 export const COMPANY_PROFILE_DETAIL = "https://api.vadsconsulting.com/api/company/get_company_details";
 export const COMPANY_BILLING_DETAIL = "https://api.vadsconsulting.com/api/company/get_billing_details";
 export const COMPANY_EDIT_ADDRESS = "https://api.vadsconsulting.com/api/company/get_edit_address_details";
-
 export const COMPANY_EDIT_CONTACT = "https://api.vadsconsulting.com/api/company/get_contact_details";
 export const DELETE_CONTACT_API = "https://api.vadsconsulting.com/api/company/delete_contact";
-
 export const ADD_VENDOR = "https://api.vadsconsulting.com/api/vendors/add";
 
