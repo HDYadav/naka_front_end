@@ -13,6 +13,7 @@ import EditCompany from './company/EditCompany';
 import SignupForm from './form/SignupForm';
 import AddVendor from './company/AddVendor';
 import JobsList from './jobs/JobsList';
+import CandidateDetails  from "./jobs/CandidateDetails"
 
 const Body = () => { 
   return (
@@ -32,6 +33,7 @@ const Body = () => {
             <Route element={<AssetList />} path="/asset_chart_of_account" />
 
             <Route element={<JobsList />} path="/jobs_list" />
+            <Route element={<CandidateDetails />} path="/candidate-details" />
 
           </Route>
 
