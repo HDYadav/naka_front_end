@@ -208,7 +208,9 @@ const CreateJob = () => {
             {({ isSubmitting }) => (
               <Form id="companyProfileForm" encType="multipart/form-data">
                 <section className="bg-white mt-5 pt-0 py-8">
-                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">Job Details</h3>
+                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">
+                    Job Details
+                  </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
                       <Field name="job_title">
@@ -389,7 +391,9 @@ const CreateJob = () => {
                 </section>
 
                 <section className="bg-white mt-5 pt-0 py-8">
-                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">Job Details</h3>
+                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">
+                    Job Details
+                  </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
                       <Field name="job_title">
@@ -565,6 +569,42 @@ const CreateJob = () => {
                           className="text-red-500 text-sm"
                         />
                       </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="bg-white mt-5 pt-0 py-8">
+                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">
+                    Description
+                  </h3>
+                  <div className="flex px-5 justify-between mb-4 w-full">
+                    <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap w-full">
+                      <Field name="Deadline">
+                        {({ field }) => (
+                          <div className="w-full">
+                            <div className="pe-2 flex self-end w-full text-center">
+                              <label
+                                htmlFor="Deadline *"
+                                className="mb-1 text-535252 text-16 font-400"
+                              >
+                                Description
+                              </label>
+                            </div>
+
+                            <textarea
+                              className="p-2 w-full text-gray-500 border border-gray-300 rounded hover:outline-none"
+                              placeholder="Enter description..."
+                              rows={4}
+                              onKeyUp={handleKeyUp}
+                            />
+                            <ErrorMessage
+                              name="total_vacancies"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
                     </div>
                   </div>
                 </section>

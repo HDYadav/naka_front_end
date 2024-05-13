@@ -2,7 +2,7 @@ import React from "react";
 import LayoutHOC from "../LayoutHOC";
 import { BiEdit } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
-import { PiMoney } from "react-icons/pi";
+import { FaMoneyCheck } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
 
 const CandidateDetails = () => {
@@ -31,7 +31,7 @@ const CandidateDetails = () => {
               <small className="text-xs">Templatecookie · Full Time</small>
             </h2>
             <div className="flex gap-2">
-              <PiMoney className="text-2xl" />
+              <FaMoneyCheck className="text-2xl" />
               <h3 className="text-base leading-5">
                 3,000 - 5,000 USD
                 <br /> <small className="text-xs">Monthly</small>
