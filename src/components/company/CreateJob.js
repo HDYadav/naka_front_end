@@ -335,10 +335,10 @@ const CreateJob = () => {
                       <Field name="Deadline">
                         {({ field }) => (
                           <div>
-                            <div className="pe-2 flex self-end w-full text-center">
+                            <div className="pe-2 flex self-end w-full text-center mb-2">
                               <label
                                 htmlFor="Deadline *"
-                                className="mb-1 text-535252 text-16 font-400"
+                                className="text-535252 text-16 font-400"
                               >
                                 Deadline *
                               </label>
