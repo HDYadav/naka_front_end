@@ -14,6 +14,7 @@ import SignupForm from './form/SignupForm';
 import AddVendor from './company/AddVendor';
 import JobsList from './jobs/JobsList';
 import CandidateDetails  from "./jobs/CandidateDetails"
+import CreateJob from './company/CreateJob';
 
 const Body = () => { 
   return (
@@ -27,6 +28,10 @@ const Body = () => {
             <Route element={<AddCustomer1 />} path="/add_customer1" />
             <Route element={<AddCompany />} path="/add_company" />
             <Route element={<AddVendor />} path="/add_vendor" />
+
+            <Route element={<CreateJob />} path="/create_job" />
+
+
             <Route element={<EditCompany />} path="/edit_company/:id" />
 
             <Route element={<Importcha />} path="/import_chart_of_account" />
@@ -34,7 +39,6 @@ const Body = () => {
 
             <Route element={<JobsList />} path="/jobs_list" />
             <Route element={<CandidateDetails />} path="/candidate-details" />
-
           </Route>
 
           <Route element={<SignupForm />} path="/signup" />
