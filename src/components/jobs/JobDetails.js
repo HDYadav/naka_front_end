@@ -4,8 +4,15 @@ import { BiEdit } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { FaMoneyCheck } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
-const CandidateDetails = () => {
+
+const JobDetails = (props) => {
+
+
+//const { job } = props.location.state || {}; 
+  //console.log(props, 555);
+
   return (
     <main id="maincontent" className="p-4 mt-14">
       <div className="bg-White py-2  px-3 rounded shadow-2">
@@ -105,23 +112,7 @@ const CandidateDetails = () => {
               Voluptatibus pariatur sed at dolores facere dicta repudiandae
               amet, dolor doloremque nam iste quae doloribus ex, accusamus
               consectetur, cum architecto exercitationem. Vero quae mollitia,
-              dolore, eaque dolor iusto temporibus, laudantium impedit alias
-              magni velit accusantium ullam deserunt commodi. Veniam odio sint,
-              ipsa ducimus blanditiis amet, explicabo placeat voluptates
-              quibusdam eos expedita deleniti porro. Suscipit dolorem quisquam
-              odio doloribus velit deserunt voluptates saepe vero quo
-              reprehenderit dolores ea nesciunt vel assumenda, commodi
-              laboriosam optio? Deleniti reiciendis praesentium sint? Assumenda
-              esse blanditiis quo molestias. Possimus ullam officia similique
-              blanditiis accusamus ut quis cumque quo voluptas quasi maiores
-              sapiente, maxime hic quos asperiores facilis, cupiditate minima
-              esse velit ab ipsum et est sequi. Natus minima quo fugiat sequi
-              itaque corporis voluptatum quasi voluptates aperiam dignissimos
-              reiciendis soluta est veritatis sunt deleniti explicabo quibusdam
-              neque, sit quod autem dicta. Et velit at tempora earum impedit
-              necessitatibus quas vero beatae doloribus! Praesentium cumque illo
-              dignissimos nostrum voluptatibus atque esse consequuntur minus
-              molestias harum, odio adipisci facere.
+              dolore,  
             </p>
           </div>
           <div className="px-2 border-l border-gray-200">
@@ -129,23 +120,23 @@ const CandidateDetails = () => {
             <div className="my-3">
               <h3 className="text-base mb-2">Skills</h3>
               <div className="flex flex-wrap gap-2">
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">React</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">.NET Framework</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Javascript</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Javascript</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">.NET Framework</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">React</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">.NET Framework</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">React</span>
-              <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Javascript</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">React</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">.NET Framework</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Javascript</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Javascript</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">.NET Framework</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">React</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">.NET Framework</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">React</span>
+              <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">Javascript</span>
               </div>
             </div>
             <div className="my-3">
               <h3 className="text-base mb-2">Language</h3>
               <div className="flex flex-wrap gap-2">
-              <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">English</span>
-              <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Hindi</span>
-              <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Urdu</span>
+              <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">English</span>
+              <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Hindi</span>
+              
               </div>
             </div>
           </div>
@@ -155,4 +146,4 @@ const CandidateDetails = () => {
   );
 };
 
-export default LayoutHOC(CandidateDetails);
+export default LayoutHOC(JobDetails);

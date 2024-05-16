@@ -13,7 +13,7 @@ import EditCompany from './company/EditCompany';
 import SignupForm from './form/SignupForm';
 import AddVendor from './company/AddVendor';
 import JobsList from './jobs/JobsList';
-import CandidateDetails  from "./jobs/CandidateDetails"
+import JobDetails from "./jobs/JobDetails";
 import CreateJob from './company/CreateJob';
 
 const Body = () => { 
@@ -31,14 +31,13 @@ const Body = () => {
 
             <Route element={<CreateJob />} path="/create_job" />
 
-
             <Route element={<EditCompany />} path="/edit_company/:id" />
 
             <Route element={<Importcha />} path="/import_chart_of_account" />
             <Route element={<AssetList />} path="/asset_chart_of_account" />
 
             <Route element={<JobsList />} path="/jobs_list" />
-            <Route element={<CandidateDetails />} path="/candidate-details" />
+            <Route element={<JobDetails />} path="/job_details/:id" />
           </Route>
 
           <Route element={<SignupForm />} path="/signup" />

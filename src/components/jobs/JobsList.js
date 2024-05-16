@@ -84,23 +84,6 @@ const JobsList = () => {
               Search
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </div>
               <input
                 type="text"
                 id="table-search-users"
@@ -125,73 +108,25 @@ const JobsList = () => {
                       scope="col"
                       className="font-normal px-6 py-3 text-left border"
                     >
-                      <div className="flex justify-between">
-                        Job Position
-                        <a href="#">
-                          <svg
-                            className="w-3 h-3 ms-1.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512"
-                          >
-                            <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
-                          </svg>
-                        </a>
-                      </div>
+                      <div className="flex justify-between">Job Position</div>
                     </th>
                     <th
                       scope="col"
                       className="font-normal px-6 py-3 text-left border"
                     >
-                      <div className="flex justify-between">
-                        Company
-                        <a href="#">
-                          <svg
-                            className="w-3 h-3 ms-1.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512"
-                          >
-                            <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
-                          </svg>
-                        </a>
-                      </div>
+                      <div className="flex justify-between">Company</div>
                     </th>
                     <th
                       scope="col"
                       className="font-normal px-6 py-3 text-left border"
                     >
-                      <div className="flex justify-between">
-                        Work Place
-                        <a href="#">
-                          <svg
-                            className="w-3 h-3 ms-1.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512"
-                          >
-                            <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
-                          </svg>
-                        </a>
-                      </div>
+                      <div className="flex justify-between">Work Place</div>
                     </th>
                     <th
                       scope="col"
                       className="font-normal px-6 py-3 text-left border"
                     >
-                      <div className="flex justify-between">
-                        City
-                        <a href="#">
-                          <svg
-                            className="w-3 h-3 ms-1.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512"
-                          >
-                            <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
-                          </svg>
-                        </a>
-                      </div>
+                      <div className="flex justify-between">City</div>
                     </th>
                     <th
                       scope="col"
@@ -199,16 +134,6 @@ const JobsList = () => {
                     >
                       <div className="flex justify-between">
                         Employeement Type
-                        <a href="#">
-                          <svg
-                            className="w-3 h-3 ms-1.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512"
-                          >
-                            <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
-                          </svg>
-                        </a>
                       </div>
                     </th>
 
@@ -216,19 +141,7 @@ const JobsList = () => {
                       scope="col"
                       className="font-normal px-6 py-3 text-left border"
                     >
-                      <div className="flex justify-between">
-                        Details
-                        <a href="#">
-                          <svg
-                            className="w-3 h-3 ms-1.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512"
-                          >
-                            <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
-                          </svg>
-                        </a>
-                      </div>
+                      <div className="flex justify-between">Details</div>
                     </th>
                   </tr>
                 </thead>
@@ -253,7 +166,14 @@ const JobsList = () => {
                         </td>
 
                         <td className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left">
-                          Details
+                          <Link
+                            to={{
+                              pathname: `/job_details/${job.id}`,
+                              state: { job: job.id },
+                            }}
+                          >
+                            Details
+                          </Link>
                         </td>
                       </tr>
                     ))}

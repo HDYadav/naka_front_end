@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CompanyLeftHOC from '../CompanyLeftHOC';
-import AddContact from './AddContact';
-import AddAddress from './AddAddress';
+
 import EditCompanyProfile from './EditCompanyProfile';
  import useCompanyEditData from '../../utils/company/useCompanyEditData';
 import EdiCompanyBilling from './EditCompanyBilling';
