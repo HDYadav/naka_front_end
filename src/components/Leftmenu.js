@@ -235,7 +235,7 @@ function Leftmenu(props) {
                 data-collapse-toggle="payroll-menu"
                 onClick={() => handleToggleMenu(5)}
               >
-                <i class="bi bi-person-raised-hand text-xl text-CCE6FF"></i>
+                <i className="bi bi-person-raised-hand text-xl text-CCE6FF"></i>
                 <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap parenttext">
                   Jobs
                 </span>

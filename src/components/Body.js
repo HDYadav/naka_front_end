@@ -28,14 +28,10 @@ const Body = () => {
             <Route element={<AddCustomer1 />} path="/add_customer1" />
             <Route element={<AddCompany />} path="/add_company" />
             <Route element={<AddVendor />} path="/add_vendor" />
-
             <Route element={<CreateJob />} path="/create_job" />
-
             <Route element={<EditCompany />} path="/edit_company/:id" />
-
             <Route element={<Importcha />} path="/import_chart_of_account" />
             <Route element={<AssetList />} path="/asset_chart_of_account" />
-
             <Route element={<JobsList />} path="/jobs_list" />
             <Route element={<JobDetails />} path="/job_details/:id" />
           </Route>
