@@ -15,6 +15,10 @@ import AddVendor from './company/AddVendor';
 import JobsList from './jobs/JobsList';
 import JobDetails from "./jobs/JobDetails";
 import CreateJob from './company/CreateJob';
+import JobsPosition from './jobs/JobsPosition';
+import StateList from './jobs/StateList';
+import EmploymentType from './jobs/EmploymentType';
+import Skills from './jobs/Skills';
 
 const Body = () => { 
   return (
@@ -34,6 +38,11 @@ const Body = () => {
             <Route element={<AssetList />} path="/asset_chart_of_account" />
             <Route element={<JobsList />} path="/jobs_list" />
             <Route element={<JobDetails />} path="/job_details/:id" />
+            <Route element={<JobsPosition />} path="/jobs_position" />
+            <Route element={<StateList />} path="/state" />
+            <Route element={<EmploymentType />} path="/employment_type" />
+
+            <Route element={<Skills />} path="/skills" />
           </Route>
 
           <Route element={<SignupForm />} path="/signup" />

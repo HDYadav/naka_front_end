@@ -13,7 +13,7 @@ const JobsList = () => {
     // Define your filter options here, e.g., company, workplace, etc.
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [jobsPerPage] = useState(1);
+  const [jobsPerPage] = useState(10);
 
   useEffect(() => {
     if (allJobs?.data) {
@@ -68,7 +68,7 @@ const JobsList = () => {
               </h5>
               <div className="flex items-center">
                 <Link
-                  to="/add_customer"
+                  to="/create_job"
                   className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
                   type="button"
                 >
@@ -150,7 +150,9 @@ const JobsList = () => {
                     currentJobs.map((job) => (
                       <tr key={job.id} className="border border-neutral-200 ">
                         <td className="whitespace-nowrap border-b border-e border-s border-neutral-200 text-2999BC px-6 py-2 font-medium text-left">
-                          <Link to="/candidate-details">{job.jobPosiiton}</Link>
+                          <Link to={{ pathname: `/job_details/${job.id}` }}>
+                            {job.jobPosiiton}
+                          </Link>
                         </td>
                         <td className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left">
                           {job.company}
@@ -165,13 +167,8 @@ const JobsList = () => {
                           {job.employeementType}
                         </td>
 
-                        <td className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left">
-                          <Link
-                            to={{
-                              pathname: `/job_details/${job.id}`,
-                              state: { job: job.id },
-                            }}
-                          >
+                        <td className="hitespace-nowrap border-b border-e border-s border-neutral-200 text-2999BC px-6 py-2 font-medium text-left">
+                          <Link to={{ pathname: `/job_details/${job.id}` }}>
                             Details
                           </Link>
                         </td>

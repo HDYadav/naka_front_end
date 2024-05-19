@@ -1,22 +1,27 @@
 import React, { useState, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { ADD_VENDOR } from "../../utils/constants";
+import { CREATE_JOB } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
 import { useDispatch } from "react-redux";
 import { setProfile } from "../../utils/companyProfileSlice";
 import { useNavigate } from "react-router-dom";
-import { COMPANY_DUPLICATE, COMPANY_DISPLAY } from "../../utils/constants";
 import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const CreateJob = () => {
   const user = useRequireAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [responseData, setResponseData] = useState(null);
-  const [companyDisplayName, setCompanyDisplayName] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  // const [responseData, setResponseData] = useState(null);
+  // const [companyDisplayName, setCompanyDisplayName] = useState(null);
 
   const [formData, setFormData] = useState({
     vendor_name: "",
@@ -25,104 +30,40 @@ const CreateJob = () => {
     vednor_pic: null,
   });
 
-  const [fileName, setFileName] = useState("");
-  const fileInputRef = useRef(null);
+  // const [fileName, setFileName] = useState("");
+  // const fileInputRef = useRef(null);
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+  // const handleDragOver = (e) => {
+  //   e.preventDefault();
+  // };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    handleFileUpload(file);
-  };
+  // const handleDrop = (e) => {
+  //   e.preventDefault();
+  //   const file = e.dataTransfer.files[0];
+  //   handleFileUpload(file);
+  // };
 
-  const handleFileUpload = (file) => {
-    const reader = new FileReader();
+  // const handleFileUpload = (file) => {
+  //   const reader = new FileReader();
 
-    if (file) {
-      reader.readAsDataURL(file);
-      setFileName(file.name); // Set file name when file is uploaded
-    }
-  };
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //     setFileName(file.name); // Set file name when file is uploaded
+  //   }
+  // };
 
-  const handleInputChange = (e) => {
-    const file = e.target.files[0];
-    handleFileUpload(file);
-  };
+  // const handleInputChange = (e) => {
+  //   const file = e.target.files[0];
+  //   handleFileUpload(file);
+  // };
 
-  const handleClick = () => {
-    fileInputRef.current.click();
-  };
+  // const handleClick = () => {
+  //   fileInputRef.current.click();
+  // };
 
-  const handleKeyUp = async (e) => {
-    const Authtoken = user.token;
-    const searchedValue = e.target.value;
-
-    if (searchedValue.length >= 4) {
-      try {
-        const url = `${COMPANY_DUPLICATE}?search_company=${encodeURIComponent(
-          searchedValue
-        )}`;
-
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${Authtoken}`,
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        setResponseData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        // Handle the error as needed, e.g., show an error message to the user
-      }
-    } else {
-      setResponseData(null);
-    }
-  };
-
-  const handleKeyUpDNAme = async (e) => {
-    const Authtoken = user.token;
-    const searchedValue = e.target.value;
-
-    if (searchedValue.length) {
-      try {
-        const url = `${COMPANY_DISPLAY}?search_company=${encodeURIComponent(
-          searchedValue
-        )}`;
-
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${Authtoken}`,
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        setCompanyDisplayName(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        // Handle the error as needed, e.g., show an error message to the user
-      }
-    } else {
-      setCompanyDisplayName(null);
-    }
-  };
+  
+  
+  
 
   const handleRadioButtonClick = (value, setFieldValue) => {
     setFormData({ ...formData, type: value });
@@ -131,37 +72,26 @@ const CreateJob = () => {
   };
 
   const initialValues = {
-    vendor_name: "",
-    display_name: "",
-    website: "",
-    vendor_pic: null,
-    type: "",
-    business_category: "",
+    job_title: ""
+    
   };
 
   const validationSchema = Yup.object().shape({
-    vendor_name: Yup.string().required("vender Name is required"),
-    display_name: Yup.string().required("Display Name is required"),
-    business_category: Yup.string().required("Business Category is required"),
+    job_title: Yup.string().required("Job title  is required"),
+     
   });
 
-  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
-    const imgName = fileInputRef.current.files[0].name;
-    console.log(imgName);
-    setFormData({ ...formData, company_logo: imgName });
-    //console.log(formData.company_logo);
+  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {    
+  
 
     try {
       const Authtoken = user.token;
       const formDataWithFile = new FormData();
-      formDataWithFile.append("vendor_name", values.vendor_name);
-      formDataWithFile.append("display_name", values.display_name);
-      formDataWithFile.append("vendor_website", values.website);
-      formDataWithFile.append("vendor_type", values.type);
-      formDataWithFile.append("business_category", values.business_category);
-      formDataWithFile.append("vendor_pic", imgName);
+      formDataWithFile.append("job_title", values.job_title);
+     
+       
 
-      const response = await fetch(ADD_VENDOR, {
+      const response = await fetch(CREATE_JOB, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Authtoken}`,
@@ -227,7 +157,6 @@ const CreateJob = () => {
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
                               placeholder="Enter title..."
-                              onKeyUp={handleKeyUp}
                             />
                             <ErrorMessage
                               name="job_title"
@@ -242,7 +171,7 @@ const CreateJob = () => {
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="display_name"
+                              htmlFor="company"
                               className="block mb-2 text-535252 text-16  font-400"
                             >
                               Select Company *
@@ -250,20 +179,17 @@ const CreateJob = () => {
 
                             <Field
                               as="select"
-                              id="business_category"
-                              name="business_category"
+                              id="company"
+                              name="company"
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
-                              <option value="">Select category</option>
-                              <option value="1">Group 1</option>
-                              <option value="2">Group 2</option>
-                              <option value="3">Group 3</option>
-                              <option value="4">Group 4</option>
-                              <option value="5">Group 5</option>
+                              <option value="">Select comp</option>
+                              <option value="1">Noida Ltd</option>
+                              <option value="2">Pune Ltd</option>
                             </Field>
 
                             <ErrorMessage
-                              name="select_company"
+                              name="company"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -321,7 +247,6 @@ const CreateJob = () => {
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
                               placeholder="Enter total_vacancies..."
-                              onKeyUp={handleKeyUp}
                             />
                             <ErrorMessage
                               name="total_vacancies"
@@ -332,88 +257,67 @@ const CreateJob = () => {
                         )}
                       </Field>
 
-                      <Field name="Deadline">
+                      <Field name="deadline">
                         {({ field }) => (
                           <div>
                             <div className="pe-2 flex self-end w-full text-center mb-2">
                               <label
-                                htmlFor="Deadline *"
+                                htmlFor="deadline *"
                                 className="text-535252 text-16 font-400"
                               >
                                 Deadline *
                               </label>
                             </div>
 
-                            <input
+                            <DatePicker
+                              {...field}
+                              selected={selectedDate}
+                              onChange={(date) => setSelectedDate(date)}
+                              placeholderText="Select a date"
+                              className="flex items-center p-1 w-full text-center text-gray-500"
+                            />
+
+                            {/* <input
                               {...field}
                               className="flex items-center p-1 w-full text-center text-gray-500"
                               type="text"
-                              placeholder="Enter total_vacancies..."
-                              onKeyUp={handleKeyUp}
-                            />
+                              placeholder="Enter deadline..."
+                            /> */}
                             <ErrorMessage
-                              name="total_vacancies"
+                              name="deadline"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                         )}
                       </Field>
-
-                      <div className="">
-                        <label
-                          htmlFor="business_category"
-                          className="block mb-1 text-535252 text-16 font-400"
-                        >
-                          Business Category
-                        </label>
-                        <Field
-                          as="select"
-                          id="business_category"
-                          name="business_category"
-                          className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
-                        >
-                          <option value="">Select category</option>
-                          <option value="1">Group 1</option>
-                          <option value="2">Group 2</option>
-                          <option value="3">Group 3</option>
-                          <option value="4">Group 4</option>
-                          <option value="5">Group 5</option>
-                        </Field>
-                        <ErrorMessage
-                          name="business_category"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
                     </div>
                   </div>
                 </section>
 
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                    Job Details
+                    Location
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
-                      <Field name="job_title">
+                      <Field name="country_name">
                         {({ field }) => (
                           <div className="mb-3">
                             <label
-                              htmlFor="job_title"
+                              htmlFor="country_name"
                               className="block mb-2 text-535252 text-16 font-400 text-535252"
                             >
-                              Job Title
+                              Country Name
                             </label>
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
                               placeholder="Enter title..."
-                              onKeyUp={handleKeyUp}
                             />
                             <ErrorMessage
-                              name="job_title"
+                              name="country_name"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -421,32 +325,29 @@ const CreateJob = () => {
                         )}
                       </Field>
 
-                      <Field name="Select Company *">
+                      <Field name="state">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="display_name"
+                              htmlFor="state"
                               className="block mb-2 text-535252 text-16  font-400"
                             >
-                              Select Company *
+                              Select State *
                             </label>
 
                             <Field
                               as="select"
-                              id="business_category"
-                              name="business_category"
+                              id="state"
+                              name="state"
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
-                              <option value="">Select category</option>
-                              <option value="1">Group 1</option>
-                              <option value="2">Group 2</option>
-                              <option value="3">Group 3</option>
-                              <option value="4">Group 4</option>
-                              <option value="5">Group 5</option>
+                              <option value="">Select state</option>
+                              <option value="1">Maharashtra</option>
+                              <option value="2">Punjab</option>
                             </Field>
 
                             <ErrorMessage
-                              name="select_company"
+                              name="state"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -454,60 +355,63 @@ const CreateJob = () => {
                         )}
                       </Field>
 
-                      <Field name="Category">
+                      <Field name="city">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="Category"
+                              htmlFor="city"
                               className="block mb-2  text-535252 text-16  font-400 "
                             >
-                              Category *
+                              City *
                             </label>
-
-                            <Field
-                              as="select"
-                              id="category"
-                              name="category"
-                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
-                            >
-                              <option value="">Select category</option>
-                              <option value="1">Group 1</option>
-                              <option value="2">Group 2</option>
-                              <option value="3">Group 3</option>
-                              <option value="4">Group 4</option>
-                              <option value="5">Group 5</option>
-                            </Field>
-
-                            <ErrorMessage
-                              name="category"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
-                        )}
-                      </Field>
-
-                      <Field name="type">
-                        {({ field }) => (
-                          <div>
-                            <div className="mb-2">
-                              <label
-                                htmlFor="types"
-                                className="mb-1 text-535252 text-16 font-400"
-                              >
-                                Total Vacancies *
-                              </label>
-                            </div>
 
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter total_vacancies..."
-                              onKeyUp={handleKeyUp}
+                              placeholder="Enter city..."
                             />
                             <ErrorMessage
-                              name="total_vacancies"
+                              name="city"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+
+                            <ErrorMessage
+                              name="city"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="bg-white mt-5 pt-0 py-8">
+                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">
+                    Salary Details
+                  </h3>
+                  <div className="flex px-5 justify-between mb-4 w-full">
+                    <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
+                      <Field name="minSalary">
+                        {({ field }) => (
+                          <div className="mb-3">
+                            <label
+                              htmlFor="minSalary"
+                              className="block mb-2 text-535252 text-16 font-400 text-535252"
+                            >
+                              Minimum Salary
+                            </label>
+                            <input
+                              {...field}
+                              className="inputBorder text-sm block w-full p-2.5 italic"
+                              type="text"
+                              placeholder="Enter minSalary..."
+                            />
+                            <ErrorMessage
+                              name="minSalary"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -515,27 +419,185 @@ const CreateJob = () => {
                         )}
                       </Field>
 
-                      <Field name="Deadline">
+                      <Field name="maxSalary">
+                        {({ field }) => (
+                          <div className="mb-3">
+                            <label
+                              htmlFor="maxSalary"
+                              className="block mb-2 text-535252 text-16 font-400 text-535252"
+                            >
+                              Maximum Salary
+                            </label>
+                            <input
+                              {...field}
+                              className="inputBorder text-sm block w-full p-2.5 italic"
+                              type="text"
+                              placeholder="Enter Max Salary..."
+                            />
+                            <ErrorMessage
+                              name="maxSalary"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+
+                      <Field name="salaryType">
                         {({ field }) => (
                           <div>
-                            <div className="pe-2 flex self-end w-full text-center">
+                            <label
+                              htmlFor="salaryType"
+                              className="block mb-2  text-535252 text-16  font-400 "
+                            >
+                              Salary Type *
+                            </label>
+
+                            <Field
+                              as="select"
+                              id="salaryType"
+                              name="salaryType"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select Salary Type</option>
+                              <option value="1">Daily</option>
+                              <option value="2">Monthly</option>
+                            </Field>
+
+                            <ErrorMessage
+                              name="salaryType"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="bg-white mt-5 pt-0 py-8">
+                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">
+                    Attributes
+                  </h3>
+                  <div className="flex px-5 justify-between mb-4 w-full">
+                    <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
+                      <Field name="experience">
+                        {({ field }) => (
+                          <div>
+                            <label
+                              htmlFor="experience"
+                              className="block mb-2  text-535252 text-16  font-400 "
+                            >
+                              Experience *
+                            </label>
+
+                            <Field
+                              as="select"
+                              id="experience"
+                              name="experience"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select Experience</option>
+                              <option value="1">1+ Year</option>
+                              <option value="2">2+ Year</option>
+                            </Field>
+
+                            <ErrorMessage
+                              name="experience"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+
+                      <Field name="jobPosiiton">
+                        {({ field }) => (
+                          <div>
+                            <label
+                              htmlFor="jobPosiiton"
+                              className="block mb-2  text-535252 text-16  font-400 "
+                            >
+                              Job Position *
+                            </label>
+
+                            <Field
+                              as="select"
+                              id="jobPosiiton"
+                              name="jobPosiiton"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select jobPosiiton</option>
+                              <option value="1">Account Manager</option>
+                              <option value="2">Software Engineer</option>
+                            </Field>
+
+                            <ErrorMessage
+                              name="jobPosiiton"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+
+                      <Field name="education">
+                        {({ field }) => (
+                          <div>
+                            <label
+                              htmlFor="education"
+                              className="block mb-2  text-535252 text-16  font-400 "
+                            >
+                              Education *
+                            </label>
+
+                            <Field
+                              as="select"
+                              id="education"
+                              name="education"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select Education</option>
+                              <option value="1">High School </option>
+                              <option value="2">Graduate</option>
+                            </Field>
+
+                            <ErrorMessage
+                              name="education"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+
+                      <Field name="work_place">
+                        {({ field }) => (
+                          <div>
+                            <div className="pe-2 flex self-end w-full text-center mb-2">
                               <label
-                                htmlFor="Deadline *"
-                                className="mb-1 text-535252 text-16 font-400"
+                                htmlFor="work_place *"
+                                className="text-535252 text-16 font-400"
                               >
-                                Deadline *
+                                Work Place *
                               </label>
                             </div>
 
-                            <input
-                              {...field}
-                              className="flex items-center p-1 w-full text-center text-gray-500"
-                              type="text"
-                              placeholder="Enter total_vacancies..."
-                              onKeyUp={handleKeyUp}
-                            />
+                            <Field
+                              as="select"
+                              id="work_place"
+                              name="work_place"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select Work Place</option>
+                              <option value="1">Onsite</option>
+                              <option value="2">Hybird</option>
+                              <option value="3">Remote</option>
+                            </Field>
+
                             <ErrorMessage
-                              name="total_vacancies"
+                              name="work_place"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -543,32 +605,81 @@ const CreateJob = () => {
                         )}
                       </Field>
 
-                      <div className="">
-                        <label
-                          htmlFor="business_category"
-                          className="block mb-1 text-535252 text-16 font-400"
-                        >
-                          Business Category
-                        </label>
-                        <Field
-                          as="select"
-                          id="business_category"
-                          name="business_category"
-                          className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
-                        >
-                          <option value="">Select category</option>
-                          <option value="1">Group 1</option>
-                          <option value="2">Group 2</option>
-                          <option value="3">Group 3</option>
-                          <option value="4">Group 4</option>
-                          <option value="5">Group 5</option>
-                        </Field>
-                        <ErrorMessage
-                          name="business_category"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
+                      <Field name="employeementType">
+                        {({ field }) => (
+                          <div>
+                            <label
+                              htmlFor="employeementType"
+                              className="block mb-2  text-535252 text-16  font-400 "
+                            >
+                              Employeement Type *
+                            </label>
+
+                            <Field
+                              as="select"
+                              id="employeementType"
+                              name="employeementType"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select Type</option>
+                              <option value="1">Full Time</option>
+                              <option value="2">Part Time</option>
+                            </Field>
+
+                            <ErrorMessage
+                              name="employeementType"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+
+                      <Field name="skills">
+                        {({ field, form }) => (
+                          <div>
+                            <label
+                              htmlFor="skills"
+                              className="block mb-2 text-535252 text-16 font-400"
+                            >
+                              Skills *
+                            </label>
+
+                            <select
+                              {...field}
+                              id="skills"
+                              name="skills"
+                              multiple
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5 h-32" // Increased height using h-32
+                              value={field.value || []} // Ensure it is an array
+                              onChange={(event) => {
+                                const options = event.target.options;
+                                const value = [];
+                                for (
+                                  let i = 0, l = options.length;
+                                  i < l;
+                                  i++
+                                ) {
+                                  if (options[i].selected) {
+                                    value.push(options[i].value);
+                                  }
+                                }
+                                form.setFieldValue(field.name, value);
+                              }}
+                            >
+                              <option value="1">Android Developer</option>
+                              <option value="2">Full Stack Developer</option>
+                            </select>
+
+                            <ErrorMessage
+                              name="skills"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      
                     </div>
                   </div>
                 </section>
@@ -579,12 +690,12 @@ const CreateJob = () => {
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap w-full">
-                      <Field name="Deadline">
+                      <Field name="descriptions">
                         {({ field }) => (
                           <div className="w-full">
                             <div className="pe-2 flex self-end w-full text-center">
                               <label
-                                htmlFor="Deadline *"
+                                htmlFor="Descriptions *"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
                                 Description
@@ -595,10 +706,9 @@ const CreateJob = () => {
                               className="p-2 w-full text-gray-500 border border-gray-300 rounded hover:outline-none"
                               placeholder="Enter description..."
                               rows={4}
-                              onKeyUp={handleKeyUp}
                             />
                             <ErrorMessage
-                              name="total_vacancies"
+                              name="descriptions"
                               component="div"
                               className="text-red-500 text-sm"
                             />

@@ -147,7 +147,7 @@ function Leftmenu(props) {
               >
                 <i className="bi bi-gear text-lg" text-CCE6FF></i>
                 <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap parenttext">
-                  Settings
+                  Attributes
                 </span>
                 <svg
                   className="w-3 h-3 sidedownarrow"
@@ -176,9 +176,46 @@ function Leftmenu(props) {
                     to="/customers"
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
-                    Customers{" "}
+                    test
                   </Link>
                 </li>
+
+                <li>
+                  <Link
+                    to={"/jobs_position"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Job Position
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={"/state"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    State
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={"/employment_type"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Emp Type
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={"/skills"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Skills
+                  </Link>
+                </li>
+
               </ul>
             </li>
 
@@ -263,7 +300,7 @@ function Leftmenu(props) {
               >
                 <li>
                   <Link
-                    to={"/add_vendor"}
+                    to={"/create_job"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
                     Create Job
@@ -278,9 +315,6 @@ function Leftmenu(props) {
                     Jobs List
                   </Link>
                 </li>
-
-
-
               </ul>
             </li>
           </ul>
