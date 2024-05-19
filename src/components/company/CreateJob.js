@@ -38,8 +38,7 @@ const CreateJob = () => {
     // job_title: Yup.string().required("Job title  is required"),
 
     company: Yup.string().required("Company is required"),
-
-    
+    totalVacancy: Yup.string().required("total vacancy is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {    
@@ -170,7 +169,8 @@ const CreateJob = () => {
                               name="company"
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
-                              {company?.data.map((company) => (
+                              <option value="">Select Company</option>
+                              {company?.data?.company?.map((company) => (
                                 <option key={company.id} value={company.id}>
                                   {company.name}
                                 </option>
@@ -203,8 +203,11 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select Promote Type</option>
-                              <option value="1">Featured</option>
-                              <option value="2">Highlight</option>
+                              {company?.data?.promote?.map((promote) => (
+                                <option key={promote.id} value={promote.id}>
+                                  {promote.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -263,20 +266,6 @@ const CreateJob = () => {
                               }}
                             />
 
-                            {/* <DatePicker
-                              {...field}
-                              selected={selectedDate}
-                              onChange={(date) => setSelectedDate(date)}
-                              placeholderText="Select a date"
-                              className="flex items-center p-1 w-full text-center text-gray-500"
-                            /> */}
-
-                            {/* <input
-                              {...field}
-                              className="flex items-center p-1 w-full text-center text-gray-500"
-                              type="text"
-                              placeholder="Enter deadline..."
-                            /> */}
                             <ErrorMessage
                               name="deadline"
                               component="div"
@@ -336,8 +325,11 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select state</option>
-                              <option value="1">Maharashtra</option>
-                              <option value="2">Punjab</option>
+                              {company?.data?.state?.map((state) => (
+                                <option key={state.id} value={state.id}>
+                                  {state.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -366,8 +358,11 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select City</option>
-                              <option value="1">Noida</option>
-                              <option value="2">Pune</option>
+                              {company?.data?.city?.map((city) => (
+                                <option key={city.id} value={city.id}>
+                                  {city.name}
+                                </option>
+                              ))}
                             </Field>
                             <ErrorMessage
                               name="city"
@@ -458,8 +453,14 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select Salary Type</option>
-                              <option value="1">Daily</option>
-                              <option value="2">Monthly</option>
+                              {company?.data?.salaryType?.map((salaryType) => (
+                                <option
+                                  key={salaryType.id}
+                                  value={salaryType.id}
+                                >
+                                  {salaryType.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -497,8 +498,14 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select Experience</option>
-                              <option value="1">1+ Year</option>
-                              <option value="2">2+ Year</option>
+                              {company?.data?.experience?.map((experience) => (
+                                <option
+                                  key={experience.id}
+                                  value={experience.id}
+                                >
+                                  {experience.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -527,8 +534,16 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select jobPosiiton</option>
-                              <option value="1">Account Manager</option>
-                              <option value="2">Software Engineer</option>
+                              {company?.data?.job_position?.map(
+                                (job_position) => (
+                                  <option
+                                    key={job_position.id}
+                                    value={job_position.id}
+                                  >
+                                    {job_position.name}
+                                  </option>
+                                )
+                              )}
                             </Field>
 
                             <ErrorMessage
@@ -557,8 +572,11 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select Education</option>
-                              <option value="1">High School </option>
-                              <option value="2">Graduate</option>
+                              {company?.data?.education?.map((education) => (
+                                <option key={education.id} value={education.id}>
+                                  {education.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -589,9 +607,11 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select Work Place</option>
-                              <option value="1">Onsite</option>
-                              <option value="2">Hybird</option>
-                              <option value="3">Remote</option>
+                              {company?.data?.workplace?.map((workplace) => (
+                                <option key={workplace.id} value={workplace.id}>
+                                  {workplace.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -620,8 +640,11 @@ const CreateJob = () => {
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
                               <option value="">Select Type</option>
-                              <option value="1">Full Time</option>
-                              <option value="2">Part Time</option>
+                              {company?.data?.emp_type?.map((emp_type) => (
+                                <option key={emp_type.id} value={emp_type.id}>
+                                  {emp_type.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -665,8 +688,11 @@ const CreateJob = () => {
                                 form.setFieldValue(field.name, value);
                               }}
                             >
-                              <option value="1">Android Developer</option>
-                              <option value="2">Full Stack Developer</option>
+                              {company?.data?.skills?.map((skills) => (
+                                <option key={skills.id} value={skills.id}>
+                                  {skills.name}
+                                </option>
+                              ))}
                             </select>
 
                             <ErrorMessage

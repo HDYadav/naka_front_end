@@ -173,15 +173,6 @@ function Leftmenu(props) {
               >
                 <li>
                   <Link
-                    to="/customers"
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    test
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
                     to={"/jobs_position"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
@@ -200,6 +191,15 @@ function Leftmenu(props) {
 
                 <li>
                   <Link
+                    to={"/city"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    City
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
                     to={"/employment_type"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
@@ -209,13 +209,48 @@ function Leftmenu(props) {
 
                 <li>
                   <Link
+                    to={"/promote"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Promote
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={"/experiance"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Experiance
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/education"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Education
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={"/work_place"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    WorkPlace
+                  </Link>
+                </li>
+
+
+                <li>
+                  <Link
                     to={"/skills"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
                     Skills
                   </Link>
                 </li>
-
               </ul>
             </li>
 
@@ -255,7 +290,7 @@ function Leftmenu(props) {
               >
                 <li>
                   <Link
-                    to="/asset_chart_of_account"
+                    to=""
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
                     List
