@@ -7,6 +7,8 @@ export const JOB_DETAILS = "http://127.0.0.1:8000/api/jobs/get_jobs_details/";
 export const ATTRIBUTES_ALL = "http://127.0.0.1:8000/api/jobs/get_all";
 export const CREATE_JOB = "http://127.0.0.1:8000/api/jobs/create_update";
 
+export const GET_COMPNAY = "http://127.0.0.1:8000/api/jobs/get_company";
+
 
  
 

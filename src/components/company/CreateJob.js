@@ -11,85 +11,65 @@ import LayoutHOC from "../LayoutHOC";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useCompany from "../../hooks/useCompany";
 
 
 const CreateJob = () => {
   const user = useRequireAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [companies, setCompanies] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // const [responseData, setResponseData] = useState(null);
-  // const [companyDisplayName, setCompanyDisplayName] = useState(null);
+  //const [fieldValue, setFieldValue] = useState(null);
 
-  const [formData, setFormData] = useState({
-    vendor_name: "",
-    display_name: "",
-    website: "",
-    vednor_pic: null,
-  });
-
-  // const [fileName, setFileName] = useState("");
-  // const fileInputRef = useRef(null);
-
-  // const handleDragOver = (e) => {
-  //   e.preventDefault();
-  // };
-
-  // const handleDrop = (e) => {
-  //   e.preventDefault();
-  //   const file = e.dataTransfer.files[0];
-  //   handleFileUpload(file);
-  // };
-
-  // const handleFileUpload = (file) => {
-  //   const reader = new FileReader();
-
-  //   if (file) {
-  //     reader.readAsDataURL(file);
-  //     setFileName(file.name); // Set file name when file is uploaded
-  //   }
-  // };
-
-  // const handleInputChange = (e) => {
-  //   const file = e.target.files[0];
-  //   handleFileUpload(file);
-  // };
-
-  // const handleClick = () => {
-  //   fileInputRef.current.click();
-  // };
-
-  
-  
-  
-
-  const handleRadioButtonClick = (value, setFieldValue) => {
-    setFormData({ ...formData, type: value });
-    // console.log(value);
-    //setFieldValue("type", value);
-  };
+  const company = useCompany();
+ 
 
   const initialValues = {
-    job_title: ""
-    
+    job_title: "",
+    company: "",
+    promote: "",
+    totalVacancy: "",
+   // deadline: ""
   };
 
   const validationSchema = Yup.object().shape({
-    job_title: Yup.string().required("Job title  is required"),
-     
+    // job_title: Yup.string().required("Job title  is required"),
+
+    company: Yup.string().required("Company is required"),
+
+    
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {    
   
-
+     
     try {
       const Authtoken = user.token;
-      const formDataWithFile = new FormData();
+      const formDataWithFile = new FormData(); 
+ 
       formDataWithFile.append("job_title", values.job_title);
-     
-       
+      formDataWithFile.append("company", values.company);
+      formDataWithFile.append("employeementType", values.employeementType);
+      formDataWithFile.append("promote", values.promote);
+      formDataWithFile.append("totalVacancy", values.totalVacancy);
+      formDataWithFile.append("minSalary", values.minSalary);
+      formDataWithFile.append("maxSalary", values.maxSalary);
+      formDataWithFile.append("workPlace", values.work_place);    
+      formDataWithFile.append("deadline", values.deadline);   
+      formDataWithFile.append("country", values.country); 
+      formDataWithFile.append("state", values.state); 
+      formDataWithFile.append("city", values.city); 
+      formDataWithFile.append("jobPosiiton", values.jobPosiiton);
+      formDataWithFile.append("salaryType", values.salaryType);
+      formDataWithFile.append("experience", values.experience);
+      formDataWithFile.append("education", values.education);
+      formDataWithFile.append("promote", values.promote);
+      formDataWithFile.append("skills", values.skills);
+      formDataWithFile.append("description", values.description); 
+
+      //  console.log(values.totalVacancy);
 
       const response = await fetch(CREATE_JOB, {
         method: "POST",
@@ -101,17 +81,23 @@ const CreateJob = () => {
 
       const data = await response.json();
       dispatch(setProfile(data.data));
-      const companyId = data.data.id;
 
-      const companyData = {
-        company_id: companyId,
-        company_name: data.data.company_name,
-        message: "Records Sucessfully created!",
-      };
-      localStorage.removeItem("company_data");
-      localStorage.setItem("company_data", JSON.stringify(companyData));
-      const encryptedCompanyId = Base64.encode(companyId);
-      navigate(`/edit_vender/${encryptedCompanyId}`);
+
+
+      //const companyId = data.data.id;
+
+       
+
+      // const companyData = {
+      //   company_id: companyId,
+      //   company_name: data.data.company_name,
+      //   message: "Records Sucessfully created!",
+      // };
+     // localStorage.removeItem("company_data");
+     // localStorage.setItem("company_data", JSON.stringify(companyData));
+    //  const encryptedCompanyId = Base64.encode(companyId);
+      //navigate(`/edit_vender/${encryptedCompanyId}`);
+       navigate(`/jobs_list/`); 
       setSubmitting(false);
     } catch (error) {
       setFieldError("form", "An error occurred while submitting the form.");
@@ -131,7 +117,8 @@ const CreateJob = () => {
           </div>
 
           <Formik
-            initialValues={initialValues}
+            // initialValues={initialValues}
+            initialValues={{ deadline: null }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
@@ -183,9 +170,11 @@ const CreateJob = () => {
                               name="company"
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
-                              <option value="">Select comp</option>
-                              <option value="1">Noida Ltd</option>
-                              <option value="2">Pune Ltd</option>
+                              {company?.data.map((company) => (
+                                <option key={company.id} value={company.id}>
+                                  {company.name}
+                                </option>
+                              ))}
                             </Field>
 
                             <ErrorMessage
@@ -197,32 +186,29 @@ const CreateJob = () => {
                         )}
                       </Field>
 
-                      <Field name="Category">
+                      <Field name="promote">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="Category"
+                              htmlFor="promote"
                               className="block mb-2  text-535252 text-16  font-400 "
                             >
-                              Category *
+                              Promote Type *
                             </label>
 
                             <Field
                               as="select"
-                              id="category"
-                              name="category"
+                              id="promote"
+                              name="promote"
                               className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
                             >
-                              <option value="">Select category</option>
-                              <option value="1">Group 1</option>
-                              <option value="2">Group 2</option>
-                              <option value="3">Group 3</option>
-                              <option value="4">Group 4</option>
-                              <option value="5">Group 5</option>
+                              <option value="">Select Promote Type</option>
+                              <option value="1">Featured</option>
+                              <option value="2">Highlight</option>
                             </Field>
 
                             <ErrorMessage
-                              name="category"
+                              name="promote"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -230,12 +216,12 @@ const CreateJob = () => {
                         )}
                       </Field>
 
-                      <Field name="type">
+                      <Field name="totalVacancy">
                         {({ field }) => (
                           <div>
                             <div className="mb-2">
                               <label
-                                htmlFor="types"
+                                htmlFor="totalVacancy"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
                                 Total Vacancies *
@@ -245,11 +231,11 @@ const CreateJob = () => {
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
-                              type="text"
+                              type="number"
                               placeholder="Enter total_vacancies..."
                             />
                             <ErrorMessage
-                              name="total_vacancies"
+                              name="totalVacancy"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -258,7 +244,7 @@ const CreateJob = () => {
                       </Field>
 
                       <Field name="deadline">
-                        {({ field }) => (
+                        {({ field, form }) => (
                           <div>
                             <div className="pe-2 flex self-end w-full text-center mb-2">
                               <label
@@ -270,12 +256,20 @@ const CreateJob = () => {
                             </div>
 
                             <DatePicker
+                              selected={selectedDate}
+                              onChange={(date) => {
+                                setSelectedDate(date);
+                                form.setFieldValue("deadline", date); // Ensure form.setFieldValue is updating the form state
+                              }}
+                            />
+
+                            {/* <DatePicker
                               {...field}
                               selected={selectedDate}
                               onChange={(date) => setSelectedDate(date)}
                               placeholderText="Select a date"
                               className="flex items-center p-1 w-full text-center text-gray-500"
-                            />
+                            /> */}
 
                             {/* <input
                               {...field}
@@ -301,11 +295,11 @@ const CreateJob = () => {
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
-                      <Field name="country_name">
+                      <Field name="country">
                         {({ field }) => (
                           <div className="mb-3">
                             <label
-                              htmlFor="country_name"
+                              htmlFor="country"
                               className="block mb-2 text-535252 text-16 font-400 text-535252"
                             >
                               Country Name
@@ -317,7 +311,7 @@ const CreateJob = () => {
                               placeholder="Enter title..."
                             />
                             <ErrorMessage
-                              name="country_name"
+                              name="country"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -365,12 +359,16 @@ const CreateJob = () => {
                               City *
                             </label>
 
-                            <input
-                              {...field}
-                              className="inputBorder text-sm block w-full p-2.5 italic"
-                              type="text"
-                              placeholder="Enter city..."
-                            />
+                            <Field
+                              as="select"
+                              id="city"
+                              name="city"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select City</option>
+                              <option value="1">Noida</option>
+                              <option value="2">Pune</option>
+                            </Field>
                             <ErrorMessage
                               name="city"
                               component="div"
@@ -407,7 +405,7 @@ const CreateJob = () => {
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
-                              type="text"
+                              type="number"
                               placeholder="Enter minSalary..."
                             />
                             <ErrorMessage
@@ -431,7 +429,7 @@ const CreateJob = () => {
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
-                              type="text"
+                              type="number"
                               placeholder="Enter Max Salary..."
                             />
                             <ErrorMessage
@@ -679,7 +677,6 @@ const CreateJob = () => {
                           </div>
                         )}
                       </Field>
-                      
                     </div>
                   </div>
                 </section>
@@ -690,7 +687,7 @@ const CreateJob = () => {
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap w-full">
-                      <Field name="descriptions">
+                      <Field name="description">
                         {({ field }) => (
                           <div className="w-full">
                             <div className="pe-2 flex self-end w-full text-center">
@@ -703,12 +700,14 @@ const CreateJob = () => {
                             </div>
 
                             <textarea
+                              {...field}
                               className="p-2 w-full text-gray-500 border border-gray-300 rounded hover:outline-none"
                               placeholder="Enter description..."
                               rows={4}
                             />
+
                             <ErrorMessage
-                              name="descriptions"
+                              name="description"
                               component="div"
                               className="text-red-500 text-sm"
                             />
