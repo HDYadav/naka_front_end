@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 import useJobsPosition from "../../hooks/useJobsPosition";
@@ -7,10 +7,12 @@ import {
   useGlobalFilter,
   useFilters,
   usePagination,
+  useSortBy, // Import useSortBy hook
 } from "react-table";
 
 const JobsPosition = () => {
   const positions = useJobsPosition();
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleDelete = (id) => {
     // Add your delete logic here
@@ -23,18 +25,22 @@ const JobsPosition = () => {
       {
         Header: "Job Position in English",
         accessor: "name",
+        sortType: "alphanumeric", // Set sortType for sorting
       },
       {
         Header: "Job Position in Hindi",
         accessor: "name_hindi",
+        sortType: "alphanumeric", // Set sortType for sorting
       },
       {
         Header: "Job Position in Marathi",
         accessor: "name_marathi",
+        sortType: "alphanumeric", // Set sortType for sorting
       },
       {
         Header: "Job Position in Punjabi",
         accessor: "name_punjabi",
+        sortType: "alphanumeric", // Set sortType for sorting
       },
       {
         Header: "Actions",
@@ -47,12 +53,12 @@ const JobsPosition = () => {
             >
               Edit
             </Link>
-            <button
+            {/* <button
               onClick={() => handleDelete(row.values.id)}
               className="text-red-500 hover:underline"
             >
               Delete
-            </button>
+            </button> */}
           </div>
         ),
       },
@@ -78,9 +84,21 @@ const JobsPosition = () => {
     pageOptions,
     gotoPage,
     pageCount,
-  } = useTable({ columns, data }, useFilters, useGlobalFilter, usePagination);
+  } = useTable(
+    { columns, data },
+    useFilters,
+    useGlobalFilter,
+    useSortBy, // Add useSortBy hook
+    usePagination
+  );
 
   const { globalFilter, pageIndex } = state;
+
+  // Example function to simulate a success message after creating a new job position
+  const handleCreateSuccess = () => {
+    setSuccessMessage("Job position created successfully!");
+    setTimeout(() => setSuccessMessage(""), 3000); // Clear the message after 3 seconds
+  };
 
   return (
     <main id="maincontent">
@@ -95,6 +113,7 @@ const JobsPosition = () => {
                 to="/create_job_position"
                 className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
                 type="button"
+                onClick={handleCreateSuccess} // Trigger success message on button click
               >
                 + Create Job Position
               </Link>
@@ -102,6 +121,12 @@ const JobsPosition = () => {
             </div>
           </div>
         </div>
+
+        {successMessage && (
+          <div className="bg-green-200 text-green-800 p-3 mt-4 mb-4 rounded-md">
+            {successMessage}
+          </div>
+        )}
 
         <div className="my-4">
           <label htmlFor="table-search" className="sr-only">
@@ -138,9 +163,18 @@ const JobsPosition = () => {
                       <th
                         scope="col"
                         className="font-medium px-4 py-2 text-left border text-sm text-gray-700 bg-gray-200"
-                        {...column.getHeaderProps()}
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )} // Add getSortByToggleProps
                       >
                         {column.render("Header")}
+                        <span>
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? " 🔽"
+                              : " 🔼"
+                            : ""}
+                        </span>
                       </th>
                     ))}
                   </tr>

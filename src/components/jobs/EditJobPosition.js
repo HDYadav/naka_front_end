@@ -18,15 +18,19 @@ const EditJobPosition = () => {
   const navigate = useNavigate();
 
   const [initialValues, setInitialValues] = useState({
+    id: id, // Assuming id is a string
     name: "",
     name_hindi: "",
     name_marathi: "",
     name_punjabi: "",
   });
 
+  const [successMessage, setSuccessMessage] = useState("");
+
   useEffect(() => {
     if (positions) {
       setInitialValues({
+        ...initialValues,
         name: positions.name || "",
         name_hindi: positions.name_hindi || "",
         name_marathi: positions.name_marathi || "",
@@ -36,6 +40,7 @@ const EditJobPosition = () => {
   }, [positions]);
 
   const validationSchema = Yup.object().shape({
+    id: Yup.string().required("ID is required"), // Validation schema for ID
     name: Yup.string().required("Position Name (English) is required"),
     name_hindi: Yup.string().required("Position Name (Hindi) is required"),
     name_marathi: Yup.string().required("Position Name (Marathi) is required"),
@@ -47,6 +52,7 @@ const EditJobPosition = () => {
       const Authtoken = user.token;
       const formDataWithFile = new FormData();
 
+      formDataWithFile.append("id", values.id); // Include ID in form data
       formDataWithFile.append("name_english", values.name);
       formDataWithFile.append("name_hindi", values.name_hindi);
       formDataWithFile.append("name_marathi", values.name_marathi);
@@ -60,8 +66,13 @@ const EditJobPosition = () => {
         body: formDataWithFile,
       });
 
-      // Handle response or navigate to success page
-      navigate(`/jobs_position/`);
+      if (response.ok) {
+        setSuccessMessage("Job position updated successfully!");
+        navigate(`/jobs_position`); // Redirect to listing page upon success
+      } else {
+        throw new Error("Failed to create job position");
+      }
+
       setSubmitting(false);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -90,14 +101,24 @@ const EditJobPosition = () => {
             </div>
           </div>
 
+          {successMessage && (
+            <div className="bg-green-200 text-green-800 p-3 mt-4 mb-4 rounded-md">
+              {successMessage}
+            </div>
+          )}
+
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
-            enableReinitialize // Enable reinitialization when initialValues change
+            enableReinitialize
           >
             {({ isSubmitting }) => (
               <Form id="jobPositionForm" encType="multipart/form-data">
+                <Field name="id" type="hidden">
+                  {({ field }) => <input {...field} type="hidden" />}
+                </Field>
+
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
                     Positions
