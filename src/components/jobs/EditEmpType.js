@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { CREATE_JOB_POSITION } from "../../utils/constants";
-import useRequireAuth from "../../utils/useRequireAuth";
-import { useDispatch } from "react-redux";
+import { CREATE_EMP_TYPE, CREATE_JOB_POSITION } from "../../utils/constants";
+import useRequireAuth from "../../utils/useRequireAuth"; 
 import { useNavigate } from "react-router-dom";
 import LayoutHOC from "../LayoutHOC";
 import { useParams, Link } from "react-router-dom";
-import useGetJobPosition from "../../hooks/useGetJobPosition";
+import useEmpTypeEdit from "../../hooks/useeEmpTypeEdit";
+ 
+// 'emptype_hindi', 'emptype_marathi', 'emptype_punjabi'
 
-const EditJobPosition = () => {
+
+const EditEmpType = () => {
   const { id } = useParams();
-  const positions = useGetJobPosition(id); // Fetch job position data for editing
+    const positions = useEmpTypeEdit(id); // Fetch job position data for editing
+    
+  
 
   const user = useRequireAuth();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [initialValues, setInitialValues] = useState({
     id: id, // Assuming id is a string
     name: "",
-    name_hindi: "",
-    name_marathi: "",
-    name_punjabi: "",
+    emptype_hindi: "",
+    emptype_marathi: "",
+    emptype_punjabi: "",
   });
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -32,9 +36,9 @@ const EditJobPosition = () => {
       setInitialValues({
         ...initialValues,
         name: positions.name || "",
-        name_hindi: positions.name_hindi || "",
-        name_marathi: positions.name_marathi || "",
-        name_punjabi: positions.name_punjabi || "",
+        emptype_hindi: positions.emptype_hindi || "",
+        emptype_marathi: positions.emptype_marathi || "",
+        emptype_punjabi: positions.emptype_punjabi || "",
       });
     }
   }, [positions]);
@@ -53,12 +57,12 @@ const EditJobPosition = () => {
       const formDataWithFile = new FormData();
 
       formDataWithFile.append("id", values.id); // Include ID in form data
-      formDataWithFile.append("name_english", values.name);
-      formDataWithFile.append("name_hindi", values.name_hindi);
-      formDataWithFile.append("name_marathi", values.name_marathi);
-      formDataWithFile.append("name_punjabi", values.name_punjabi);
+      formDataWithFile.append("name", values.name);
+      formDataWithFile.append("emptype_hindi", values.emptype_hindi);
+      formDataWithFile.append("emptype_marathi", values.emptype_marathi);
+      formDataWithFile.append("emptype_punjabi", values.emptype_punjabi);
 
-      const response = await fetch(CREATE_JOB_POSITION, {
+      const response = await fetch(CREATE_EMP_TYPE, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Authtoken}`,
@@ -68,7 +72,7 @@ const EditJobPosition = () => {
 
       if (response.ok) {
         setSuccessMessage("Job position updated successfully!");
-        navigate(`/jobs_position`); // Redirect to listing page upon success
+        navigate(`/employment_type`); // Redirect to listing page upon success
       } else {
         throw new Error("Failed to create job position");
       }
@@ -96,7 +100,7 @@ const EditJobPosition = () => {
           <div className="flex flex-col bg-white p-4">
             <div className="ms-4 flex justify-between items-center">
               <h5 className="text-203C50 font-Vietnam text-32 font-medium">
-                Update Job Position
+                Update Employment Type
               </h5>
             </div>
           </div>
@@ -121,7 +125,7 @@ const EditJobPosition = () => {
 
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                    Positions
+                    Employment
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
@@ -132,7 +136,7 @@ const EditJobPosition = () => {
                               htmlFor="name"
                               className="block mb-2 text-535252 text-16 font-400"
                             >
-                              Position Name English
+                              Employment Type English
                             </label>
                             <input
                               {...field}
@@ -149,14 +153,14 @@ const EditJobPosition = () => {
                         )}
                       </Field>
 
-                      <Field name="name_hindi">
+                      <Field name="emptype_hindi">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="name_hindi"
+                              htmlFor="emptype_hindi"
                               className="block mb-2 text-535252 text-16 font-400"
                             >
-                              Position Name Hindi
+                              Employment Type Hindi
                             </label>
 
                             <input
@@ -167,7 +171,7 @@ const EditJobPosition = () => {
                             />
 
                             <ErrorMessage
-                              name="name_hindi"
+                              name="emptype_hindi"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -175,14 +179,14 @@ const EditJobPosition = () => {
                         )}
                       </Field>
 
-                      <Field name="name_marathi">
+                      <Field name="emptype_marathi">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="name_marathi"
+                              htmlFor="emptype_marathi"
                               className="block mb-2 text-535252 text-16 font-400"
                             >
-                              Position Name Marathi
+                              Employment Type Marathi
                             </label>
 
                             <input
@@ -193,7 +197,7 @@ const EditJobPosition = () => {
                             />
 
                             <ErrorMessage
-                              name="name_marathi"
+                              name="emptype_marathi"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -201,14 +205,14 @@ const EditJobPosition = () => {
                         )}
                       </Field>
 
-                      <Field name="name_punjabi">
+                      <Field name="emptype_punjabi">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="name_punjabi"
+                              htmlFor="emptype_punjabi"
                               className="block mb-2 text-535252 text-16 font-400"
                             >
-                              Position Name Punjabi
+                              Employment Type  Punjabi
                             </label>
 
                             <input
@@ -219,7 +223,7 @@ const EditJobPosition = () => {
                             />
 
                             <ErrorMessage
-                              name="name_punjabi"
+                              name="emptype_punjabi"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -259,4 +263,4 @@ const EditJobPosition = () => {
   );
 };
 
-export default LayoutHOC(EditJobPosition);
+export default LayoutHOC(EditEmpType);

@@ -15,6 +15,14 @@ export const CREATE_JOB_POSITION = `${BASE_URL}api/attributes/position_add_updat
 export const GET_JOB_POSITION = `${BASE_URL}api/attributes/get_job_position/`;
 
 
+export const CREATE_EMP_TYPE = `${BASE_URL}api/attributes/emp_type_add_update`;
+
+export const GET_EMP_TYPE= `${BASE_URL}api/attributes/emp_type/`;
+
+ 
+
+
+
 
 
 

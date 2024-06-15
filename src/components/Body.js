@@ -18,6 +18,8 @@ import Education from './jobs/Education';
 import WorkPlace from './jobs/WorkPlace';
 import CreateJobPosition from './jobs/CreateJobPosition';
 import EditJobPosition from './jobs/EditJobPosition';
+import CreateEmpType from './jobs/CreateEmpType';
+import EditEmpType from './jobs/EditEmpType';
 
 const Body = () => { 
   return (
@@ -35,15 +37,24 @@ const Body = () => {
               element={<CreateJobPosition />}
               path="/create_job_position"
             />
-            <Route element={<EditJobPosition  />} path="/edit_job_position/:id" />
-
             <Route
+              element={<EditJobPosition />}
+              path="/edit_job_position/:id"
+            />
+
+            {/* <Route
               element={<CreateJobPosition />}
               path="/create_job_position"
-            />
+            /> */}
             <Route element={<StateList />} path="/state" />
             <Route element={<City />} path="/city" />
             <Route element={<EmploymentType />} path="/employment_type" />
+            <Route element={<CreateEmpType />} path="/create_employment_type" />
+            <Route
+              element={<EditEmpType />}
+              path="/edit_employment_type/:id"
+            />
+
             <Route element={<Promote />} path="/promote" />
             <Route element={<Experiance />} path="/experiance" />
             <Route element={<Education />} path="/education" />
