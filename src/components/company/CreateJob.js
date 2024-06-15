@@ -42,8 +42,9 @@ const CreateJob = () => {
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {    
-  
-     
+   
+
+
     try {
       const Authtoken = user.token;
       const formDataWithFile = new FormData(); 
