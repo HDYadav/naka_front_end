@@ -29,6 +29,8 @@ import CreateExperiance from "./jobs/CreateExperiance";
 import EditExperiance from "./jobs/EditExperiance";
 import CreateEducation from "./jobs/CreateEducation";
 import EditEducation from "./jobs/EditEducation";
+import CreateWorkPlace from "./jobs/CreateWorkPlace";
+import EditWorkPlace from "./jobs/EditWorkPlace";
 
 const Body = () => {
   return (
@@ -74,8 +76,12 @@ const Body = () => {
             <Route path="/education" element={<Education />} />
             <Route path="/create_education" element={<CreateEducation />} />
             <Route path="/edit_education/:id" element={<EditEducation />} />
+            <Route path="/edit_workplace/:id" element={<EditWorkPlace />} />
+
 
             <Route path="/work_place" element={<WorkPlace />} />
+            <Route path="/create_workplace" element={<CreateWorkPlace />} />
+
             <Route path="/skills" element={<Skills />} />
             <Route path="/create_skills" element={<CreateSkills />} />
             <Route path="/edit_skills/:id" element={<EditSkills />} />

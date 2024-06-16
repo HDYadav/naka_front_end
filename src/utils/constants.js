@@ -18,16 +18,17 @@ export const CREATE_EMP_TYPE = `${BASE_URL}api/attributes/emp_type_add_update`;
 export const GET_EMP_TYPE = `${BASE_URL}api/attributes/emp_type/`;
 export const CREATE_INDUSTRY_TYPE = `${BASE_URL}api/attributes/industry_type_add_update`;
 export const GET_INDUSTRY_TYPE = `${BASE_URL}api/attributes/industry_type/`;
-
 export const CREATE_SKILLS = `${BASE_URL}api/attributes/skills_add_update`;
 export const GET_SKILLS = `${BASE_URL}api/attributes/get_skills/`;
-
 export const CREATE_EXPERIENCE = `${BASE_URL}api/attributes/experiance_add_update`;
 export const GET_EXPERIENCE = `${BASE_URL}api/attributes/get_experiance/`; 
-
-
 export const CREATE_EDUCATION = `${BASE_URL}api/attributes/education_add_update`;
 export const GET_EDUCATION = `${BASE_URL}api/attributes/get_experiance/`;
+
+
+export const CREATE_WORKPLACE = `${BASE_URL}api/attributes/workplace_add_update`;
+export const GET_WORKPLACE = `${BASE_URL}api/attributes/get_workplace/`;
+
 
  
  

@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {CREATE_EDUCATION } from "../../utils/constants";
+import { CREATE_EDUCATION, CREATE_WORKPLACE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
 
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,8 @@ import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 
-const CreateEducation = () => {
+const CreateWorkPlace = () => {
+
   const user = useRequireAuth();
 
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const CreateEducation = () => {
       formDataWithFile.append("name_marathi", values.name_marathi);
       formDataWithFile.append("name_punjabi", values.name_punjabi);
 
-      const response = await fetch(CREATE_EDUCATION, {
+      const response = await fetch(CREATE_WORKPLACE, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Authtoken}`,
@@ -45,7 +46,7 @@ const CreateEducation = () => {
       // console.log(response);
       // return false;
 
-      navigate(`/education/`);
+      navigate(`/work_place/`);
       setSubmitting(false);
     } catch (error) {
       setFieldError("form", "An error occurred while submitting the form.");
@@ -59,7 +60,7 @@ const CreateEducation = () => {
           <div className="flex flex-col bg-white p-4 ">
             <div className="ms-4 flex justify-between items-center">
               <h5 className=" text-203C50 font-Vietnam text-32 font-medium ">
-                Create Education
+                Create WorkPlace
               </h5>
             </div>
           </div>
@@ -73,7 +74,7 @@ const CreateEducation = () => {
               <Form id="companyProfileForm" encType="multipart/form-data">
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                   Education
+                    WorkPlace
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
@@ -165,7 +166,7 @@ const CreateEducation = () => {
                                 htmlFor="Punjabi"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
-                                Education
+                                WorkPlace
                               </label>
                             </div>
 
@@ -190,7 +191,7 @@ const CreateEducation = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/education">
+                    <Link to="/work_place">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
@@ -216,4 +217,4 @@ const CreateEducation = () => {
   );
 };
 
-export default LayoutHOC(CreateEducation);
+export default LayoutHOC(CreateWorkPlace);

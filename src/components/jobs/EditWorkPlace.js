@@ -1,27 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {CREATE_EDUCATION } from "../../utils/constants";
+import {  CREATE_WORKPLACE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
-
 import { useNavigate } from "react-router-dom";
-import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"; 
+import useEditWorkPlace from "../../hooks/useEditWorkPlace";
 
-const CreateEducation = () => {
+const EditWorkPlace = () => {
+  const { id } = useParams();
+  const positions = useEditWorkPlace(id); // Fetch job position data for editing
+
   const user = useRequireAuth();
-
+  //const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const initialValues = {
+  const [initialValues, setInitialValues] = useState({
+    id: id, // Assuming id is a string
+    name: "",
     name_hindi: "",
     name_marathi: "",
     name_punjabi: "",
-  };
+  });
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    if (positions) {
+      setInitialValues({
+        ...initialValues,
+        name: positions.name || "",
+        name_hindi: positions.name_hindi || "",
+        name_marathi: positions.name_marathi || "",
+        name_punjabi: positions.name_punjabi || "",
+      });
+    }
+  }, [positions]);
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("default name  is required"),
+    id: Yup.string().required("ID is required"), // Validation schema for ID
+    name: Yup.string().required("Position Name (English) is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
@@ -29,12 +48,13 @@ const CreateEducation = () => {
       const Authtoken = user.token;
       const formDataWithFile = new FormData();
 
+      formDataWithFile.append("id", values.id); // Include ID in form data
       formDataWithFile.append("name", values.name);
       formDataWithFile.append("name_hindi", values.name_hindi);
       formDataWithFile.append("name_marathi", values.name_marathi);
       formDataWithFile.append("name_punjabi", values.name_punjabi);
 
-      const response = await fetch(CREATE_EDUCATION, {
+      const response = await fetch(CREATE_WORKPLACE, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Authtoken}`,
@@ -42,38 +62,62 @@ const CreateEducation = () => {
         body: formDataWithFile,
       });
 
-      // console.log(response);
-      // return false;
+      if (response.ok) {
+        setSuccessMessage("Job position updated successfully!");
+        navigate(`/work_place`); // Redirect to listing page upon success
+      } else {
+        throw new Error("Failed to create job position");
+      }
 
-      navigate(`/education/`);
       setSubmitting(false);
     } catch (error) {
-      setFieldError("form", "An error occurred while submitting the form.");
+      console.error("Error submitting form:", error);
+      setFieldError(
+        "form",
+        "An error occurred while submitting the form. Please try again."
+      );
       setSubmitting(false);
     }
   };
+
+  if (!positions) {
+    // Handle loading state or error state if positions is undefined
+    return <div>Loading...</div>;
+  }
+
   return (
     <main className="p-4 sm:ml-64">
       <div className="p-4 mt-14">
         <div className="bg-F1F6F9 font-poppins">
-          <div className="flex flex-col bg-white p-4 ">
+          <div className="flex flex-col bg-white p-4">
             <div className="ms-4 flex justify-between items-center">
-              <h5 className=" text-203C50 font-Vietnam text-32 font-medium ">
-                Create Education
+              <h5 className="text-203C50 font-Vietnam text-32 font-medium">
+                Update WorkPlace
               </h5>
             </div>
           </div>
+
+          {successMessage && (
+            <div className="bg-green-200 text-green-800 p-3 mt-4 mb-4 rounded-md">
+              {successMessage}
+            </div>
+          )}
 
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            enableReinitialize
           >
             {({ isSubmitting }) => (
-              <Form id="companyProfileForm" encType="multipart/form-data">
+              <Form id="jobPositionForm" encType="multipart/form-data">
+                <Field name="id" type="hidden">
+                  {({ field }) => <input {...field} type="hidden" />}
+                </Field>
+
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                   Education
+                    WorkPlace
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
@@ -82,7 +126,7 @@ const CreateEducation = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="name"
-                              className="block mb-2 text-535252 text-16 font-400 text-535252"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               English
                             </label>
@@ -106,7 +150,7 @@ const CreateEducation = () => {
                           <div>
                             <label
                               htmlFor="name_hindi"
-                              className="block mb-2 text-535252 text-16  font-400"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               Hindi
                             </label>
@@ -130,8 +174,8 @@ const CreateEducation = () => {
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="Marathi"
-                              className="block mb-2  text-535252 text-16  font-400 "
+                              htmlFor="name_marathi"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               Marathi
                             </label>
@@ -140,17 +184,11 @@ const CreateEducation = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter marathi emptype ..."
+                              placeholder="Enter title..."
                             />
 
                             <ErrorMessage
                               name="name_marathi"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-
-                            <ErrorMessage
-                              name="ind_type_marathi"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -160,21 +198,20 @@ const CreateEducation = () => {
                       <Field name="name_punjabi">
                         {({ field }) => (
                           <div>
-                            <div className="mb-2">
-                              <label
-                                htmlFor="Punjabi"
-                                className="mb-1 text-535252 text-16 font-400"
-                              >
-                                Education
-                              </label>
-                            </div>
+                            <label
+                              htmlFor="name_punjabi"
+                              className="block mb-2 text-535252 text-16 font-400"
+                            >
+                              Punjabi
+                            </label>
 
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter total_vacancies..."
+                              placeholder="Enter title..."
                             />
+
                             <ErrorMessage
                               name="name_punjabi"
                               component="div"
@@ -190,7 +227,7 @@ const CreateEducation = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/education">
+                    <Link to="/jobs_position">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
@@ -216,4 +253,4 @@ const CreateEducation = () => {
   );
 };
 
-export default LayoutHOC(CreateEducation);
+export default LayoutHOC(EditWorkPlace);
