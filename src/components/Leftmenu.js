@@ -10,14 +10,11 @@ function Leftmenu(props) {
 
   const user = useSelector((store) => store.user);
   const [openMenus, setOpenMenus] = useState([]);
-
   const [asideWidth, setAsideWidth] = useState(null);
-
   const [sideBarColl, setSideBarColl] = useState(false);
 
   const handleToggleMenu = (menuIndex) => {
-    const isOpen = openMenus.includes(menuIndex);
-    if (isOpen) {
+    if (openMenus.includes(menuIndex)) {
       setOpenMenus(openMenus.filter((index) => index !== menuIndex));
     } else {
       setOpenMenus([...openMenus, menuIndex]);
@@ -27,8 +24,6 @@ function Leftmenu(props) {
   const isMenuOpen = (menuIndex) => {
     return openMenus.includes(menuIndex);
   };
-
- 
 
   useEffect(() => {
     if (SideMenuRef.current) {
@@ -173,10 +168,68 @@ function Leftmenu(props) {
               >
                 <li>
                   <Link
+                    to={"/industry_type"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Industry Type
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
                     to={"/jobs_position"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
                     Job Position
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={"/employment_type"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Employment Type
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/promote"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Promote
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/experiance"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Experience
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/education"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Education
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/work_place"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    WorkPlace
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/skills"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Skills
                   </Link>
                 </li>
 
@@ -188,7 +241,6 @@ function Leftmenu(props) {
                     State
                   </Link>
                 </li>
-
                 <li>
                   <Link
                     to={"/city"}
@@ -197,63 +249,8 @@ function Leftmenu(props) {
                     City
                   </Link>
                 </li>
-
-                <li>
-                  <Link
-                    to={"/employment_type"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    Emp Type
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to={"/promote"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    Promote
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to={"/experiance"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    Experiance
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={"/education"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    Education
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to={"/work_place"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    WorkPlace
-                  </Link>
-                </li>
-
-
-                <li>
-                  <Link
-                    to={"/skills"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    Skills
-                  </Link>
-                </li>
               </ul>
             </li>
-
             <li className="menubottomborder parentmenu pb-2">
               <button
                 type="button"
@@ -298,7 +295,6 @@ function Leftmenu(props) {
                 </li>
               </ul>
             </li>
-
             <li className="menubottomborder parentmenu pb-2">
               <button
                 type="button"
@@ -327,7 +323,6 @@ function Leftmenu(props) {
                   />
                 </svg>
               </button>
-
               <ul
                 className={`py-2 space-y-2 submenuchildtext ${
                   isMenuOpen(5) ? "" : "hidden"
@@ -341,7 +336,6 @@ function Leftmenu(props) {
                     Create Job
                   </Link>
                 </li>
-
                 <li>
                   <Link
                     to={"/jobs_list"}

@@ -16,8 +16,13 @@ export const GET_JOB_POSITION = `${BASE_URL}api/attributes/get_job_position/`;
 
 
 export const CREATE_EMP_TYPE = `${BASE_URL}api/attributes/emp_type_add_update`;
+export const GET_EMP_TYPE = `${BASE_URL}api/attributes/emp_type/`;
 
-export const GET_EMP_TYPE= `${BASE_URL}api/attributes/emp_type/`;
+
+export const CREATE_INDUSTRY_TYPE = `${BASE_URL}api/attributes/industry_type_add_update`;
+export const GET_INDUSTRY_TYPE = `${BASE_URL}api/attributes/industry_type/`;
+
+;
 
  
 
