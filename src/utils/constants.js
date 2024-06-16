@@ -23,8 +23,13 @@ export const CREATE_SKILLS = `${BASE_URL}api/attributes/skills_add_update`;
 export const GET_SKILLS = `${BASE_URL}api/attributes/get_skills/`;
 
 export const CREATE_EXPERIENCE = `${BASE_URL}api/attributes/experiance_add_update`;
-export const GET_EXPERIENCE = `${BASE_URL}api/attributes/get_experiance/`;
+export const GET_EXPERIENCE = `${BASE_URL}api/attributes/get_experiance/`; 
 
+
+export const CREATE_EDUCATION = `${BASE_URL}api/attributes/education_add_update`;
+export const GET_EDUCATION = `${BASE_URL}api/attributes/get_experiance/`;
+
+ 
  
  
 
