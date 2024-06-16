@@ -23,6 +23,8 @@ import EditEmpType from './jobs/EditEmpType';
 import IndustryType from './jobs/IndustryType';
 import CreateIndustryType from './jobs/CreateIndustryType';
 import EditIndustryType from './jobs/EditIndustryType';
+import CreateSkills from './jobs/CreateSkills';
+import EditSkills from './jobs/EditSkills';
 
 const Body = () => { 
   return (
@@ -60,7 +62,10 @@ const Body = () => {
               element={<CreateIndustryType />}
               path="/create_industry_type"
             />
-            <Route element={<EditIndustryType />} path="/edit_industry_type/:id" />
+            <Route
+              element={<EditIndustryType />}
+              path="/edit_industry_type/:id"
+            />
 
             <Route element={<Promote />} path="/promote" />
             <Route element={<Experiance />} path="/experiance" />
@@ -68,6 +73,8 @@ const Body = () => {
             <Route element={<WorkPlace />} path="/work_place" />
 
             <Route element={<Skills />} path="/skills" />
+            <Route element={<CreateSkills />} path="/create_skills" />
+            <Route element={<EditSkills />} path="/edit_skills/:id" />
           </Route>
 
           <Route element={<SignupForm />} path="/signup" />
