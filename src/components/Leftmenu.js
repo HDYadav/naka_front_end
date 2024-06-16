@@ -201,15 +201,6 @@ function Leftmenu(props) {
                     Skills
                   </Link>
                 </li>
-                
-                <li>
-                  <Link
-                    to={"/promote"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    Promote
-                  </Link>
-                </li>
                 <li>
                   <Link
                     to={"/experiance"}
@@ -226,12 +217,22 @@ function Leftmenu(props) {
                     Education
                   </Link>
                 </li>
+
                 <li>
                   <Link
                     to={"/work_place"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
                     WorkPlace
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to={"/promote"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Promote
                   </Link>
                 </li>
 
