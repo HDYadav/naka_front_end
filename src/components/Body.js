@@ -33,6 +33,8 @@ import CreateWorkPlace from "./jobs/CreateWorkPlace";
 import EditWorkPlace from "./jobs/EditWorkPlace";
 import CreateState from "./jobs/CreateState";
 import EditState from "./jobs/EditState";
+import CreateCity from "./jobs/CreateCity";
+import EditCity from "./jobs/EditCity";
 
 const Body = () => {
   return (
@@ -60,8 +62,11 @@ const Body = () => {
             <Route path="/create_state" element={<CreateState />} />
             <Route path="/edit_state/:id" element={<EditState />} />
 
-
             <Route path="/city" element={<City />} />
+            <Route path="/create_city" element={<CreateCity />} />
+            <Route path="/edit_city/:id" element={<EditCity />} />
+
+
             <Route path="/employment_type" element={<EmploymentType />} />
             <Route path="/create_employment_type" element={<CreateEmpType />} />
             <Route path="/edit_employment_type/:id" element={<EditEmpType />} />

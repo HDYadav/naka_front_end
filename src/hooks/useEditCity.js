@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import {  GET_STATE } from "../utils/constants"; // Adjust import as per your project
+import { GET_CITY } from "../utils/constants"; // Adjust import as per your project
 import { useSelector } from "react-redux";
 
-const useEditState = (id) => {
+const useEditCity = (id) => {
   const [employmentType, setEmploymentType] = useState(null);
   const user = useSelector((state) => state.user);
 
@@ -13,7 +13,7 @@ const useEditState = (id) => {
       const { token } = user;
 
       try {
-        const response = await fetch(`${GET_STATE}${id}`, {
+        const response = await fetch(`${GET_CITY}${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,4 +38,4 @@ const useEditState = (id) => {
   return employmentType;
 };
 
-export default useEditState;
+export default useEditCity;

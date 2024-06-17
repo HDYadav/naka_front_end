@@ -33,6 +33,13 @@ export const GET_WORKPLACE = `${BASE_URL}api/attributes/get_workplace/`;
 export const CREATE_STATE = `${BASE_URL}api/attributes/state_add_update`;
 export const GET_STATE = `${BASE_URL}api/attributes/get_state/`;
 
+export const CREATE_CITY = `${BASE_URL}api/attributes/city_add_update`;
+export const GET_CITY = `${BASE_URL}api/attributes/get_city/`;
+
+export const GET_CITY_LIST = `${BASE_URL}api/attributes/city_list/`;
+
+ 
+
 
 
  

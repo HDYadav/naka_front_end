@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { ATTRIBUTES_ALL } from "../utils/constants";
+import { ATTRIBUTES_ALL, GET_CITY, GET_CITY_LIST } from "../utils/constants";
 
 const useCity = () => {
   const user = useSelector((state) => state.user);
@@ -13,7 +13,7 @@ const useCity = () => {
       const Authtoken = user.token;
 
       try {
-        const response = await fetch(ATTRIBUTES_ALL, {
+        const response = await fetch(GET_CITY_LIST, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${Authtoken}`,

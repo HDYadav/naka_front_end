@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { CREATE_EDUCATION, CREATE_STATE } from "../../utils/constants";
+import { CREATE_CITY, CREATE_STATE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
 import { useNavigate } from "react-router-dom";
 import LayoutHOC from "../LayoutHOC";
-import { useParams, Link } from "react-router-dom"; 
+import { useParams, Link } from "react-router-dom";
 import useEditState from "../../hooks/useEditState.js";
 
-const EditState = () => {
+const EditCity = () => {
 
   const { id } = useParams();
   const positions = useEditState(id); // Fetch job position data for editing
@@ -55,7 +55,7 @@ const EditState = () => {
       formDataWithFile.append("name_marathi", values.name_marathi);
       formDataWithFile.append("name_punjabi", values.name_punjabi);
 
-      const response = await fetch(CREATE_STATE, {
+      const response = await fetch(CREATE_CITY, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Authtoken}`,
@@ -65,7 +65,7 @@ const EditState = () => {
 
       if (response.ok) {
         setSuccessMessage("Job position updated successfully!");
-        navigate(`/state`); // Redirect to listing page upon success
+        navigate(`/city`); // Redirect to listing page upon success
       } else {
         throw new Error("Failed to create job position");
       }
@@ -254,4 +254,4 @@ const EditState = () => {
   );
 };
 
-export default LayoutHOC(EditState);
+export default LayoutHOC(EditCity);
