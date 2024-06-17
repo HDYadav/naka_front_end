@@ -1,225 +1,297 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 import useJobsList from "../../hooks/useJobsList";
 import Shimmer from "../Shimmer";
-import { useSelector } from "react-redux";
+
+import {
+  useTable,
+  useGlobalFilter,
+  useFilters,
+  usePagination,
+  useSortBy, // Import useSortBy hook
+} from "react-table";
+ 
 
 const JobsList = () => {
-  const allJobs = useJobsList();
-  const [jobs, setJobs] = useState(allJobs?.data || []);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filters, setFilters] = useState({
-    // Define your filter options here, e.g., company, workplace, etc.
-  });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [jobsPerPage] = useState(10);
+  
+  const positions = useJobsList();
+  
+  console.log(positions);
+    
+  
 
-  useEffect(() => {
-    if (allJobs?.data) {
-      setJobs(allJobs.data);
-    }
-  }, [allJobs]);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  // Handle search input change
-  const handleSearchInputChange = (e) => {
-    const searchValue = e.target.value.toLowerCase(); // Convert search query to lowercase
-    setSearchQuery(searchValue);
-
-    // Apply filtering here based on searchQuery
-    // Filter jobs array based on searchQuery
-    const filteredJobs = allJobs?.data.filter(
-      (job) =>
-        job.jobPosition && job.jobPosition.toLowerCase().includes(searchValue)
-    );
-    setJobs(filteredJobs || []);
+  const handleDelete = (id) => {
+    // Add your delete logic here
+    console.log(`Delete job position with id: ${id}`);
+    // You might want to call an API to delete the job position and refresh the table data
   };
+  // 'emptype_hindi', 'emptype_marathi', 'emptype_punjabi'
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Position",
+        accessor: "jobPosiiton",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Company",
+        accessor: "company",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Work Place",
+        accessor: "workPlace",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "City",
+        accessor: "city",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Emp Type",
+        accessor: "employeementType",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Salary Type",
+        accessor: "salaryType",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Min Salary",
+        accessor: "minSalary",
+        sortType: (rowA, rowB, columnId, desc) => {
+          // Extracting the numerical values for sorting
+          const valueA = rowA.values[columnId].replace("₹", "");
+          const valueB = rowB.values[columnId].replace("₹", "");
 
-  // Handle filter selection change
-  const handleFilterChange = (filterName, selectedValue) => {
-    // Update filters state
-    setFilters({ ...filters, [filterName]: selectedValue });
-    // Apply filtering based on selected filters
-    // Implement filtering logic here
+          return valueA.localeCompare(valueB, "en", { numeric: true });
+        },
+        Cell: ({ value }) => `₹ ${value}`, // Add the rupee symbol
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Max Salary",
+        accessor: "maxSalary",
+        sortType: (rowA, rowB, columnId, desc) => {
+          // Extracting the numerical values for sorting
+          const valueA = rowA.values[columnId].replace("₹", "");
+          const valueB = rowB.values[columnId].replace("₹", "");
+          return valueA.localeCompare(valueB, "en", { numeric: true });
+        },
+        Cell: ({ value }) => `₹ ${value}`, // Add the rupee symbol
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Actions",
+        accessor: "id",
+        Cell: ({ row }) => (
+          <div className="flex space-x-4">
+            <Link
+              to={`/edit_industry_type/${row.values.id}`}
+              className="text-blue-500 hover:underline"
+            >
+              Edit
+            </Link>
+            {/* <button
+              onClick={() => handleDelete(row.values.id)}
+              className="text-red-500 hover:underline"
+            >
+              Delete
+            </button> */}
+
+            <Link to={{ pathname: `/job_details/${row.values.id}` }}>
+              Details
+            </Link>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+
+  const data = useMemo(() => positions?.data || [], [positions]);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state,
+    setGlobalFilter,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
+  } = useTable(
+    { columns, data },
+    useFilters,
+    useGlobalFilter,
+    useSortBy, // Add useSortBy hook
+    usePagination
+  );
+
+  const { globalFilter, pageIndex } = state;
+
+  // Example function to simulate a success message after creating a new job position
+  const handleCreateSuccess = () => {
+    setSuccessMessage("Job position created successfully!");
+    setTimeout(() => setSuccessMessage(""), 3000); // Clear the message after 3 seconds
   };
-
-  // Pagination
-  const indexOfLastJob = currentPage * jobsPerPage;
-  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = jobs?.slice(indexOfFirstJob, indexOfLastJob) || [];
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // Calculate page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil((jobs?.length || 0) / jobsPerPage); i++) {
-    pageNumbers.push(i);
-  }
 
   return (
-    <Fragment>
-      <main id="maincontent">
-        <div className="p-4 mt-14">
-          <div className="flex flex-col bg-white p-4">
-            <div className="flex justify-between items-center">
-              <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
-                Jobs List
-              </h5>
-              <div className="flex items-center">
-                <Link
-                  to="/create_job"
-                  className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
-                  type="button"
-                >
-                  + Create Job
-                </Link>
-                <i className="bi bi-three-dots-vertical text-2xl text-535252"></i>
-              </div>
-            </div>
-          </div>
-
-          <div className="my-4">
-            <label htmlFor="table-search" className="sr-only">
-              Search
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                id="table-search-users"
-                className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for users"
-              />
-            </div>
-          </div>
-
-          <div className="mb-4 border-gray-200"></div>
-          <div id="default-styled-tab-content">
-            <div
-              className=""
-              id="styled-profile"
-              role="tabpanel"
-              aria-labelledby="profile-tab"
-            >
-              <table className="bg-white min-w-full border border-neutral-200 text-center text-sm text-surface text-2C495D font-poppins">
-                <thead className="border-neutral-200 border">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="font-normal px-6 py-3 text-left border"
-                    >
-                      <div className="flex justify-between">Job Position</div>
-                    </th>
-                    <th
-                      scope="col"
-                      className="font-normal px-6 py-3 text-left border"
-                    >
-                      <div className="flex justify-between">Company</div>
-                    </th>
-                    <th
-                      scope="col"
-                      className="font-normal px-6 py-3 text-left border"
-                    >
-                      <div className="flex justify-between">Work Place</div>
-                    </th>
-                    <th
-                      scope="col"
-                      className="font-normal px-6 py-3 text-left border"
-                    >
-                      <div className="flex justify-between">City</div>
-                    </th>
-                    <th
-                      scope="col"
-                      className="font-normal px-6 py-3 text-left border"
-                    >
-                      <div className="flex justify-between">
-                        Employeement Type
-                      </div>
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="font-normal px-6 py-3 text-left border"
-                    >
-                      <div className="flex justify-between">Details</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="border">
-                  {Array.isArray(jobs) &&
-                    currentJobs.map((job) => (
-                      <tr key={job.id} className="border border-neutral-200 ">
-                        <td className="whitespace-nowrap border-b border-e border-s border-neutral-200 text-2999BC px-6 py-2 font-medium text-left">
-                          <Link to={{ pathname: `/job_details/${job.id}` }}>
-                            {job.jobPosiiton}
-                          </Link>
-                        </td>
-                        <td className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left">
-                          {job.company}
-                        </td>
-                        <td className="whitespace-nowrap border-b border-e border-s border-neutral-200 px-6 py-2 font-normal text-left">
-                          {job.workPlace}
-                        </td>
-                        <td className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left">
-                          {job.city}
-                        </td>
-                        <td className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left">
-                          {job.employeementType}
-                        </td>
-
-                        <td className="hitespace-nowrap border-b border-e border-s border-neutral-200 text-2999BC px-6 py-2 font-medium text-left">
-                          <Link to={{ pathname: `/job_details/${job.id}` }}>
-                            Details
-                          </Link>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-
-                {/* Pagination */}
-                <ul className="flex my-2 ml-3">
-                  {pageNumbers.map((number) => (
-                    <li key={number} className="mr-2">
-                      <a
-                        onClick={() => paginate(number)}
-                        href="#"
-                        className="px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 inline-block"
-                      >
-                        {number}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </table>
-            </div>
-            <div
-              className="hidden p-4 rounded-lg"
-              id="styled-dashboard"
-              role="tabpanel"
-              aria-labelledby="dashboard-tab"
-            >
-              {/* Content for dashboard tab */}
-            </div>
-            <div
-              className="hidden p-4 rounded-lg"
-              id="styled-settings"
-              role="tabpanel"
-              aria-labelledby="settings-tab"
-            >
-              {/* Content for settings tab */}
-            </div>
-            <div
-              className="hidden p-4 rounded-lg"
-              id="styled-contacts"
-              role="tabpanel"
-              aria-labelledby="contacts-tab"
-            >
-              {/* Content for contacts tab */}
+    <main id="maincontent">
+      <div className="p-4 mt-14">
+        <div className="flex flex-col bg-white p-4">
+          <div className="flex justify-between items-center">
+            <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
+              jobs List
+            </h5>
+            <div className="flex items-center">
+              <Link
+                to="/create_job"
+                className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
+                type="button"
+                onClick={handleCreateSuccess} // Trigger success message on button click
+              >
+                + Create
+              </Link>
+              <i className="bi bi-three-dots-vertical text-2xl text-535252"></i>
             </div>
           </div>
         </div>
-      </main>
-    </Fragment>
+
+        {successMessage && (
+          <div className="bg-green-200 text-green-800 p-3 mt-4 mb-4 rounded-md">
+            {successMessage}
+          </div>
+        )}
+
+        <div className="my-4">
+          <label htmlFor="table-search" className="sr-only">
+            Search
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              id="table-search-users"
+              className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search"
+              value={globalFilter || ""}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="mb-4 border-gray-200"></div>
+        <div id="default-styled-tab-content">
+          <div
+            className=""
+            id="styled-profile"
+            role="tabpanel"
+            aria-labelledby="profile-tab"
+          >
+            <table
+              className="bg-white min-w-full border border-neutral-200 text-center text-sm text-surface text-gray-500 font-poppins"
+              {...getTableProps()}
+            >
+              <thead className="border-neutral-200 border bg-gray-200">
+                {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <th
+                        scope="col"
+                        className="font-medium px-4 py-2 text-left border text-sm text-gray-700 bg-gray-200"
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )} // Add getSortByToggleProps
+                      >
+                        {column.render("Header")}
+                        <span>
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? " 🔽"
+                              : " 🔼"
+                            : ""}
+                        </span>
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+
+              <tbody className="border" {...getTableBodyProps()}>
+                {page.map((row) => {
+                  prepareRow(row);
+                  return (
+                    <tr
+                      key={row.id}
+                      className="border border-neutral-200"
+                      {...row.getRowProps()}
+                    >
+                      {row.cells.map((cell) => (
+                        <td
+                          className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left"
+                          {...cell.getCellProps()}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <div className="pagination mt-4">
+              <button
+                onClick={() => previousPage()}
+                disabled={!canPreviousPage}
+                className="mr-2 p-2 bg-gray-200 rounded"
+              >
+                Previous
+              </button>
+              <span>
+                Page{" "}
+                <strong>
+                  {pageIndex + 1} of {pageOptions.length}
+                </strong>{" "}
+              </span>
+              <button
+                onClick={() => nextPage()}
+                disabled={!canNextPage}
+                className="ml-2 p-2 bg-gray-200 rounded"
+              >
+                Next
+              </button>
+              <span className="ml-4">
+                Go to page:{" "}
+                <input
+                  type="number"
+                  defaultValue={pageIndex + 1}
+                  onChange={(e) => {
+                    const pageNumber = e.target.value
+                      ? Number(e.target.value) - 1
+                      : 0;
+                    gotoPage(pageNumber);
+                  }}
+                  className="p-2 border rounded"
+                  style={{ width: "50px" }}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
