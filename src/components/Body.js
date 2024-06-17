@@ -31,6 +31,8 @@ import CreateEducation from "./jobs/CreateEducation";
 import EditEducation from "./jobs/EditEducation";
 import CreateWorkPlace from "./jobs/CreateWorkPlace";
 import EditWorkPlace from "./jobs/EditWorkPlace";
+import CreateState from "./jobs/CreateState";
+import EditState from "./jobs/EditState";
 
 const Body = () => {
   return (
@@ -55,6 +57,10 @@ const Body = () => {
               element={<EditJobPosition />}
             />
             <Route path="/state" element={<StateList />} />
+            <Route path="/create_state" element={<CreateState />} />
+            <Route path="/edit_state/:id" element={<EditState />} />
+
+
             <Route path="/city" element={<City />} />
             <Route path="/employment_type" element={<EmploymentType />} />
             <Route path="/create_employment_type" element={<CreateEmpType />} />
@@ -77,7 +83,6 @@ const Body = () => {
             <Route path="/create_education" element={<CreateEducation />} />
             <Route path="/edit_education/:id" element={<EditEducation />} />
             <Route path="/edit_workplace/:id" element={<EditWorkPlace />} />
-
 
             <Route path="/work_place" element={<WorkPlace />} />
             <Route path="/create_workplace" element={<CreateWorkPlace />} />

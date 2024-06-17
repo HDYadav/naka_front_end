@@ -1,8 +1,8 @@
 
 
- // const BASE_URL = "http://127.0.0.1:8000/";
+  const BASE_URL = "http://127.0.0.1:8000/";
 
-  const BASE_URL = "https://thegiftwala.in/";
+ //  const BASE_URL = "https://thegiftwala.in/";
 
 export const LOGIN_URL =  `${BASE_URL}api/admin_login`;
 export const LOGOUT_URL = `${BASE_URL}api/logout`;
@@ -28,6 +28,11 @@ export const GET_EDUCATION = `${BASE_URL}api/attributes/get_experiance/`;
 
 export const CREATE_WORKPLACE = `${BASE_URL}api/attributes/workplace_add_update`;
 export const GET_WORKPLACE = `${BASE_URL}api/attributes/get_workplace/`;
+
+
+export const CREATE_STATE = `${BASE_URL}api/attributes/state_add_update`;
+export const GET_STATE = `${BASE_URL}api/attributes/get_state/`;
+
 
 
  

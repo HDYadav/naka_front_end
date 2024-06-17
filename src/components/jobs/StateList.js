@@ -51,7 +51,7 @@ const StateList = () => {
         Cell: ({ row }) => (
           <div className="flex space-x-4">
             <Link
-              to={`/edit_workplace/${row.values.id}`}
+              to={`/edit_state/${row.values.id}`}
               className="text-blue-500 hover:underline"
             >
               Edit
@@ -113,7 +113,7 @@ const StateList = () => {
             </h5>
             <div className="flex items-center">
               <Link
-                to="/create_workplace"
+                to="/create_state"
                 className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
                 type="button"
                 onClick={handleCreateSuccess} // Trigger success message on button click
