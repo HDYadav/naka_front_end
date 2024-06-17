@@ -1,28 +1,24 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { CREATE_CITY, CREATE_EDUCATION } from "../../utils/constants";
+import { CREATE_EDUCATION, CREATE_SALARY_TYPE, CREATE_STATE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
 
 import { useNavigate } from "react-router-dom";
 import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
-import useCompany from "../../hooks/useCompany";
 
-const CreateCity = () => {
+const CreateSalaryType = () => {
 
   const user = useRequireAuth();
-  const navigate = useNavigate();
 
-  const company = useCompany();
-  
+  const navigate = useNavigate();
 
   const initialValues = {
     name_hindi: "",
     name_marathi: "",
     name_punjabi: "",
-    state:""
   };
 
   const validationSchema = Yup.object().shape({
@@ -32,15 +28,14 @@ const CreateCity = () => {
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       const Authtoken = user.token;
-      const formDataWithFile = new FormData(); 
+      const formDataWithFile = new FormData();
 
-      formDataWithFile.append("state_id", values.state);
       formDataWithFile.append("name", values.name);
       formDataWithFile.append("name_hindi", values.name_hindi);
       formDataWithFile.append("name_marathi", values.name_marathi);
       formDataWithFile.append("name_punjabi", values.name_punjabi);
 
-      const response = await fetch(CREATE_CITY, {
+      const response = await fetch(CREATE_SALARY_TYPE, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${Authtoken}`,
@@ -51,7 +46,7 @@ const CreateCity = () => {
       // console.log(response);
       // return false;
 
-      navigate(`/city/`);
+      navigate(`/salary_type/`);
       setSubmitting(false);
     } catch (error) {
       setFieldError("form", "An error occurred while submitting the form.");
@@ -65,7 +60,7 @@ const CreateCity = () => {
           <div className="flex flex-col bg-white p-4 ">
             <div className="ms-4 flex justify-between items-center">
               <h5 className=" text-203C50 font-Vietnam text-32 font-medium ">
-                Create City
+                Create Salary Type
               </h5>
             </div>
           </div>
@@ -79,45 +74,10 @@ const CreateCity = () => {
               <Form id="companyProfileForm" encType="multipart/form-data">
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                    Education
+                    Salary Type
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
-                      <Field name="state">
-                        {({ field }) => (
-                          <div>
-                            <label
-                              htmlFor="state"
-                              className="block mb-2 text-535252 text-16  font-400"
-                            >
-                              Select State *
-                            </label>
-
-                            <Field
-                              as="select"
-                              id="state"
-                              name="state"
-                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
-                            >
-                              <option value="">Select state</option>
-                              {company?.data?.state?.map((state) => (
-                                <option key={state.id} value={state.id}>
-                                  {state.name}
-                                </option>
-                              ))}
-                            </Field>
-
-                            <ErrorMessage
-                              name="state"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
-                        )}
-                      </Field>
-
-
-
                       <Field name="name">
                         {({ field }) => (
                           <div className="mb-3">
@@ -181,7 +141,7 @@ const CreateCity = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter marathi emptype ..."
+                              placeholder="Enter ..."
                             />
 
                             <ErrorMessage
@@ -206,7 +166,7 @@ const CreateCity = () => {
                                 htmlFor="Punjabi"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
-                                City
+                                Punjabi
                               </label>
                             </div>
 
@@ -214,7 +174,7 @@ const CreateCity = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter total_vacancies..."
+                              placeholder="Enter ..."
                             />
                             <ErrorMessage
                               name="name_punjabi"
@@ -231,7 +191,7 @@ const CreateCity = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/city">
+                    <Link to="/education">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
@@ -257,4 +217,4 @@ const CreateCity = () => {
   );
 };
 
-export default LayoutHOC(CreateCity);
+export default LayoutHOC(CreateSalaryType);

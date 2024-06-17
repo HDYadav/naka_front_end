@@ -168,6 +168,33 @@ function Leftmenu(props) {
               >
                 <li>
                   <Link
+                    to={"/state"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    State
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/city"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    City
+                  </Link>
+                </li>
+
+                 <li>
+                  <Link
+                    to={"/salary_type"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Salary Type
+                  </Link>
+                </li>
+
+
+                <li>
+                  <Link
                     to={"/industry_type"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
@@ -233,23 +260,6 @@ function Leftmenu(props) {
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
                     Promote
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to={"/state"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    State
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={"/city"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    City
                   </Link>
                 </li>
               </ul>

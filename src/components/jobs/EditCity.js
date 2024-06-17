@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { CREATE_CITY, CREATE_STATE } from "../../utils/constants";
+import { CREATE_CITY } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
 import { useNavigate } from "react-router-dom";
 import LayoutHOC from "../LayoutHOC";
 import { useParams, Link } from "react-router-dom";
-import useEditState from "../../hooks/useEditState.js";
+import useEditCity from "../../hooks/useEditCity.js";
+import useCompany from "../../hooks/useCompany";
 
 const EditCity = () => {
 
   const { id } = useParams();
-  const positions = useEditState(id); // Fetch job position data for editing
+  const positions = useEditCity(id); // Fetch job position data for editing
 
   const user = useRequireAuth();
   //const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const company = useCompany();
+  
+
   const [initialValues, setInitialValues] = useState({
     id: id, // Assuming id is a string
+    state: "",
     name: "",
     name_hindi: "",
     name_marathi: "",
@@ -31,6 +36,7 @@ const EditCity = () => {
     if (positions) {
       setInitialValues({
         ...initialValues,
+        state: positions.state_id || "",
         name: positions.name || "",
         name_hindi: positions.name_hindi || "",
         name_marathi: positions.name_marathi || "",
@@ -50,6 +56,7 @@ const EditCity = () => {
       const formDataWithFile = new FormData();
 
       formDataWithFile.append("id", values.id); // Include ID in form data
+       formDataWithFile.append("state_id", values.state);
       formDataWithFile.append("name", values.name);
       formDataWithFile.append("name_hindi", values.name_hindi);
       formDataWithFile.append("name_marathi", values.name_marathi);
@@ -122,6 +129,40 @@ const EditCity = () => {
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
+                      <Field name="state">
+                        {({ field }) => (
+                          <div>
+                            <label
+                              htmlFor="state"
+                              className="block mb-2 text-535252 text-16  font-400"
+                            >
+                              Select State *
+                            </label>
+
+                            <Field
+                              as="select"
+                              id="state"
+                              name="state"
+                              className="form-select border border-gray-300 text-gray-900 text-sm block w-full px-2.5"
+                            >
+                              <option value="">Select state</option>
+                              {company?.data?.state?.map((state) => (
+                                <option key={state.id} value={state.id}>
+                                  {state.name}
+                                </option>
+                              ))}
+                            </Field>
+
+                            <ErrorMessage
+                              name="state"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+                        )}
+                      </Field>
+
+                      
                       <Field name="name">
                         {({ field }) => (
                           <div className="mb-3">
@@ -228,7 +269,7 @@ const EditCity = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/jobs_position">
+                    <Link to="/city">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"

@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
-//import useJobsPosition from "../../hooks/useJobsPosition";
-import useCompany from "../../hooks/useCompany";
+import useJobsPosition from "../../hooks/useJobsPosition";
 
 import {
   useTable,
@@ -11,13 +10,11 @@ import {
   usePagination,
   useSortBy, // Import useSortBy hook
 } from "react-table";
-import useCity from "../../hooks/useCity";
 
-const City = () => {
-
-  const positions = useCity();
-
-  //console.log("asdf",positions);
+const SalaryType = () => {
+    const positions = useJobsPosition();
+    
+   // console.log(positions);
 
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -30,12 +27,7 @@ const City = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "State Name",
-        accessor: "state_name",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "City Name",
+        Header: "Salary Type",
         accessor: "name",
         sortType: "alphanumeric", // Set sortType for sorting
       },
@@ -60,7 +52,7 @@ const City = () => {
         Cell: ({ row }) => (
           <div className="flex space-x-4">
             <Link
-              to={`/edit_city/${row.values.id}`}
+              to={`/edit_salary_type/${row.values.id}`}
               className="text-blue-500 hover:underline"
             >
               Edit
@@ -78,7 +70,7 @@ const City = () => {
     []
   );
 
-  const data = useMemo(() => positions || [], [positions]);
+  const data = useMemo(() => positions?.data?.salaryType || [], [positions]);
 
   const {
     getTableProps,
@@ -118,11 +110,11 @@ const City = () => {
         <div className="flex flex-col bg-white p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
-              City
+              Salary Type
             </h5>
             <div className="flex items-center">
               <Link
-                to="/create_city"
+                to="/create_salary_type"
                 className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
                 type="button"
                 onClick={handleCreateSuccess} // Trigger success message on button click
@@ -259,4 +251,4 @@ const City = () => {
   );
 };
 
-export default LayoutHOC(City);
+export default LayoutHOC(SalaryType);
