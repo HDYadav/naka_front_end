@@ -23,8 +23,10 @@ const JobDetails = () => {
 
   const { id } = useParams();
   const details = useJobsDetails(id);  
+
+  console.log(details?.data?.employeementType);
   
-const Skills = details?.data?.[0]?.skills;
+const Skills = details?.data?.skills;
 
  
 
@@ -32,7 +34,7 @@ const Skills = details?.data?.[0]?.skills;
     <main id="maincontent" className="p-4 mt-14">
       <div className="bg-White py-2  px-3 rounded shadow-2">
         <div className="flex gap-1 items-center justify-between">
-          <h1 className="text-base"> {details?.data?.[0]?.jobPosiiton} </h1>
+          <h1 className="text-base"> {details?.data?.jobPosiiton} </h1>
           <div className="flex gap-1 items-center justify-between">
             <Link to="/jobs_list" className="text-blue-600">
               <IoMdArrowBack />
@@ -53,15 +55,15 @@ const Skills = details?.data?.[0]?.skills;
           </div>
           <div className="flex flex-col flex-wrap gap-3">
             <h2 className="text-base leading-5">
-              {details?.data?.[0]?.jobPosiiton} <br />
+              {details?.data?.jobPosiiton} <br />
               <small className="text-xs">
-                Employeement Type · {details?.data?.[0]?.employeementType}
+                Employeement Type · {details?.data?.employeementType}
               </small>
             </h2>
             <div className="flex gap-2">
               <FaRupeeSign className="text-blue-600" />
               <h3 className="text-base leading-5">
-                {details?.data?.[0]?.minSalary} -{details?.data?.[0]?.maxSalary}
+                {details?.data?.minSalary} -{details?.data?.maxSalary}
                 <small className="text-xs"> Monthly</small>
               </h3>
             </div>
@@ -71,50 +73,50 @@ const Skills = details?.data?.[0]?.skills;
               <FaNetworkWired className="text-blue-600" />
 
               <span className="text-xs">Work Place</span>
-              <h4 className="text-base">{details?.data?.[0]?.workPlace}</h4>
+              <h4 className="text-base">{details?.data?.workPlace}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <MdOutlineRealEstateAgent className="text-blue-600" />
 
               <span className="text-xs">State</span>
-              <h4 className="text-base">{details?.data?.[0]?.state}</h4>
+              <h4 className="text-base">{details?.data?.state}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <FaCity className="text-blue-600" />
 
               <span className="text-xs">City</span>
-              <h4 className="text-base">{details?.data?.[0]?.city}</h4>
+              <h4 className="text-base">{details?.data?.city}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <MdOutlineViewCompactAlt className="text-blue-600" />
 
               <span className="text-xs">Company</span>
-              <h4 className="text-base">{details?.data?.[0]?.company}</h4>
+              <h4 className="text-base">{details?.data?.company}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <FaRupeeSign className="text-blue-600" />
 
               <span className="text-xs">Salary Type</span>
-              <h4 className="text-base">{details?.data?.[0]?.salaryType}</h4>
+              <h4 className="text-base">{details?.data?.salaryType}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <FaBuromobelexperte className="text-blue-600" />
 
               <span className="text-xs">Experience</span>
-              <h4 className="text-base">{details?.data?.[0]?.experience}</h4>
+              <h4 className="text-base">{details?.data?.experience}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <MdOutlineCastForEducation className="text-blue-600" />
 
               <span className="text-xs">Education</span>
-              <h4 className="text-base">{details?.data?.[0]?.education}</h4>
+              <h4 className="text-base">{details?.data?.education}</h4>
             </div>
           </div>
         </div>
         <div className="border-t border-gray-300 grid gap-1 grid-cols-[70%,1fr]">
           <div className="px-2">
             <h3 className="my-3 text-base">Description</h3>
-            <p className="text-sm">{details?.data?.[0]?.description}</p>
+            <p className="text-sm">{details?.data?.description}</p>
           </div>
           <div className="px-2 border-l border-gray-200">
             {/* Categories */}

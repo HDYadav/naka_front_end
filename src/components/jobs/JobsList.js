@@ -32,81 +32,115 @@ const JobsList = () => {
   const columns = useMemo(
     () => [
       {
+        Header: "Job",
+        accessor: "title",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
         Header: "Position",
         accessor: "jobPosiiton",
         sortType: "alphanumeric", // Set sortType for sorting
       },
-      {
-        Header: "Company",
-        accessor: "company",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "Work Place",
-        accessor: "workPlace",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "City",
-        accessor: "city",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "Emp Type",
-        accessor: "employeementType",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "Salary Type",
-        accessor: "salaryType",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "Min Salary",
-        accessor: "minSalary",
-        sortType: (rowA, rowB, columnId, desc) => {
-          // Extracting the numerical values for sorting
-          const valueA = rowA.values[columnId].replace("₹", "");
-          const valueB = rowB.values[columnId].replace("₹", "");
 
-          return valueA.localeCompare(valueB, "en", { numeric: true });
+      {
+        Header: "Salary",
+        accessor: "salaryRange",
+        sortType: (rowA, rowB, columnId, desc) => {
+          // Extracting the numerical values for sorting
+          const minSalaryA = parseFloat(
+            rowA.original.minSalary.replace("₹", "").replace(/,/g, "")
+          );
+          const maxSalaryA = parseFloat(
+            rowA.original.maxSalary.replace("₹", "").replace(/,/g, "")
+          );
+          const minSalaryB = parseFloat(
+            rowB.original.minSalary.replace("₹", "").replace(/,/g, "")
+          );
+          const maxSalaryB = parseFloat(
+            rowB.original.maxSalary.replace("₹", "").replace(/,/g, "")
+          );
+
+          const rangeA = minSalaryA + maxSalaryA;
+          const rangeB = minSalaryB + maxSalaryB;
+
+          return rangeA - rangeB;
         },
-        Cell: ({ value }) => `₹ ${value}`, // Add the rupee symbol
+        Cell: ({ row }) => {
+          const minSalary = row.original.minSalary;
+          const maxSalary = row.original.maxSalary;
+          return `₹ ${minSalary} - ₹ ${maxSalary}`;
+        },
+      },
+      {
+        Header: "Deadline",
+        accessor: "deadline",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
-        Header: "Max Salary",
-        accessor: "maxSalary",
-        sortType: (rowA, rowB, columnId, desc) => {
-          // Extracting the numerical values for sorting
-          const valueA = rowA.values[columnId].replace("₹", "");
-          const valueB = rowB.values[columnId].replace("₹", "");
-          return valueA.localeCompare(valueB, "en", { numeric: true });
-        },
-        Cell: ({ value }) => `₹ ${value}`, // Add the rupee symbol
-        sortType: "alphanumeric", // Set sortType for sorting
+        Header: "Status",
+        accessor: "status",
+        Cell: ({ row }) => (
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id={`published-${row.values.id}`}
+                name={`status-${row.values.id}`}
+                value="published"
+                className="mr-2"
+                checked
+              />
+              <label
+                htmlFor={`published-${row.values.id}`}
+                className="text-gray-700"
+              >
+                Published
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                id={`expired-${row.values.id}`}
+                name={`status-${row.values.id}`}
+                value="expired"
+                className="mr-2"
+              />
+              <label
+                htmlFor={`expired-${row.values.id}`}
+                className="text-gray-700"
+              >
+                Expired
+              </label>
+            </div>
+          </div>
+        ),
       },
       {
         Header: "Actions",
         accessor: "id",
         Cell: ({ row }) => (
-          <div className="flex space-x-4">
+          <div className="flex items-center space-x-4">
             <Link
-              to={`/edit_industry_type/${row.values.id}`}
+              to={{ pathname: `/job_details/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
-              Edit
-            </Link>
-            {/* <button
-              onClick={() => handleDelete(row.values.id)}
-              className="text-red-500 hover:underline"
-            >
-              Delete
-            </button> */}
-
-            <Link to={{ pathname: `/job_details/${row.values.id}` }}>
               Details
             </Link>
+            {/* Uncomment the following for edit and delete actions */}
+            {/* 
+        <Link
+          to={`/edit_industry_type/${row.values.id}`}
+          className="text-blue-500 hover:underline"
+        >
+          Edit
+        </Link>
+        <button
+          onClick={() => handleDelete(row.values.id)}
+          className="text-red-500 hover:underline"
+        >
+          Delete
+        </button>
+        */}
           </div>
         ),
       },
