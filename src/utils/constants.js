@@ -1,7 +1,7 @@
 
- const BASE_URL = "http://127.0.0.1:8000/";
+// const BASE_URL = "http://127.0.0.1:8000/";
 
- // const BASE_URL = "https://thegiftwala.in/";
+ const BASE_URL = "https://thegiftwala.in/";
 
 export const LOGIN_URL =  `${BASE_URL}api/admin_login`;
 export const LOGOUT_URL = `${BASE_URL}api/logout`;
