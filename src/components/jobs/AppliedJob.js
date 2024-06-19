@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
-import { Link } from "react-router-dom";
-import useWorkPlace from "../../hooks/useWorkPlace";
+import { Link } from "react-router-dom"; 
 
 import {
   useTable,
@@ -10,9 +9,13 @@ import {
   usePagination,
   useSortBy, // Import useSortBy hook
 } from "react-table";
+import useApplyedJob from "../../hooks/useApplyedJob";
 
-const Promote = () => {
-  const positions = useWorkPlace();
+const AppliedJob = () => {
+
+  const positions = useApplyedJob();
+
+  console.log(positions);
 
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -25,23 +28,18 @@ const Promote = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "English",
+        Header: "Candidate",
         accessor: "name",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
-        Header: "Hindi",
-        accessor: "name_hindi",
+        Header: "Company",
+        accessor: "employer_name",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
-        Header: "Marathi",
-        accessor: "name_marathi",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "Punjabi",
-        accessor: "name_punjabi",
+        Header: "Job",
+        accessor: "profession",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
@@ -50,17 +48,12 @@ const Promote = () => {
         Cell: ({ row }) => (
           <div className="flex space-x-4">
             <Link
-              to={`/edit_promote/${row.values.id}`}
+              to={{ pathname: `/applyed_job_details/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
-              Edit
+              Details
             </Link>
-            {/* <button
-              onClick={() => handleDelete(row.values.id)}
-              className="text-red-500 hover:underline"
-            >
-              Delete
-            </button> */}
+             
           </div>
         ),
       },
@@ -68,7 +61,7 @@ const Promote = () => {
     []
   );
 
-  const data = useMemo(() => positions?.data?.promote || [], [positions]);
+  const data = useMemo(() => positions || [], [positions]);
 
   const {
     getTableProps,
@@ -108,9 +101,9 @@ const Promote = () => {
         <div className="flex flex-col bg-white p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
-              Promote
+              Applyed Job
             </h5>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <Link
                 to="/create_promote"
                 className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
@@ -120,7 +113,7 @@ const Promote = () => {
                 + Create
               </Link>
               <i className="bi bi-three-dots-vertical text-2xl text-535252"></i>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -249,4 +242,4 @@ const Promote = () => {
   );
 };
 
-export default LayoutHOC(Promote);
+export default LayoutHOC(AppliedJob);

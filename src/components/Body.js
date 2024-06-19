@@ -38,6 +38,10 @@ import EditCity from "./jobs/EditCity";
 import SalaryType from "./jobs/SalaryType";
 import CreateSalaryType from "./jobs/CreateSalaryType";
 import EditSalaryType from "./jobs/EditSalaryType";
+import CreatePromote from "./jobs/CreatePromote";
+import EditPromote from "./jobs/EditPromote";
+import AppliedJob from "./jobs/AppliedJob";
+import ApplyedJobDetails from "./jobs/ApplyedJobDetails";
 
 const Body = () => {
   return (
@@ -83,16 +87,28 @@ const Body = () => {
               path="/edit_industry_type/:id"
               element={<EditIndustryType />}
             />
-            <Route path="/promote" element={<Promote />} />
+
             <Route path="/experiance" element={<Experiance />} />
             <Route path="/create_experiance" element={<CreateExperiance />} />
             <Route path="/edit_experiance/:id" element={<EditExperiance />} />
             <Route path="/education" element={<Education />} />
             <Route path="/create_education" element={<CreateEducation />} />
             <Route path="/edit_education/:id" element={<EditEducation />} />
+
             <Route path="/edit_workplace/:id" element={<EditWorkPlace />} />
             <Route path="/work_place" element={<WorkPlace />} />
             <Route path="/create_workplace" element={<CreateWorkPlace />} />
+
+            <Route path="/promote" element={<Promote />} />
+            <Route path="/create_promote" element={<CreatePromote />} />
+            <Route path="/edit_promote/:id" element={<EditPromote />} />
+
+            <Route path="/applyed_job" element={<AppliedJob />} />
+            <Route
+              path="/applyed_job_details/:id"
+              element={<ApplyedJobDetails />}
+            />
+
             <Route path="/skills" element={<Skills />} />
             <Route path="/create_skills" element={<CreateSkills />} />
             <Route path="/edit_skills/:id" element={<EditSkills />} />

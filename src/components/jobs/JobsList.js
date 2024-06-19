@@ -15,11 +15,7 @@ import {
 
 const JobsList = () => {
   
-  const positions = useJobsList();
-  
-  console.log(positions);
-    
-  
+  const positions = useJobsList(); 
 
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -88,7 +84,7 @@ const JobsList = () => {
                 name={`status-${row.values.id}`}
                 value="published"
                 className="mr-2"
-                checked
+                
               />
               <label
                 htmlFor={`published-${row.values.id}`}
@@ -102,7 +98,7 @@ const JobsList = () => {
                 type="radio"
                 id={`expired-${row.values.id}`}
                 name={`status-${row.values.id}`}
-                value="expired"
+                value="expired"                
                 className="mr-2"
               />
               <label
@@ -112,6 +108,7 @@ const JobsList = () => {
                 Expired
               </label>
             </div>
+          
           </div>
         ),
       },
@@ -120,6 +117,7 @@ const JobsList = () => {
         accessor: "id",
         Cell: ({ row }) => (
           <div className="flex items-center space-x-4">
+           
             <Link
               to={{ pathname: `/job_details/${row.values.id}` }}
               className="text-blue-500 hover:underline"
@@ -144,6 +142,7 @@ const JobsList = () => {
           </div>
         ),
       },
+      
     ],
     []
   );

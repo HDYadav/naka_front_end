@@ -183,7 +183,7 @@ function Leftmenu(props) {
                   </Link>
                 </li>
 
-                 <li>
+                <li>
                   <Link
                     to={"/salary_type"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
@@ -191,7 +191,6 @@ function Leftmenu(props) {
                     Salary Type
                   </Link>
                 </li>
-
 
                 <li>
                   <Link
@@ -343,19 +342,20 @@ function Leftmenu(props) {
               >
                 <li>
                   <Link
-                    to={"/create_job"}
-                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    Create Job
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     to={"/jobs_list"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
                   >
                     Jobs List
                   </Link>
+
+                  <li>
+                    <Link
+                      to={"/applyed_job"}
+                      className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                    >
+                      Applyed Job
+                    </Link>
+                  </li>
                 </li>
               </ul>
             </li>
