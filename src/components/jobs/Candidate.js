@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
-import useJobsList from "../../hooks/useJobsList";
-import Shimmer from "../Shimmer";
+import useWorkPlace from "../../hooks/useWorkPlace";
 
 import {
   useTable,
@@ -11,12 +10,10 @@ import {
   usePagination,
   useSortBy, // Import useSortBy hook
 } from "react-table";
- 
+import useCandidate from "../../hooks/useCandidate";
 
-const JobsList = () => {
-  
-  const positions = useJobsList(); 
-
+const Candidate = () => {
+    const positions = useCandidate(); 
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleDelete = (id) => {
@@ -24,115 +21,58 @@ const JobsList = () => {
     console.log(`Delete job position with id: ${id}`);
     // You might want to call an API to delete the job position and refresh the table data
   };
-  // 'emptype_hindi', 'emptype_marathi', 'emptype_punjabi'
+  // 'name_hindi', 'name_marathi', 'name_punjabi'
   const columns = useMemo(
     () => [
       {
-        Header: "Job",
-        accessor: "title",
+        Header: "Candidate",
+        accessor: "name",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
-        Header: "Position",
-        accessor: "jobPosiiton",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-
-      {
-        Header: "Salary",
-        accessor: "salaryRange",
-        sortType: (rowA, rowB, columnId, desc) => {
-          // Extracting the numerical values for sorting
-          const minSalaryA = parseFloat(
-            rowA.original.minSalary.replace("₹", "").replace(/,/g, "")
-          );
-          const maxSalaryA = parseFloat(
-            rowA.original.maxSalary.replace("₹", "").replace(/,/g, "")
-          );
-          const minSalaryB = parseFloat(
-            rowB.original.minSalary.replace("₹", "").replace(/,/g, "")
-          );
-          const maxSalaryB = parseFloat(
-            rowB.original.maxSalary.replace("₹", "").replace(/,/g, "")
-          );
-
-          const rangeA = minSalaryA + maxSalaryA;
-          const rangeB = minSalaryB + maxSalaryB;
-
-          return rangeA - rangeB;
-        },
-        Cell: ({ row }) => {
-          const minSalary = row.original.minSalary;
-          const maxSalary = row.original.maxSalary;
-          return `₹ ${minSalary} - ₹ ${maxSalary}`;
-        },
-      },
-      {
-        Header: "Deadline",
-        accessor: "deadline",
+        Header: "Role/Position",
+        accessor: "jobposition",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
-        Header: "Status",
+        Header: "Applied Jobs",
+        accessor: "jobsApplied",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Account Status",
         accessor: "status",
-        Cell: ({ row }) => (
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id={`published-${row.values.id}`}
-                name={`status-${row.values.id}`}
-                value="published"
-                className="mr-2"
-                
-              />
-              <label
-                htmlFor={`published-${row.values.id}`}
-                className="text-gray-700"
-              >
-                Published
-              </label>
-            </div>
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id={`expired-${row.values.id}`}
-                name={`status-${row.values.id}`}
-                value="expired"                
-                className="mr-2"
-              />
-              <label
-                htmlFor={`expired-${row.values.id}`}
-                className="text-gray-700"
-              >
-                Expired
-              </label>
-            </div>
-          
-          </div>
-        ),
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "OTP Verification",
+        accessor: "otp_verified",
+        sortType: "alphanumeric", // Set sortType for sorting
+      },
+      {
+        Header: "Joining Date",
+        accessor: "created_at",
+        sortType: "alphanumeric", // Set sortType for sorting
       },
       {
         Header: "Actions",
         accessor: "id",
         Cell: ({ row }) => (
           <div className="flex items-center space-x-4">
-           
             <Link
-              to={{ pathname: `/job_details/${row.values.id}` }}
+              to={{ pathname: `/view_profile/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
-              Details
-            </Link> 
+              View Profile
+            </Link>
           </div>
         ),
       },
-      
     ],
     []
   );
 
-  const data = useMemo(() => positions?.data || [], [positions]);
+  const data = useMemo(() => positions || [], [positions]);
 
   const {
     getTableProps,
@@ -172,19 +112,9 @@ const JobsList = () => {
         <div className="flex flex-col bg-white p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
-              jobs List
+              Candidate
             </h5>
-            <div className="flex items-center">
-              <Link
-                to="/create_job"
-                className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
-                type="button"
-                onClick={handleCreateSuccess} // Trigger success message on button click
-              >
-                + Create
-              </Link>
-              <i className="bi bi-three-dots-vertical text-2xl text-535252"></i>
-            </div>
+            
           </div>
         </div>
 
@@ -313,4 +243,4 @@ const JobsList = () => {
   );
 };
 
-export default LayoutHOC(JobsList);
+export default LayoutHOC(Candidate);

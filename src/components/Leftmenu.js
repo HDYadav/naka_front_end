@@ -299,10 +299,10 @@ function Leftmenu(props) {
               >
                 <li>
                   <Link
-                    to=""
+                    to={"/candidate"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                  >
-                    List
+                   >
+                    Candidate
                   </Link>
                 </li>
               </ul>

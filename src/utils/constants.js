@@ -1,5 +1,5 @@
 
-   const BASE_URL = "http://127.0.0.1:8000/";
+ const BASE_URL = "http://127.0.0.1:8000/";
 
  // const BASE_URL = "https://thegiftwala.in/";
 
@@ -43,6 +43,10 @@ export const GET_ADMIN_JOB_APPLYED = `${BASE_URL}api/jobs/get_applyed_job_admin`
 
 export const JOB_DETAILS_ADMIN = `${BASE_URL}api/jobs/get_applyed_job_details_admin/`;
 
+
+export const GET_CANDIDATES = `${BASE_URL}api/get_candidates/`;
+
+export const GET_CANDIDATES_DETAILS = `${BASE_URL}api/candidates_details/`;
 
  
  
