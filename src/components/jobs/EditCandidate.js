@@ -18,7 +18,9 @@ const EditCandidate = () => {
   const user = useRequireAuth(); 
   const navigate = useNavigate(); 
 
-   const { candidate, isLoading, error } = useEditCandidate(id) || {}; 
+  const { candidate } = useEditCandidate(id) || {}; 
+  
+ 
  
 
   const [selectedDate, setSelectedDate] = useState(null);
@@ -32,7 +34,8 @@ const EditCandidate = () => {
     name: "",
     email: "",
     mobile: "",
-    date_of_birth: null,
+    //date_of_birth: null,
+    dob:null,
     password: "",
     experience: "",
     jobPosiiton: "",
@@ -50,7 +53,7 @@ const EditCandidate = () => {
   useEffect(() => {
     if (candidate) {
       setInitialValues({
-        ...initialValues, 
+        ...initialValues,
         name: candidate.name || "",
         email: candidate.email || "",
         mobile: candidate.mobile || "",
@@ -62,8 +65,10 @@ const EditCandidate = () => {
         languages: candidate.languages || "",
         maritalStatus: candidate.maritalStatus || "",
         gender: candidate.gender || "",
+        resume: candidate.resume || "",
+        date_of_birth: candidate?.dob || "",
       });
-      //setSelectedDate(new Date(candidate.date_of_birth)); 
+      setSelectedDate(new Date(candidate.dob)); 
     }
   }, [candidate]);
 
@@ -75,6 +80,23 @@ const EditCandidate = () => {
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
+
+      let dateOfBirth = values.date_of_birth;
+
+      if (typeof dateOfBirth === "string") {
+        // Convert string to Date object if it's not already
+        dateOfBirth = new Date(dateOfBirth);
+      }
+
+      // Format the date as dd mm yyyy
+      const day = dateOfBirth.getDate().toString().padStart(2, "0"); // Get day and pad with zero if necessary
+      const month = (dateOfBirth.getMonth() + 1).toString().padStart(2, "0"); // Get month (zero-indexed) and pad with zero if necessary
+      const year = dateOfBirth.getFullYear(); // Get full year
+
+      const formattedDate = `${day} ${month} ${year}`;
+
+
+
       const Authtoken = user.token;
       const formDataWithFile = new FormData();
 
@@ -82,7 +104,8 @@ const EditCandidate = () => {
       formDataWithFile.append("name", values.name);
       formDataWithFile.append("email", values.email);
       formDataWithFile.append("mobile", values.mobile);
-      formDataWithFile.append("date_of_birth", values.date_of_birth);
+      //formDataWithFile.append("date_of_birth", values.date_of_birth);
+      formDataWithFile.append("date_of_birth", formattedDate);
       formDataWithFile.append("password", values.password);
       formDataWithFile.append("experience", values.experience);
       formDataWithFile.append("jobPosiiton", values.jobPosiiton);

@@ -5,25 +5,64 @@ import { FaNetworkWired } from "react-icons/fa";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { FaCity } from "react-icons/fa";
 import { MdOutlineViewCompactAlt } from "react-icons/md";
-import { FaRupeeSign } from "react-icons/fa";
-import { FaBuromobelexperte } from "react-icons/fa6";
+ 
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import useCandidateDetails from "../../hooks/useCandidateDetails";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { DELETE_CANDIDATE, PROFILE_PIC_URL } from "../../utils/constants";
+import { AiTwotoneFilePdf } from "react-icons/ai";
+import { MdDateRange } from "react-icons/md";
+import { GoDownload } from "react-icons/go";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 
 
 const CandidateDetails = () => {
   const { id } = useParams();
   const details = useCandidateDetails(id);
-
-  console.log(details?.data?.jobposition);
+   const user = useSelector((state) => state.user);
 
   const Skills = details?.data?.skills;
+  const Languages = details?.data?.languages;
+  const profilePicUrl = PROFILE_PIC_URL + details?.data?.profilePic;
+  const resume = PROFILE_PIC_URL + details?.data?.resume;
 
-    const Languages = details?.data?.languages;
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
+    
+    if (confirmDelete) {
+      try {
+        
+         const { token } = user;
+
+         const response = await fetch(`${DELETE_CANDIDATE}${id}`, {
+           method: "DELETE",
+           headers: {
+             Authorization: `Bearer ${token}`,
+           },
+         });
+        
+        
+        
+        // Handle success (e.g., show a success message or redirect)
+        console.log("Candidate deleted:", response.data);
+        alert("Candidate deleted successfully!");
+        
+        
+        // Optionally redirect to another page
+        // history.push("/candidate");
+      } catch (error) {
+        // Handle errors (e.g., show an error message)
+        console.error("Error deleting candidate:", error);
+        alert("Failed to delete candidate. Please try again later.");
+      }
+    }
+  }
+
+
 
   return (
     <main id="maincontent" className="p-4 mt-14">
@@ -35,9 +74,18 @@ const CandidateDetails = () => {
               <FaEdit />
             </Link>
 
-            <Link to="/candidate" className="text-blue-600 mx-2">
-              <MdDelete />
+            {/* <Link to="/candidate" className="text-blue-600 mx-2">
+              <MdDelete className="text-red-600" />
+            </Link> */}
+
+            <Link
+              to="/candidate"
+              className="text-blue-600 mx-2"
+              onClick={handleDelete}
+            >
+              <MdDelete className="text-red-600" />
             </Link>
+
 
             <Link to="/candidate" className="text-blue-600 mx-2">
               <IoMdArrowBack />
@@ -49,8 +97,8 @@ const CandidateDetails = () => {
           <div className="w-[110px] h-[110px]">
             <img
               className="rounded-full"
-              src="https://s3.envato.com/files/385317130/Templatecookie-favicon.png"
-              alt="User Logo"
+              src={profilePicUrl}
+              alt="Profile Pic"
             />
           </div>
           <div className="flex flex-col flex-wrap gap-3">
@@ -70,7 +118,7 @@ const CandidateDetails = () => {
             <div className="flex gap-2">
               <h3 className="text-base leading-5">
                 <small className="text-xs">
-                  <strong> Status:-</strong> {details?.data?.status}
+                  <strong>Status:-</strong> {details?.data?.status}
                 </small>
               </h3>
             </div>
@@ -106,21 +154,45 @@ const CandidateDetails = () => {
               <span className="text-xs">Gender</span>
               <h4 className="text-base">{details?.data?.gender}</h4>
             </div>
-            <div className="flex gap-1 flex-col font-medium">
-              <FaBuromobelexperte className="text-blue-600" />
-
-              <span className="text-xs">Birth Date</span>
-              <h4 className="text-base">{details?.data?.dob}</h4>
-            </div>
           </div>
         </div>
+
+        <div className="h-20"></div>
+
         <div className="border-t border-gray-300 grid gap-1 grid-cols-[70%,1fr]">
           <div className="px-2">
             <h3 className="my-3 text-base">Description</h3>
             <p className="text-sm">{details?.data?.description}</p>
           </div>
           <div className="px-2 border-l border-gray-200">
-            {/* Categories */}
+            <div className="h-4"></div>
+
+            <div className="flex gap-5 flex-wrap">
+              <div className="flex gap-1 flex-col font-medium">
+                <MdDateRange className="text-blue-600" />
+
+                <span className="text-xs">Date Of Birth</span>
+                <h4 className="text-base">{details?.data?.dob}</h4>
+              </div>
+
+              <div className="flex gap-1 flex-col font-medium">
+                <a
+                  href={resume}
+                  download="resume.pdf"
+                  className="flex gap-1 flex-col items-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GoDownload className="text-blue-600" />
+
+                  <span className="text-xs">Resume Download</span>
+                  <h4 className="text-base">
+                    <AiTwotoneFilePdf className="text-red-600" />
+                  </h4>
+                </a>
+              </div>
+            </div>
+
             <div className="my-3">
               <h3 className="text-base mb-2">Skills</h3>
               <div className="flex flex-wrap gap-2">
@@ -133,7 +205,6 @@ const CandidateDetails = () => {
                           className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10"
                         >
                           {skill.name}
-                          {/* Render the specific property of each skill object */}
                         </span>
                       ))
                     ) : (
@@ -153,7 +224,6 @@ const CandidateDetails = () => {
                       className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10"
                     >
                       {lang.name}
-                      {/* Render the specific property of each skill object */}
                     </span>
                   ))
                 ) : (
