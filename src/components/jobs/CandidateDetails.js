@@ -10,12 +10,16 @@ import { FaBuromobelexperte } from "react-icons/fa6";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import useCandidateDetails from "../../hooks/useCandidateDetails";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
+
 
 const CandidateDetails = () => {
   const { id } = useParams();
   const details = useCandidateDetails(id);
 
-  //console.log(details?.data);
+  console.log(details?.data?.jobposition);
 
   const Skills = details?.data?.skills;
 
@@ -27,12 +31,17 @@ const CandidateDetails = () => {
         <div className="flex gap-1 items-center justify-between">
           <h1 className="text-base"> {details?.data?.jobPosiiton} </h1>
           <div className="flex gap-1 items-center justify-between">
-            <Link to="/candidate" className="text-blue-600">
-              <IoMdArrowBack />
+            <Link to={`/edit_candidate/${id}`} className="text-blue-600 mx-2">
+              <FaEdit />
             </Link>
 
-            {/* <BiEdit className="text-xl" />
-            <MdDeleteOutline className="text-xl" /> */}
+            <Link to="/candidate" className="text-blue-600 mx-2">
+              <MdDelete />
+            </Link>
+
+            <Link to="/candidate" className="text-blue-600 mx-2">
+              <IoMdArrowBack />
+            </Link>
           </div>
         </div>
         {/* Details section */}
@@ -71,7 +80,7 @@ const CandidateDetails = () => {
               <FaNetworkWired className="text-blue-600" />
 
               <span className="text-xs">Profession</span>
-              <h4 className="text-base">{details?.data?.jobPosiiton}</h4>
+              <h4 className="text-base">{details?.data?.jobposition}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <MdOutlineRealEstateAgent className="text-blue-600" />
@@ -92,7 +101,7 @@ const CandidateDetails = () => {
               <h4 className="text-base">{details?.data?.education}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
-              <FaRupeeSign className="text-blue-600" />
+              <MdOutlineViewCompactAlt className="text-blue-600" />
 
               <span className="text-xs">Gender</span>
               <h4 className="text-base">{details?.data?.gender}</h4>

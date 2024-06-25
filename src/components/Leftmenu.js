@@ -301,10 +301,20 @@ function Leftmenu(props) {
                   <Link
                     to={"/candidate"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                   >
+                  >
                     Candidate
                   </Link>
                 </li>
+
+                <li>
+                  <Link
+                    to={"/candidate"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Employer
+                  </Link>
+                </li>
+
               </ul>
             </li>
             <li className="menubottomborder parentmenu pb-2">

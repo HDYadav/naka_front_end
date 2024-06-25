@@ -1,7 +1,7 @@
 
  const BASE_URL = "http://127.0.0.1:8000/";
 
- // const BASE_URL = "https://thegiftwala.in/";
+//  const BASE_URL = "https://thegiftwala.in/";
 
 export const LOGIN_URL =  `${BASE_URL}api/admin_login`;
 export const LOGOUT_URL = `${BASE_URL}api/logout`;
@@ -35,18 +35,21 @@ export const GET_CITY = `${BASE_URL}api/attributes/get_city/`;
 export const GET_CITY_LIST = `${BASE_URL}api/attributes/city_list/`;
 export const CREATE_SALARY_TYPE = `${BASE_URL}api/attributes/salary_type_add_update`;
 export const GET_SALARY_TYPE = `${BASE_URL}api/attributes/get_salary_type/`;
-
 export const CREATE_PROMOTE = `${BASE_URL}api/attributes/promote_add_update`;
 export const GET_PROMOTE = `${BASE_URL}api/attributes/get_promote/`;
-
 export const GET_ADMIN_JOB_APPLYED = `${BASE_URL}api/jobs/get_applyed_job_admin`;
-
 export const JOB_DETAILS_ADMIN = `${BASE_URL}api/jobs/get_applyed_job_details_admin/`;
 
 
 export const GET_CANDIDATES = `${BASE_URL}api/get_candidates/`;
-
 export const GET_CANDIDATES_DETAILS = `${BASE_URL}api/candidates_details/`;
+export const CREATE_CANDIDATES = `${BASE_URL}api/create_candidate/`;
+export const UPDATE_CANDIDATE = `${BASE_URL}api/create_candidate/`;
+export const GET_CANDIDATES_EDIT = `${BASE_URL}api/get_candidates_edit/`;
+export const DELETE_CANDIDATE = `${BASE_URL}api/delete_candidate/`;
+
+
+ 
 
  
  

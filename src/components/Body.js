@@ -44,6 +44,8 @@ import AppliedJob from "./jobs/AppliedJob";
 import ApplyedJobDetails from "./jobs/ApplyedJobDetails";
 import Candidate from "./jobs/Candidate";
 import CandidateDetails from "./jobs/CandidateDetails";
+import CreateCandidate from "./jobs/CreateCandidate";
+import EditCandidate from "./jobs/EditCandidate";
 
 const Body = () => {
   return (
@@ -116,10 +118,10 @@ const Body = () => {
             <Route path="/edit_skills/:id" element={<EditSkills />} />
 
             <Route path="/candidate" element={<Candidate />} />
-            <Route
-              path="/view_profile/:id"
-              element={<CandidateDetails />}
-            />
+            <Route path="/create_candidate" element={<CreateCandidate />} />
+            <Route path="/edit_candidate/:id" element={<EditCandidate />} />
+
+            <Route path="/view_profile/:id" element={<CandidateDetails />} />
           </Route>
         </Routes>
       </Router>

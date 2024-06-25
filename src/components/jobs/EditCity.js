@@ -56,7 +56,7 @@ const EditCity = () => {
       const formDataWithFile = new FormData();
 
       formDataWithFile.append("id", values.id); // Include ID in form data
-       formDataWithFile.append("state_id", values.state);
+      formDataWithFile.append("state_id", values.state);
       formDataWithFile.append("name", values.name);
       formDataWithFile.append("name_hindi", values.name_hindi);
       formDataWithFile.append("name_marathi", values.name_marathi);

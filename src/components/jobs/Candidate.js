@@ -114,7 +114,19 @@ const Candidate = () => {
             <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
               Candidate
             </h5>
-            
+
+            <div className="flex items-center">
+              <Link
+                to="/create_candidate"
+                className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
+                type="button"
+                onClick={handleCreateSuccess} // Trigger success message on button click
+              >
+                + Create
+              </Link>
+              <i className="bi bi-three-dots-vertical text-2xl text-535252"></i>
+            </div>
+
           </div>
         </div>
 
