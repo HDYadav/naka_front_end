@@ -25,6 +25,21 @@ const Candidate = () => {
   const columns = useMemo(
     () => [
       {
+        Header: "Picture",
+        accessor: "profilePic", // Assuming 'profile_pic' is the field name for profile picture URL
+        Cell: ({ row }) => (
+          <img
+            src={row.values.profilePic}
+            alt="Profile"
+            className="w-10 h-10 rounded-full"
+          />
+        ),
+      },
+      {
+        Header: "Email",
+        accessor: "email", // Assuming 'email' is the field name for email address
+      },
+      {
         Header: "Candidate",
         accessor: "name",
         sortType: "alphanumeric", // Set sortType for sorting
@@ -71,6 +86,7 @@ const Candidate = () => {
     ],
     []
   );
+
 
   const data = useMemo(() => positions || [], [positions]);
 

@@ -21,9 +21,10 @@ import { useSelector } from "react-redux";
 
 
 const CandidateDetails = () => {
+
   const { id } = useParams();
   const details = useCandidateDetails(id);
-   const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   const Skills = details?.data?.skills;
   const Languages = details?.data?.languages;
