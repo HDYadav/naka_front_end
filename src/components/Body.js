@@ -46,6 +46,9 @@ import Candidate from "./jobs/Candidate";
 import CandidateDetails from "./jobs/CandidateDetails";
 import CreateCandidate from "./jobs/CreateCandidate";
 import EditCandidate from "./jobs/EditCandidate";
+import Employer from "./jobs/Employer";
+import EmployerDetails from "./jobs/EmployerDetails";
+import CreateEmployer from "./jobs/CreateEmployer";
 
 const Body = () => {
   return (
@@ -72,7 +75,6 @@ const Body = () => {
             <Route path="/salary_type" element={<SalaryType />} />
             <Route path="/create_salary_type" element={<CreateSalaryType />} />
             <Route path="/edit_salary_type/:id" element={<EditSalaryType />} />
-
             <Route path="/state" element={<StateList />} />
             <Route path="/create_state" element={<CreateState />} />
             <Route path="/edit_state/:id" element={<EditState />} />
@@ -91,37 +93,33 @@ const Body = () => {
               path="/edit_industry_type/:id"
               element={<EditIndustryType />}
             />
-
             <Route path="/experiance" element={<Experiance />} />
             <Route path="/create_experiance" element={<CreateExperiance />} />
             <Route path="/edit_experiance/:id" element={<EditExperiance />} />
             <Route path="/education" element={<Education />} />
             <Route path="/create_education" element={<CreateEducation />} />
             <Route path="/edit_education/:id" element={<EditEducation />} />
-
             <Route path="/edit_workplace/:id" element={<EditWorkPlace />} />
             <Route path="/work_place" element={<WorkPlace />} />
             <Route path="/create_workplace" element={<CreateWorkPlace />} />
-
             <Route path="/promote" element={<Promote />} />
             <Route path="/create_promote" element={<CreatePromote />} />
             <Route path="/edit_promote/:id" element={<EditPromote />} />
-
             <Route path="/applyed_job" element={<AppliedJob />} />
             <Route
               path="/applyed_job_details/:id"
               element={<ApplyedJobDetails />}
             />
-
             <Route path="/skills" element={<Skills />} />
             <Route path="/create_skills" element={<CreateSkills />} />
             <Route path="/edit_skills/:id" element={<EditSkills />} />
-
             <Route path="/candidate" element={<Candidate />} />
             <Route path="/create_candidate" element={<CreateCandidate />} />
             <Route path="/edit_candidate/:id" element={<EditCandidate />} />
-
             <Route path="/view_profile/:id" element={<CandidateDetails />} />
+            <Route path="/employer" element={<Employer />} />
+            <Route path="/employer_details/:id" element={<EmployerDetails />} />
+            <Route path="/create_employer" element={<CreateEmployer />} />
           </Route>
         </Routes>
       </Router>

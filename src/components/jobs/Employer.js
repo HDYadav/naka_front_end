@@ -10,20 +10,27 @@ import {
   useSortBy,
 } from "react-table";
 import useCandidate from "../../hooks/useCandidate";
+import useEmployer from "../../hooks/useEmployer";
 
-const Candidate = () => {
-  const positions = useCandidate();
+const Employer = () => {
+
+    const positions = useEmployer();
+    
   const [successMessage, setSuccessMessage] = useState("");
+
+    console.log(positions);
 
   const handleDelete = (id) => {
     console.log(`Delete job position with id: ${id}`);
   };
 
   // Dropdown filter for the "OTP Verification" column
-  function SelectColumnFilter({ column: { filterValue, setFilter, preFilteredRows, id } }) {
+  function SelectColumnFilter({
+    column: { filterValue, setFilter, preFilteredRows, id },
+  }) {
     const options = useMemo(() => {
       const options = new Set();
-      preFilteredRows.forEach(row => {
+      preFilteredRows.forEach((row) => {
         options.add(row.values[id]);
       });
       return [...options.values()];
@@ -32,12 +39,12 @@ const Candidate = () => {
     return (
       <select
         value={filterValue}
-        onChange={e => {
+        onChange={(e) => {
           setFilter(e.target.value || undefined);
         }}
       >
         <option value="">All</option>
-        {options.map(option => (
+        {options.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
@@ -64,18 +71,23 @@ const Candidate = () => {
         accessor: "email",
       },
       {
-        Header: "Candidate",
+        Header: "Employer",
         accessor: "name",
         sortType: "alphanumeric",
       },
       {
-        Header: "Role/Position",
-        accessor: "jobposition",
-        sortType: "alphanumeric",
-      },
-      {
-        Header: "Applied Jobs",
-        accessor: "jobsApplied",
+        Header: "Active Job",
+        accessor: "activeJob",
+        Cell: ({ row }) => (
+          <div className="flex items-center space-x-4">
+            <Link
+              to={`/employer_details/${row.original.id}`}
+              className="text-blue-500 hover:underline"
+            >
+              {row.original.activeJob}
+            </Link>
+          </div>
+        ),
         sortType: "alphanumeric",
       },
       {
@@ -88,11 +100,16 @@ const Candidate = () => {
         accessor: "otp_verified",
         sortType: "alphanumeric",
         Filter: SelectColumnFilter,
-        filter: 'includes',
+        filter: "includes",
       },
       {
-        Header: "Joining Date",
-        accessor: "created_at",
+        Header: "Establishment Date",
+        accessor: "establishmentYear",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "Profile status",
+        accessor: "profile_status",
         sortType: "alphanumeric",
       },
       {
@@ -101,10 +118,10 @@ const Candidate = () => {
         Cell: ({ row }) => (
           <div className="flex items-center space-x-4">
             <Link
-              to={{ pathname: `/view_profile/${row.values.id}` }}
+              to={{ pathname: `/view_doc/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
-              View Profile
+             View Documents 
             </Link>
           </div>
         ),
@@ -152,12 +169,12 @@ const Candidate = () => {
         <div className="flex flex-col bg-white p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
-              Candidate
+              Employer
             </h5>
 
             <div className="flex items-center">
               <Link
-                to="/create_candidate"
+                to="/create_employer"
                 className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
                 type="button"
                 onClick={handleCreateSuccess}
@@ -294,4 +311,4 @@ const Candidate = () => {
   );
 };
 
-export default LayoutHOC(Candidate);
+export default LayoutHOC(Employer);

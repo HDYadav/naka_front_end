@@ -10,6 +10,7 @@ import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 
 const CreateState = () => {
+  
   const user = useRequireAuth();
 
   const navigate = useNavigate();

@@ -1,8 +1,9 @@
 
-// const BASE_URL = "http://127.0.0.1:8000/";
-//  export const PROFILE_PIC_URL = `http://127.0.0.1:8000/`;
-const BASE_URL = "https://thegiftwala.in/";
-export const PROFILE_PIC_URL = `https://thegiftwala.in/`;
+const BASE_URL = "http://127.0.0.1:8000/";
+export const PROFILE_PIC_URL = `http://127.0.0.1:8000/`;
+ 
+// const BASE_URL = "https://thegiftwala.in/";
+// export const PROFILE_PIC_URL = `https://thegiftwala.in/`;
 
 
 
@@ -50,6 +51,17 @@ export const CREATE_CANDIDATES = `${BASE_URL}api/create_candidate/`;
 export const UPDATE_CANDIDATE = `${BASE_URL}api/create_candidate/`;
 export const GET_CANDIDATES_EDIT = `${BASE_URL}api/get_candidates_edit/`;
 export const DELETE_CANDIDATE = `${BASE_URL}api/delete_candidate/`;
+
+export const GET_EMPLOYER = `${BASE_URL}api/get_employer/`;
+
+export const GET_EMPLOYER_DETAILS = `${BASE_URL}api/employer_details/`;
+
+export const CREATE_EMPLOYER = `${BASE_URL}api/employer_register_admin/`;
+
+
+
+
+
 
 
 
