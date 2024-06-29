@@ -368,6 +368,51 @@ function Leftmenu(props) {
                 </li>
               </ul>
             </li>
+
+            <li className="menubottomborder parentmenu pb-2">
+              <button
+                type="button"
+                className="sidebarmenutab flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg group hover:bg-sky-600"
+                aria-controls="account-menu"
+                data-collapse-toggle="account-menu"
+                onClick={() => handleToggleMenu(2)}
+              >
+                <i className="bi bi-piggy-bank text-xl text-CCE6FF"></i>
+                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap parenttext">
+                  Settings
+                </span>
+                <svg
+                  className="w-3 h-3 sidedownarrow"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              <ul
+                id="account-menu"
+                className={`py-2 space-y-2 submenuchildtext ${
+                  isMenuOpen(2) ? "" : "hidden"
+                }`}
+              >
+                <li>
+                  <Link
+                    to={"/pages"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Pages
+                  </Link>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </aside>

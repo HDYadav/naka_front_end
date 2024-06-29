@@ -11,19 +11,49 @@ import {
 } from "react-table";
 import useeEmpType from "../../hooks/useeEmpType";
 import useExperiance from "../../hooks/useExperiance";
+import { DELETE_EXPERIANCE } from "../../utils/constants";
+import { useSelector } from "react-redux";
 
 const Experiance = () => {
   const positions = useExperiance();
 
-  console.log(positions);
+ 
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleDelete = (id) => {
-    // Add your delete logic here
-    console.log(`Delete job position with id: ${id}`);
-    // You might want to call an API to delete the job position and refresh the table data
+  const user = useSelector((state) => state.user);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
+
+    if (confirmDelete) {
+      try {
+        const { token } = user;
+
+        const response = await fetch(`${DELETE_EXPERIANCE}${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          // Handle success (e.g., show a success message or refresh the data)
+          alert("Record deleted successfully!");
+          window.location.reload(); // Refresh the page or fetch the data again
+        } else {
+          // Handle errors (e.g., show an error message)
+          alert("Failed to delete record. Please try again later.");
+        }
+      } catch (error) {
+        // Handle errors (e.g., show an error message)
+        console.error("Error deleting record:", error);
+        alert("Failed to delete record. Please try again later.");
+      }
+    }
   };
-  // 'name_hindi', 'name_marathi', 'name_punjabi'
+
+ 
+ 
   const columns = useMemo(
     () => [
       {
@@ -57,12 +87,12 @@ const Experiance = () => {
             >
               Edit
             </Link>
-            {/* <button
+            <button
               onClick={() => handleDelete(row.values.id)}
               className="text-red-500 hover:underline"
             >
               Delete
-            </button> */}
+            </button>
           </div>
         ),
       },

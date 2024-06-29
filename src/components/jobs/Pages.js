@@ -13,18 +13,18 @@ import {
 } from "react-table";
 import useCity from "../../hooks/useCity";
 import { useSelector } from "react-redux";
-import { DELETE_CITY } from "../../utils/constants";
+import { DELETE_CITY, DELETE_PAGE } from "../../utils/constants";
+import usePages from "../../hooks/usePages";
 
-const City = () => {
+const Pages = () => {
 
-  const positions = useCity();
+  const positions = usePages();
 
-  //console.log("asdf",positions);
+  console.log("asdf",positions);
 
   const [successMessage, setSuccessMessage] = useState("");
 
   const user = useSelector((state) => state.user);
-  
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
@@ -33,7 +33,7 @@ const City = () => {
       try {
         const { token } = user;
 
-        const response = await fetch(`${DELETE_CITY}${id}`, {
+        const response = await fetch(`${DELETE_PAGE}${id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,37 +59,27 @@ const City = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "State Name",
-        accessor: "state_name",
+        Header: "Page Name",
+        accessor: "page_name",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
-        Header: "City Name",
-        accessor: "name",
+        Header: "Heading",
+        accessor: "heading",
         sortType: "alphanumeric", // Set sortType for sorting
       },
       {
-        Header: "Hindi",
-        accessor: "name_hindi",
+        Header: "Descriptions",
+        accessor: "descriptions",
         sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "Marathi",
-        accessor: "name_marathi",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
-      {
-        Header: "Punjabi",
-        accessor: "name_punjabi",
-        sortType: "alphanumeric", // Set sortType for sorting
-      },
+      }, 
       {
         Header: "Actions",
         accessor: "id",
         Cell: ({ row }) => (
           <div className="flex space-x-4">
             <Link
-              to={`/edit_city/${row.values.id}`}
+              to={`/edit_page/${row.values.id}`}
               className="text-blue-500 hover:underline"
             >
               Edit
@@ -147,11 +137,11 @@ const City = () => {
         <div className="flex flex-col bg-white p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
-              City
+              Pages
             </h5>
             <div className="flex items-center">
               <Link
-                to="/create_city"
+                to="/create_page"
                 className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
                 type="button"
                 onClick={handleCreateSuccess} // Trigger success message on button click
@@ -288,4 +278,4 @@ const City = () => {
   );
 };
 
-export default LayoutHOC(City);
+export default LayoutHOC(Pages);

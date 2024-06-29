@@ -9,16 +9,44 @@ import {
   usePagination,
   useSortBy, // Import useSortBy hook
 } from "react-table";
+import { useSelector } from "react-redux";
+import { DELETE_JOB_POSITION } from "../../utils/constants";
 
 const JobsPosition = () => {
   const positions = useJobsPosition();
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleDelete = (id) => {
-    // Add your delete logic here
-    console.log(`Delete job position with id: ${id}`);
-    // You might want to call an API to delete the job position and refresh the table data
-  };
+ const user = useSelector((state) => state.user);
+
+ const handleDelete = async (id) => {
+   const confirmDelete = window.confirm("Are you sure you want to delete?");
+
+   if (confirmDelete) {
+     try {
+       const { token } = user;
+
+       const response = await fetch(`${DELETE_JOB_POSITION}${id}`, {
+         method: "DELETE",
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+       });
+
+       if (response.ok) {
+         // Handle success (e.g., show a success message or refresh the data)
+         alert("Record deleted successfully!");
+         window.location.reload(); // Refresh the page or fetch the data again
+       } else {
+         // Handle errors (e.g., show an error message)
+         alert("Failed to delete record. Please try again later.");
+       }
+     } catch (error) {
+       // Handle errors (e.g., show an error message)
+       console.error("Error deleting record:", error);
+       alert("Failed to delete record. Please try again later.");
+     }
+   }
+ };
 
   const columns = useMemo(
     () => [
@@ -53,12 +81,12 @@ const JobsPosition = () => {
             >
               Edit
             </Link>
-            {/* <button
+            <button
               onClick={() => handleDelete(row.values.id)}
               className="text-red-500 hover:underline"
             >
               Delete
-            </button> */}
+            </button>
           </div>
         ),
       },

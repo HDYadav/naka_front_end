@@ -1,94 +1,83 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { CREATE_EDUCATION, CREATE_PROMOTE, CREATE_STATE } from "../../utils/constants";
+import { PAGES_UPDATE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LayoutHOC from "../LayoutHOC";
-import { useParams, Link } from "react-router-dom";
-import useEditState from "../../hooks/useEditState.js";
-import useEditPromote from "../../hooks/useEditPromote.js";
+import { Link } from "react-router-dom";
+import useEditPage from "../../hooks/useEditPage";
+import TextEditor from "./TextEditor";
 
-const EditPromote = () => {
-
-  const { id } = useParams();
-    const positions = useEditPromote(id); // Fetch job position data for editing
-    
-    
-
+const EditPage = () => {
   const user = useRequireAuth();
-  //const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const positions = useEditPage(id);
 
+  // Initialize state for form values
   const [initialValues, setInitialValues] = useState({
     id: id, // Assuming id is a string
-    name: "",
-    name_hindi: "",
-    name_marathi: "",
-    name_punjabi: "",
+    page_name: "",
+    heading: "",
+    descriptions: "",
   });
 
-  const [successMessage, setSuccessMessage] = useState("");
-
+  // Update initialValues when positions change
   useEffect(() => {
     if (positions) {
       setInitialValues({
-        ...initialValues,
-        name: positions.name || "",
-        name_hindi: positions.name_hindi || "",
-        name_marathi: positions.name_marathi || "",
-        name_punjabi: positions.name_punjabi || "",
+        page_name: positions?.page_name || "",
+        heading: positions?.heading || "",
+        descriptions: positions?.descriptions || "",
       });
     }
   }, [positions]);
 
+ 
+
+  // Schema for form validation
   const validationSchema = Yup.object().shape({
-    id: Yup.string().required("ID is required"), // Validation schema for ID
-    name: Yup.string().required("Position Name (English) is required"),
+    page_name: Yup.string().required("Page name is required"),
+    heading: Yup.string().required("Heading is required"),
+    descriptions: Yup.string().required("Descriptions are required"),
   });
 
+  // Handle form submission
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      const Authtoken = user.token;
-      const formDataWithFile = new FormData();
+      const authToken = user.token;
+      const formData = new FormData();
 
-      formDataWithFile.append("id", values.id); // Include ID in form data
-      formDataWithFile.append("name", values.name);
-      formDataWithFile.append("name_hindi", values.name_hindi);
-      formDataWithFile.append("name_marathi", values.name_marathi);
-      formDataWithFile.append("name_punjabi", values.name_punjabi);
+      formData.append("page_name", values.page_name);
+      formData.append("heading", values.heading);
+      formData.append("descriptions", values.descriptions);
 
-      const response = await fetch(CREATE_PROMOTE, {
+      const response = await fetch(`${PAGES_UPDATE}${id}`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${Authtoken}`,
+          Authorization: `Bearer ${authToken}`,
         },
-        body: formDataWithFile,
+        body: formData,
       });
 
-      if (response.ok) {
-        setSuccessMessage("Job position updated successfully!");
-        navigate(`/promote`); // Redirect to listing page upon success
-      } else {
-        throw new Error("Failed to create job position");
+      if (!response.ok) {
+        throw new Error("Failed to update page");
       }
 
+      navigate(`/pages`);
       setSubmitting(false);
     } catch (error) {
-      console.error("Error submitting form:", error);
-      setFieldError(
-        "form",
-        "An error occurred while submitting the form. Please try again."
-      );
+      console.error("Error updating page:", error);
+      setFieldError("form", "An error occurred while updating the page.");
       setSubmitting(false);
     }
   };
 
-  if (!positions) {
-    // Handle loading state or error state if positions is undefined
-    return <div>Loading...</div>;
-  }
-
+     if (!positions) {
+       // Handle loading state or error state if positions is undefined
+       return <div>Loading...</div>;
+     }
   return (
     <main className="p-4 sm:ml-64">
       <div className="p-4 mt-14">
@@ -96,16 +85,10 @@ const EditPromote = () => {
           <div className="flex flex-col bg-white p-4">
             <div className="ms-4 flex justify-between items-center">
               <h5 className="text-203C50 font-Vietnam text-32 font-medium">
-                Update State
+                Update Page
               </h5>
             </div>
           </div>
-
-          {successMessage && (
-            <div className="bg-green-200 text-green-800 p-3 mt-4 mb-4 rounded-md">
-              {successMessage}
-            </div>
-          )}
 
           <Formik
             initialValues={initialValues}
@@ -113,26 +96,22 @@ const EditPromote = () => {
             onSubmit={handleSubmit}
             enableReinitialize
           >
-            {({ isSubmitting }) => (
-              <Form id="jobPositionForm" encType="multipart/form-data">
-                <Field name="id" type="hidden">
-                  {({ field }) => <input {...field} type="hidden" />}
-                </Field>
-
+            {({ isSubmitting, setFieldValue }) => (
+              <Form id="companyProfileForm" encType="multipart/form-data">
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                    State
+                    Page
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
-                      <Field name="name">
+                      <Field name="page_name">
                         {({ field }) => (
                           <div className="mb-3">
                             <label
-                              htmlFor="name"
-                              className="block mb-2 text-535252 text-16 font-400"
+                              htmlFor="page_name"
+                              className="block mb-2 text-535252 text-16 font-400 text-535252"
                             >
-                              English
+                              Page Name
                             </label>
                             <input
                               {...field}
@@ -141,7 +120,7 @@ const EditPromote = () => {
                               placeholder="Enter title..."
                             />
                             <ErrorMessage
-                              name="name"
+                              name="page_name"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -149,14 +128,14 @@ const EditPromote = () => {
                         )}
                       </Field>
 
-                      <Field name="name_hindi">
+                      <Field name="heading">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="name_hindi"
+                              htmlFor="heading"
                               className="block mb-2 text-535252 text-16 font-400"
                             >
-                              Hindi
+                              Heading
                             </label>
 
                             <input
@@ -167,57 +146,42 @@ const EditPromote = () => {
                             />
 
                             <ErrorMessage
-                              name="name_hindi"
+                              name="heading"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                         )}
                       </Field>
-                      <Field name="name_marathi">
+                    </div>
+                  </div>
+                </section>
+
+                <section className="bg-white mt-5 pt-0 py-8">
+                  <h3 className="text-base p-3 border-b border-gray-200 mb-4">
+                    Full Descriptions
+                  </h3>
+                  <div className="flex px-5 justify-between mb-4 w-full">
+                    <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-1 w-full">
+                      <Field name="descriptions">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="name_marathi"
+                              htmlFor="descriptions"
                               className="block mb-2 text-535252 text-16 font-400"
                             >
-                              Marathi
+                              Descriptions
                             </label>
 
-                            <input
-                              {...field}
-                              className="inputBorder text-sm block w-full p-2.5 italic"
-                              type="text"
-                              placeholder="Enter title..."
+                            <TextEditor
+                              value={field.value}
+                              onChange={(content) =>
+                                setFieldValue("descriptions", content)
+                              }
                             />
 
                             <ErrorMessage
-                              name="name_marathi"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <Field name="name_punjabi">
-                        {({ field }) => (
-                          <div>
-                            <label
-                              htmlFor="name_punjabi"
-                              className="block mb-2 text-535252 text-16 font-400"
-                            >
-                              Punjabi
-                            </label>
-
-                            <input
-                              {...field}
-                              className="inputBorder text-sm block w-full p-2.5 italic"
-                              type="text"
-                              placeholder="Enter title..."
-                            />
-
-                            <ErrorMessage
-                              name="name_punjabi"
+                              name="descriptions"
                               component="div"
                               className="text-red-500 text-sm"
                             />
@@ -231,7 +195,7 @@ const EditPromote = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/promote">
+                    <Link to="/pages">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
@@ -257,4 +221,4 @@ const EditPromote = () => {
   );
 };
 
-export default LayoutHOC(EditPromote);
+export default LayoutHOC(EditPage);

@@ -9,16 +9,15 @@ import {
   usePagination,
   useSortBy,
 } from "react-table";
-import useCandidate from "../../hooks/useCandidate";
 import useEmployer from "../../hooks/useEmployer";
 
 const Employer = () => {
+  const positions = useEmployer();
 
-    const positions = useEmployer();
-    
+  // Debugging: Log positions to ensure data is being fetched
+  console.log("Positions:", positions);
+
   const [successMessage, setSuccessMessage] = useState("");
-
-    console.log(positions);
 
   const handleDelete = (id) => {
     console.log(`Delete job position with id: ${id}`);
@@ -121,7 +120,7 @@ const Employer = () => {
               to={{ pathname: `/view_doc/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
-             View Documents 
+              View Documents
             </Link>
           </div>
         ),
@@ -216,57 +215,61 @@ const Employer = () => {
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <table
-              className="bg-white min-w-full border border-neutral-200 text-center text-sm text-surface text-gray-500 font-poppins"
-              {...getTableProps()}
-            >
-              <thead className="border-neutral-200 border bg-gray-200">
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th
-                        scope="col"
-                        className="font-medium px-4 py-2 text-left border text-sm text-gray-700 bg-gray-200"
-                        {...column.getHeaderProps(
-                          column.getSortByToggleProps()
-                        )}
-                      >
-                        {column.render("Header")}
-                        <span>
-                          {column.isSorted
-                            ? column.isSortedDesc
-                              ? " 🔽"
-                              : " 🔼"
-                            : ""}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-
-              <tbody className="border" {...getTableBodyProps()}>
-                {page.map((row) => {
-                  prepareRow(row);
-                  return (
-                    <tr
-                      key={row.id}
-                      className="border border-neutral-200"
-                      {...row.getRowProps()}
-                    >
-                      {row.cells.map((cell) => (
-                        <td
-                          className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left"
-                          {...cell.getCellProps()}
+            {data.length === 0 ? (
+              <div className="text-center p-4">No data available</div>
+            ) : (
+              <table
+                className="bg-white min-w-full border border-neutral-200 text-center text-sm text-surface text-gray-500 font-poppins"
+                {...getTableProps()}
+              >
+                <thead className="border-neutral-200 border bg-gray-200">
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th
+                          scope="col"
+                          className="font-medium px-4 py-2 text-left border text-sm text-gray-700 bg-gray-200"
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
                         >
-                          {cell.render("Cell")}
-                        </td>
+                          {column.render("Header")}
+                          <span>
+                            {column.isSorted
+                              ? column.isSortedDesc
+                                ? " 🔽"
+                                : " 🔼"
+                              : ""}
+                          </span>
+                        </th>
                       ))}
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  ))}
+                </thead>
+
+                <tbody className="border" {...getTableBodyProps()}>
+                  {page.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr
+                        key={row.id}
+                        className="border border-neutral-200"
+                        {...row.getRowProps()}
+                      >
+                        {row.cells.map((cell) => (
+                          <td
+                            className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left"
+                            {...cell.getCellProps()}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
             <div className="pagination mt-4">
               <button
                 onClick={() => previousPage()}

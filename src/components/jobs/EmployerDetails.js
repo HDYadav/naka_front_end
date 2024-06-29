@@ -15,7 +15,7 @@ import { GoDownload } from "react-icons/go";
  
 import { useSelector } from "react-redux";
 import useEmployerDetails from "../../hooks/useEmployerDetails";
-import JobsList from "./JobsList";
+ 
 import EmpJob from "./EmpJob";
 
 const EmployerDetails = () => {
@@ -23,6 +23,8 @@ const EmployerDetails = () => {
   const { id } = useParams();
   const details = useEmployerDetails(id);
   const user = useSelector((state) => state.user); 
+
+  //console.log(details);
   
   const profilePicUrl = PROFILE_PIC_URL + details?.companyLogo;
   const resume = PROFILE_PIC_URL + details?.resume;
@@ -176,15 +178,15 @@ const EmployerDetails = () => {
                 </a>
               </div>
             </div>
-
-          
           </div>
         </div>
 
         <div className="h-20"></div>
 
         <div className="border-t border-gray-300 grid gap-1 grid-cols-[90%,1fr]">
-          <EmpJob empData={{ empId: details?.id }} />
+          {/* <EmpJob empData={{ empId: details?.id }} /> */}
+
+          <EmpJob empData={{ empId:id }} />
         </div>
       </div>
     </main>

@@ -50,6 +50,9 @@ import Employer from "./jobs/Employer";
 import EmployerDetails from "./jobs/EmployerDetails";
 import CreateEmployer from "./jobs/CreateEmployer";
 import EditEmployer from "./jobs/EditEmployer";
+import Pages from "./jobs/Pages";
+import CreatePage from "./jobs/CreatePage";
+import EditPage from "./jobs/EditPage";
 
 const Body = () => {
   return (
@@ -122,6 +125,9 @@ const Body = () => {
             <Route path="/employer_details/:id" element={<EmployerDetails />} />
             <Route path="/create_employer" element={<CreateEmployer />} />
             <Route path="/edit_employer/:id" element={<EditEmployer />} />
+            <Route path="/pages" element={<Pages />} />
+            <Route path="/create_page" element={<CreatePage />} />
+            <Route path="/edit_page/:id" element={<EditPage />} />
           </Route>
         </Routes>
       </Router>

@@ -11,6 +11,8 @@ import {
   usePagination,
   useSortBy, // Import useSortBy hook
 } from "react-table";
+import { useSelector } from "react-redux";
+import { DELETE_JOB } from "../../utils/constants";
  
 
 const JobsList = () => {
@@ -19,10 +21,38 @@ const JobsList = () => {
 
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleDelete = (id) => {
-    // Add your delete logic here
-    console.log(`Delete job position with id: ${id}`);
-    // You might want to call an API to delete the job position and refresh the table data
+  const user = useSelector((state) => state.user);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
+
+   
+    if (confirmDelete) {
+      try {
+        const { token } = user;
+
+       
+        const response = await fetch(`${DELETE_JOB}${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          // Handle success (e.g., show a success message or refresh the data)
+          alert("Record deleted successfully!");
+          window.location.reload(); // Refresh the page or fetch the data again
+        } else {
+          // Handle errors (e.g., show an error message)
+          alert("Failed to delete record. Please try again later.");
+        }
+      } catch (error) {
+        // Handle errors (e.g., show an error message)
+        console.error("Error deleting record:", error);
+        alert("Failed to delete record. Please try again later.");
+      }
+    }
   };
   // 'emptype_hindi', 'emptype_marathi', 'emptype_punjabi'
   const columns = useMemo(
@@ -84,7 +114,6 @@ const JobsList = () => {
                 name={`status-${row.values.id}`}
                 value="published"
                 className="mr-2"
-                
               />
               <label
                 htmlFor={`published-${row.values.id}`}
@@ -98,7 +127,7 @@ const JobsList = () => {
                 type="radio"
                 id={`expired-${row.values.id}`}
                 name={`status-${row.values.id}`}
-                value="expired"                
+                value="expired"
                 className="mr-2"
               />
               <label
@@ -108,7 +137,6 @@ const JobsList = () => {
                 Expired
               </label>
             </div>
-          
           </div>
         ),
       },
@@ -117,17 +145,21 @@ const JobsList = () => {
         accessor: "id",
         Cell: ({ row }) => (
           <div className="flex items-center space-x-4">
-           
             <Link
               to={{ pathname: `/job_details/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
               Details
-            </Link> 
+            </Link>
+            <button
+              onClick={() => handleDelete(row.values.id)}
+              className="text-red-500 hover:underline"
+            >
+              Delete
+            </button>
           </div>
         ),
       },
-      
     ],
     []
   );
