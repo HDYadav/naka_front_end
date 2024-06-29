@@ -15,13 +15,14 @@ import { GoDownload } from "react-icons/go";
  
 import { useSelector } from "react-redux";
 import useEmployerDetails from "../../hooks/useEmployerDetails";
+import JobsList from "./JobsList";
+import EmpJob from "./EmpJob";
 
 const EmployerDetails = () => {
     
   const { id } = useParams();
   const details = useEmployerDetails(id);
-  const user = useSelector((state) => state.user);
-
+  const user = useSelector((state) => state.user); 
   
   const profilePicUrl = PROFILE_PIC_URL + details?.companyLogo;
   const resume = PROFILE_PIC_URL + details?.resume;
@@ -144,8 +145,8 @@ const EmployerDetails = () => {
 
         <div className="border-t border-gray-300 grid gap-1 grid-cols-[70%,1fr]">
           <div className="px-2">
-            <h3 className="my-3 text-base">Description</h3>
-            <p className="text-sm">{details?.description}</p>
+            <h3 className="my-3 text-base">About</h3>
+            <p className="text-sm">{details?.about}</p>
           </div>
           <div className="px-2 border-l border-gray-200">
             <div className="h-4"></div>
@@ -155,9 +156,7 @@ const EmployerDetails = () => {
                 <MdDateRange className="text-blue-600" />
 
                 <span className="text-xs">Establishment Date</span>
-                <h4 className="text-base">
-                  {details?.establishmentYear}
-                </h4>
+                <h4 className="text-base">{details?.establishmentYear}</h4>
               </div>
 
               <div className="flex gap-1 flex-col font-medium">
@@ -178,14 +177,14 @@ const EmployerDetails = () => {
               </div>
             </div>
 
-           
-            <div className="my-3">
-              <h3 className="text-base mb-2">Extra</h3>
-              <div>
-                 
-              </div>
-            </div>
+          
           </div>
+        </div>
+
+        <div className="h-20"></div>
+
+        <div className="border-t border-gray-300 grid gap-1 grid-cols-[90%,1fr]">
+          <EmpJob empData={{ empId: details?.id }} />
         </div>
       </div>
     </main>

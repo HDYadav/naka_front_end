@@ -49,6 +49,7 @@ import EditCandidate from "./jobs/EditCandidate";
 import Employer from "./jobs/Employer";
 import EmployerDetails from "./jobs/EmployerDetails";
 import CreateEmployer from "./jobs/CreateEmployer";
+import EditEmployer from "./jobs/EditEmployer";
 
 const Body = () => {
   return (
@@ -120,6 +121,7 @@ const Body = () => {
             <Route path="/employer" element={<Employer />} />
             <Route path="/employer_details/:id" element={<EmployerDetails />} />
             <Route path="/create_employer" element={<CreateEmployer />} />
+            <Route path="/edit_employer/:id" element={<EditEmployer />} />
           </Route>
         </Routes>
       </Router>

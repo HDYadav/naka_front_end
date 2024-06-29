@@ -53,10 +53,17 @@ export const GET_CANDIDATES_EDIT = `${BASE_URL}api/get_candidates_edit/`;
 export const DELETE_CANDIDATE = `${BASE_URL}api/delete_candidate/`;
 
 export const GET_EMPLOYER = `${BASE_URL}api/get_employer/`;
-
 export const GET_EMPLOYER_DETAILS = `${BASE_URL}api/employer_details/`;
-
 export const CREATE_EMPLOYER = `${BASE_URL}api/employer_register_admin/`;
+
+export const EDIT_EMPLOYER = `${BASE_URL}api/employer/update/`;
+
+export const GET_EMPLOYER_EDIT = `${BASE_URL}api/get_employer_edit/`; 
+
+
+export const GET_EMP_JOB = `${BASE_URL}api/admin_get_emp_jobs/`;
+
+ 
 
 
 
