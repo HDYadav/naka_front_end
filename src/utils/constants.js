@@ -1,11 +1,11 @@
 
-const BASE_URL = "http://127.0.0.1:8000/";
-export const PROFILE_PIC_URL = `http://127.0.0.1:8000/`;
+// const BASE_URL = "http://127.0.0.1:8000/";
+// export const PROFILE_PIC_URL = `http://127.0.0.1:8000/`;
 
 
  
-// const BASE_URL = "https://thegiftwala.in/";
-// export const PROFILE_PIC_URL = `https://thegiftwala.in/`;
+const BASE_URL = "https://thegiftwala.in/";
+export const PROFILE_PIC_URL = `https://thegiftwala.in/`;
 
 
 
