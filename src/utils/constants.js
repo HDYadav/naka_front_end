@@ -80,9 +80,8 @@ export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update/`;
 
 export const ACCOUNT_STATUS = `${BASE_URL}api/users/account_status_change/`;
 
+export const EDIT_JOB = `${BASE_URL}api/jobs/get_edit_jobs/`;
  
-
-
 
  
  

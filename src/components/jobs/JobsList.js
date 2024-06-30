@@ -162,6 +162,13 @@ const JobsList = () => {
         Cell: ({ row }) => (
           <div className="flex items-center space-x-4">
             <Link
+              to={`/edit_job/${row.values.id}`}
+              className="text-blue-500 hover:underline"
+            >
+              Edit
+            </Link>
+
+            <Link
               to={{ pathname: `/job_details/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
