@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
-import useWorkPlace from "../../hooks/useWorkPlace";
+import useCandidate from "../../hooks/useCandidate";
 import {
   useTable,
   useGlobalFilter,
@@ -9,21 +9,33 @@ import {
   usePagination,
   useSortBy,
 } from "react-table";
-import useCandidate from "../../hooks/useCandidate";
+import OTPStatus from "./OTPStatus";
 
 const Candidate = () => {
   const positions = useCandidate();
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleDelete = (id) => {
-    console.log(`Delete job position with id: ${id}`);
-  };
+ const SliderRounded = ({ value }) => {
+   const isActive = value === "activated";
 
-  // Dropdown filter for the "OTP Verification" column
-  function SelectColumnFilter({ column: { filterValue, setFilter, preFilteredRows, id } }) {
+   return (
+     <div
+       className={`rounded-full w-12 h-6 flex items-center justify-${
+         isActive ? "start" : "end"
+       } p-1 bg-${isActive ? "green" : "gray"}-300`}
+     >
+       <div className={`rounded-full w-4 h-4 bg-white`} />
+     </div>
+   );
+ };
+
+  // Dropdown filter for the "Account Status" column
+  function SelectColumnFilter({
+    column: { filterValue, setFilter, preFilteredRows, id },
+  }) {
     const options = useMemo(() => {
       const options = new Set();
-      preFilteredRows.forEach(row => {
+      preFilteredRows.forEach((row) => {
         options.add(row.values[id]);
       });
       return [...options.values()];
@@ -32,12 +44,12 @@ const Candidate = () => {
     return (
       <select
         value={filterValue}
-        onChange={e => {
+        onChange={(e) => {
           setFilter(e.target.value || undefined);
         }}
       >
         <option value="">All</option>
-        {options.map(option => (
+        {options.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
@@ -50,7 +62,7 @@ const Candidate = () => {
     () => [
       {
         Header: "Candidate Info",
-        accessor: "candidateInfo", // This can be any accessor name, but it won't be used directly since we are using a custom Cell renderer
+        accessor: "candidateInfo",
         Cell: ({ cell: { row } }) => {
           const { profilePic, email, name } = row.original;
           const defaultImage = "path/to/default/image.png"; // Replace this with the path to your default image
@@ -84,11 +96,13 @@ const Candidate = () => {
         Header: "Account Status",
         accessor: "status",
         sortType: "alphanumeric",
+        Cell: ({ row }) => <SliderRounded value={row.original.status} />,
       },
       {
         Header: "OTP Verification",
         accessor: "otp_verified",
         sortType: "alphanumeric",
+        Cell: ({ row }) => <OTPStatus value={row.original.otp_verified} />,
         Filter: SelectColumnFilter,
         filter: "includes",
       },

@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
-import useWorkPlace from "../../hooks/useWorkPlace";
 import {
   useTable,
   useGlobalFilter,
@@ -10,20 +9,44 @@ import {
   useSortBy,
 } from "react-table";
 import useEmployer from "../../hooks/useEmployer";
+import OTPStatus from "./OTPStatus";
+
+const SliderRounded = ({ value }) => {
+  const isActive = value === "activated";
+
+  return (
+    <div
+      className={`rounded-full w-12 h-6 flex items-center justify-${
+        isActive ? "start" : "end"
+      } p-1 bg-${isActive ? "green" : "gray"}-300`}
+    >
+      <div className={`rounded-full w-4 h-4 bg-white`} />
+    </div>
+  );
+};
+
+const ProfileStatus = ({ value }) => {
+  const isVerified = value === "verified";
+
+  return (
+    <div
+      className={`rounded-full w-12 h-6 flex items-center justify-${
+        isVerified ? "start" : "end"
+      } p-1 bg-${isVerified ? "green" : "gray"}-300`}
+    >
+      <div className={`rounded-full w-4 h-4 bg-white`} />
+    </div>
+  );
+};
 
 const Employer = () => {
   const positions = useEmployer();
-
-  // Debugging: Log positions to ensure data is being fetched
- 
-
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleDelete = (id) => {
     console.log(`Delete job position with id: ${id}`);
   };
 
-  // Dropdown filter for the "OTP Verification" column
   function SelectColumnFilter({
     column: { filterValue, setFilter, preFilteredRows, id },
   }) {
@@ -52,15 +75,14 @@ const Employer = () => {
     );
   }
 
-  // industry_type
   const columns = useMemo(
     () => [
       {
         Header: "Employer Info",
-        accessor: "employerInfo", // This can be any accessor name, but it won't be used directly since we are using a custom Cell renderer
+        accessor: "employerInfo",
         Cell: ({ cell: { row } }) => {
           const { companyLogo, email, name } = row.original;
-          const defaultImage = "path/to/default/image.png"; // Replace this with the path to your default image
+          const defaultImage = "path/to/default/image.png"; // Replace with your default image path
 
           return (
             <div className="flex items-center">
@@ -106,18 +128,25 @@ const Employer = () => {
         Header: "Account Status",
         accessor: "status",
         sortType: "alphanumeric",
+        Cell: ({ row }) => <SliderRounded value={row.original.status} />,
       },
       {
         Header: "OTP Verification",
         accessor: "otp_verified",
         sortType: "alphanumeric",
+        Cell: ({ row }) => <OTPStatus value={row.original.otp_verified} />,
         Filter: SelectColumnFilter,
         filter: "includes",
       },
       {
-        Header: "Profile status",
-        accessor: "profile_status",
+        Header: "Profile Verification",
+        accessor: "profile_verified",
         sortType: "alphanumeric",
+        Cell: ({ row }) => (
+          <ProfileStatus value={row.original.profile_verified} />
+        ),
+        Filter: SelectColumnFilter,
+        filter: "includes",
       },
       {
         Header: "Actions",

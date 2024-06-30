@@ -501,3 +501,23 @@ body.modal-open {
   background-color: #ff9800;
   color: white;
 }
+
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.bg-green-300 {
+  background-color: #34d399;
+  /* Replace with your desired green color */
+}
+
+.bg-gray-300 {
+  background-color: #d1d5db;
+  /* Replace with your desired gray color */
+}
+
+.bg-white {
+  background-color: #ffffff;
+  /* White color */
+}
