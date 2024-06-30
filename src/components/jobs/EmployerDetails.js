@@ -11,8 +11,7 @@ import { MdDelete } from "react-icons/md";
 import { DELETE_CANDIDATE, PROFILE_PIC_URL } from "../../utils/constants";
 import { AiTwotoneFilePdf } from "react-icons/ai";
 import { MdDateRange } from "react-icons/md";
-import { GoDownload } from "react-icons/go";
- 
+import { GoDownload } from "react-icons/go"; 
 import { useSelector } from "react-redux";
 import useEmployerDetails from "../../hooks/useEmployerDetails";
  
@@ -22,9 +21,8 @@ const EmployerDetails = () => {
     
   const { id } = useParams();
   const details = useEmployerDetails(id);
-  const user = useSelector((state) => state.user); 
-
-  //console.log(details);
+  const user = useSelector((state) => state.user);  
+ 
   
   const profilePicUrl = PROFILE_PIC_URL + details?.companyLogo;
   const resume = PROFILE_PIC_URL + details?.resume;

@@ -375,7 +375,7 @@ function Leftmenu(props) {
                 className="sidebarmenutab flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg group hover:bg-sky-600"
                 aria-controls="account-menu"
                 data-collapse-toggle="account-menu"
-                onClick={() => handleToggleMenu(2)}
+                onClick={() => handleToggleMenu(6)}
               >
                 <i className="bi bi-piggy-bank text-xl text-CCE6FF"></i>
                 <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap parenttext">
@@ -400,7 +400,7 @@ function Leftmenu(props) {
               <ul
                 id="account-menu"
                 className={`py-2 space-y-2 submenuchildtext ${
-                  isMenuOpen(2) ? "" : "hidden"
+                  isMenuOpen(6) ? "" : "hidden"
                 }`}
               >
                 <li>

@@ -15,7 +15,7 @@ const Employer = () => {
   const positions = useEmployer();
 
   // Debugging: Log positions to ensure data is being fetched
-  console.log("Positions:", positions);
+ 
 
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -52,26 +52,34 @@ const Employer = () => {
     );
   }
 
+  // industry_type
   const columns = useMemo(
     () => [
       {
-        Header: "Picture",
-        accessor: "profilePic",
-        Cell: ({ row }) => (
-          <img
-            src={row.values.profilePic}
-            alt="Profile"
-            className="w-10 h-10 rounded-full"
-          />
-        ),
+        Header: "Employer Info",
+        accessor: "employerInfo", // This can be any accessor name, but it won't be used directly since we are using a custom Cell renderer
+        Cell: ({ cell: { row } }) => {
+          const { companyLogo, email, name } = row.original;
+          const defaultImage = "path/to/default/image.png"; // Replace this with the path to your default image
+
+          return (
+            <div className="flex items-center">
+              <img
+                src={companyLogo || defaultImage}
+                alt="Profile"
+                className="w-10 h-10 rounded-full mr-4"
+              />
+              <div>
+                <div className="font-medium">{name}</div>
+                <div className="text-sm text-gray-500">{email}</div>
+              </div>
+            </div>
+          );
+        },
       },
       {
-        Header: "Email",
-        accessor: "email",
-      },
-      {
-        Header: "Employer",
-        accessor: "name",
+        Header: "Industry Type",
+        accessor: "industry_type",
         sortType: "alphanumeric",
       },
       {
@@ -90,6 +98,11 @@ const Employer = () => {
         sortType: "alphanumeric",
       },
       {
+        Header: "Establishment Date",
+        accessor: "establishmentYear",
+        sortType: "alphanumeric",
+      },
+      {
         Header: "Account Status",
         accessor: "status",
         sortType: "alphanumeric",
@@ -100,11 +113,6 @@ const Employer = () => {
         sortType: "alphanumeric",
         Filter: SelectColumnFilter,
         filter: "includes",
-      },
-      {
-        Header: "Establishment Date",
-        accessor: "establishmentYear",
-        sortType: "alphanumeric",
       },
       {
         Header: "Profile status",
@@ -120,7 +128,7 @@ const Employer = () => {
               to={{ pathname: `/view_doc/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
-              View Documents
+              DOC
             </Link>
           </div>
         ),

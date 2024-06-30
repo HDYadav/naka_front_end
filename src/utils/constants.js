@@ -1,6 +1,8 @@
 
 const BASE_URL = "http://127.0.0.1:8000/";
 export const PROFILE_PIC_URL = `http://127.0.0.1:8000/`;
+
+
  
 // const BASE_URL = "https://thegiftwala.in/";
 // export const PROFILE_PIC_URL = `https://thegiftwala.in/`;
@@ -55,19 +57,13 @@ export const DELETE_CANDIDATE = `${BASE_URL}api/delete_candidate/`;
 export const GET_EMPLOYER = `${BASE_URL}api/get_employer/`;
 export const GET_EMPLOYER_DETAILS = `${BASE_URL}api/employer_details/`;
 export const CREATE_EMPLOYER = `${BASE_URL}api/employer_register_admin/`;
-
 export const EDIT_EMPLOYER = `${BASE_URL}api/employer/update/`;
-
 export const GET_EMPLOYER_EDIT = `${BASE_URL}api/get_employer_edit/`; 
-
-
 export const GET_EMP_JOB = `${BASE_URL}api/admin_get_emp_jobs/`;
 export const DELETE_STATE = `${BASE_URL}api/attributes/delete_state/`;
 export const DELETE_CITY = `${BASE_URL}api/attributes/delete_city/`;
 export const DELETE_SALARY_TYPE = `${BASE_URL}api/attributes/delete_salarytype/`;
 export const DELETE_INDUSTRY_TYPE = `${BASE_URL}api/attributes/delete_industrytype/`;
- 
-
 export const DELETE_JOB_POSITION = `${BASE_URL}api/attributes/delete_job_position/`;
 export const DELETE_EMP_TYPE = `${BASE_URL}api/attributes/delete_emp_type/`;
 export const DELETE_SKILL = `${BASE_URL}api/attributes/delete_skill/`;
@@ -75,14 +71,11 @@ export const DELETE_EXPERIANCE = `${BASE_URL}api/attributes/delete_experiance/`;
 export const DELETE_EDUCATION = `${BASE_URL}api/attributes/delete_educations/`; 
  export const DELETE_WORKPLACE = `${BASE_URL}api/attributes/delete_workplace/`;
  export const DELETE_PROMOTE = `${BASE_URL}api/attributes/delete_promote/`;
-
- export const DELETE_JOB = `${BASE_URL}api/attributes/delete_job/`;
- 
+ export const DELETE_JOB = `${BASE_URL}api/attributes/delete_job/`; 
 export const GET_PAGES_LIST = `${BASE_URL}api/attributes/page_list/`;
 export const PAGES_CREATE_UPDATE = `${BASE_URL}api/attributes/pages_add_update/`;
 export const DELETE_PAGE = `${BASE_URL}api/attributes/delete_page/`;
 export const GET_PAGE_EDIT = `${BASE_URL}api/attributes/get_page/`;
-
 export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update/`;
  
 

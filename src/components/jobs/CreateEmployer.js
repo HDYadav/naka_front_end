@@ -8,7 +8,9 @@ import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 import useCompany from "../../hooks/useCompany";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Ensure you import the CSS for DatePicker
+import "react-datepicker/dist/react-datepicker.css";
+// If using moment.js, import it
+import moment from "moment";
 
 const CreateEmployer = () => {
   const user = useRequireAuth();
@@ -32,21 +34,18 @@ const CreateEmployer = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("name is required"),
+    name: Yup.string().required("Name is required"),
     company_name: Yup.string().required("Company name is required"),
-    // email: Yup.string()
-    //   .email("Invalid email format")
-    //   .required("Email is required"),
-    // mobile: Yup.string().required("Mobile number is required"),
-    // company_size: Yup.string().required("Company size is required"),
-    // organizationType: Yup.string().required("Organization type is required"),
-    // industryTypeId: Yup.string().required("Industry type is required"),
-    // website: Yup.string()
-    //   .url("Invalid URL format")
-    //   .required("Website is required"),
-    // establishmentYear: Yup.number().required("Establishment year is required"),
-    // about: Yup.string().required("About is required"),
-    // password: Yup.string().required("Password is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    mobile: Yup.string().required("Mobile number is required"),
+    company_size: Yup.string().required("Company size is required"),
+    organizationType: Yup.string().required("Organization type is required"),
+    industryTypeId: Yup.string().required("Industry type is required"),   
+    establishmentYear: Yup.string().required("Establishment year is required"),
+    //about: Yup.string().required("About is required"),
+    password: Yup.string().required("Password is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
@@ -333,7 +332,13 @@ const CreateEmployer = () => {
                               selected={selectedDate}
                               onChange={(date) => {
                                 setSelectedDate(date);
-                                setFieldValue("establishmentYear", date);
+                                // Use moment.js to format date or toISOString method
+                                const formattedDate =
+                                  moment(date).format("YYYY-MM-DD");
+                                setFieldValue(
+                                  "establishmentYear",
+                                  formattedDate
+                                );
                               }}
                               dateFormat="yyyy-MM-dd"
                               className="inputBorder text-sm block w-full p-2.5 italic"

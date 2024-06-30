@@ -49,24 +49,26 @@ const Candidate = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "Picture",
-        accessor: "profilePic",
-        Cell: ({ row }) => (
-          <img
-            src={row.values.profilePic}
-            alt="Profile"
-            className="w-10 h-10 rounded-full"
-          />
-        ),
-      },
-      {
-        Header: "Email",
-        accessor: "email",
-      },
-      {
-        Header: "Candidate",
-        accessor: "name",
-        sortType: "alphanumeric",
+        Header: "Candidate Info",
+        accessor: "candidateInfo", // This can be any accessor name, but it won't be used directly since we are using a custom Cell renderer
+        Cell: ({ cell: { row } }) => {
+          const { profilePic, email, name } = row.original;
+          const defaultImage = "path/to/default/image.png"; // Replace this with the path to your default image
+
+          return (
+            <div className="flex items-center">
+              <img
+                src={profilePic || defaultImage}
+                alt="Profile"
+                className="w-10 h-10 rounded-full mr-4"
+              />
+              <div>
+                <div className="font-medium">{name}</div>
+                <div className="text-sm text-gray-500">{email}</div>
+              </div>
+            </div>
+          );
+        },
       },
       {
         Header: "Role/Position",
@@ -88,7 +90,7 @@ const Candidate = () => {
         accessor: "otp_verified",
         sortType: "alphanumeric",
         Filter: SelectColumnFilter,
-        filter: 'includes',
+        filter: "includes",
       },
       {
         Header: "Joining Date",

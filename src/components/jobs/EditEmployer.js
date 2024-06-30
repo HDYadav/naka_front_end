@@ -10,6 +10,7 @@ import useCompany from "../../hooks/useCompany";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useEditEmployer from "../../hooks/useEditEmployer";
+import moment from "moment";
 
 const EditEmployer = () => {
   const { id } = useParams();
@@ -385,7 +386,13 @@ const EditEmployer = () => {
                               selected={selectedDate}
                               onChange={(date) => {
                                 setSelectedDate(date);
-                                setFieldValue("establishmentYear", date);
+                                // Use moment.js to format date or toISOString method
+                                const formattedDate =
+                                  moment(date).format("YYYY-MM-DD");
+                                setFieldValue(
+                                  "establishmentYear",
+                                  formattedDate
+                                );
                               }}
                               dateFormat="yyyy-MM-dd"
                               className="inputBorder text-sm block w-full p-2.5 italic"
