@@ -10,20 +10,63 @@ import {
 } from "react-table";
 import useEmployer from "../../hooks/useEmployer";
 import OTPStatus from "./OTPStatus";
+import { ACCOUNT_STATUS } from "../../utils/constants";
+import useRequireAuth from "../../utils/useRequireAuth";
 
-const SliderRounded = ({ value }) => {
-  const isActive = value === "activated";
+const SliderRounded = ({ value, onToggle, id }) => {
+  const user = useRequireAuth();
+  
+  const [isActive, setIsActive] = useState(value === "activated");
+
+  console.log();
+
+  const handleClick = async () => {
+    const newValue = !isActive;
+    setIsActive(newValue);
+    if (onToggle) {
+      onToggle(newValue ? "activated" : "deactivated");
+    }
+
+    try {
+      const authToken = user.token;
+      const formData = new FormData();
+      formData.append("status", newValue ? 1 : 0);
+
+      const response = await fetch(`${ACCOUNT_STATUS}${id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update status");
+      }
+
+      const result = await response.json();
+      console.log(result.message);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
 
   return (
     <div
-      className={`rounded-full w-12 h-6 flex items-center justify-${
+      onClick={handleClick}
+      className={`cursor-pointer rounded-full w-12 h-6 flex items-center justify-${
         isActive ? "start" : "end"
       } p-1 bg-${isActive ? "green" : "gray"}-300`}
     >
-      <div className={`rounded-full w-4 h-4 bg-white`} />
+      <div className="rounded-full w-4 h-4 bg-white" />
     </div>
   );
 };
+   
+ 
+  
+ 
+
 
 const ProfileStatus = ({ value }) => {
   const isVerified = value === "verified";
@@ -103,6 +146,8 @@ const Employer = () => {
         Header: "Industry Type",
         accessor: "industry_type",
         sortType: "alphanumeric",
+        Filter: SelectColumnFilter,
+        filter: "includes",
       },
       {
         Header: "Active Job",
@@ -128,7 +173,14 @@ const Employer = () => {
         Header: "Account Status",
         accessor: "status",
         sortType: "alphanumeric",
-        Cell: ({ row }) => <SliderRounded value={row.original.status} />,
+        Cell: ({ row }) => (
+          <SliderRounded
+            value={row.original.status}
+            onToggle={() => {}}
+            id={row.original.id}
+            
+          />
+        ),
       },
       {
         Header: "OTP Verification",

@@ -54,7 +54,16 @@ const JobsList = () => {
       }
     }
   };
-  // 'emptype_hindi', 'emptype_marathi', 'emptype_punjabi'
+
+
+    const determineStatus = (deadline) => {
+      const today = new Date();
+      const deadlineDate = new Date(deadline);
+      return deadlineDate > today ? "Published" : "Expired";
+   };
+  
+
+ 
   const columns = useMemo(
     () => [
       {
@@ -105,40 +114,47 @@ const JobsList = () => {
       {
         Header: "Status",
         accessor: "status",
-        Cell: ({ row }) => (
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id={`published-${row.values.id}`}
-                name={`status-${row.values.id}`}
-                value="published"
-                className="mr-2"
-              />
-              <label
-                htmlFor={`published-${row.values.id}`}
-                className="text-gray-700"
-              >
-                Published
-              </label>
+        Cell: ({ row }) => {
+          const status = determineStatus(row.original.deadline);
+          return (
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id={`published-${row.values.id}`}
+                  name={`status-${row.values.id}`}
+                  value="published"
+                  checked={status === "Published"}
+                  readOnly
+                  className="mr-2"
+                />
+                <label
+                  htmlFor={`published-${row.values.id}`}
+                  className="text-gray-700"
+                >
+                  Published
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id={`expired-${row.values.id}`}
+                  name={`status-${row.values.id}`}
+                  value="expired"
+                  checked={status === "Expired"}
+                  readOnly
+                  className="mr-2"
+                />
+                <label
+                  htmlFor={`expired-${row.values.id}`}
+                  className="text-gray-700"
+                >
+                  Expired
+                </label>
+              </div>
             </div>
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id={`expired-${row.values.id}`}
-                name={`status-${row.values.id}`}
-                value="expired"
-                className="mr-2"
-              />
-              <label
-                htmlFor={`expired-${row.values.id}`}
-                className="text-gray-700"
-              >
-                Expired
-              </label>
-            </div>
-          </div>
-        ),
+          );
+        },
       },
       {
         Header: "Actions",

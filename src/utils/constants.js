@@ -1,11 +1,11 @@
 
-// const BASE_URL = "http://127.0.0.1:8000/";
-// export const PROFILE_PIC_URL = `http://127.0.0.1:8000/`;
+const BASE_URL = "http://127.0.0.1:8000/";
+export const PROFILE_PIC_URL = `http://127.0.0.1:8000/`;
 
 
  
-const BASE_URL = "https://thegiftwala.in/";
-export const PROFILE_PIC_URL = `https://thegiftwala.in/`;
+// const BASE_URL = "https://thegiftwala.in/";
+// export const PROFILE_PIC_URL = `https://thegiftwala.in/`;
 
 
 
@@ -77,6 +77,9 @@ export const PAGES_CREATE_UPDATE = `${BASE_URL}api/attributes/pages_add_update/`
 export const DELETE_PAGE = `${BASE_URL}api/attributes/delete_page/`;
 export const GET_PAGE_EDIT = `${BASE_URL}api/attributes/get_page/`;
 export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update/`;
+
+export const ACCOUNT_STATUS = `${BASE_URL}api/users/account_status_change/`;
+
  
 
 
