@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 import useJobsList from "../../hooks/useJobsList";
-import Shimmer from "../Shimmer";
+
 
 import {
   useTable,
@@ -13,12 +13,9 @@ import {
 } from "react-table";
 import { useSelector } from "react-redux";
 import { DELETE_JOB } from "../../utils/constants";
- 
 
 const JobsList = () => {
-  
-  const positions = useJobsList(); 
-
+  const positions = useJobsList();
   const [successMessage, setSuccessMessage] = useState("");
 
   const user = useSelector((state) => state.user);
@@ -26,12 +23,10 @@ const JobsList = () => {
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
 
-   
     if (confirmDelete) {
       try {
         const { token } = user;
 
-       
         const response = await fetch(`${DELETE_JOB}${id}`, {
           method: "DELETE",
           headers: {
@@ -55,28 +50,86 @@ const JobsList = () => {
     }
   };
 
+  const determineStatus = (deadline) => {
+    const today = new Date();
+    const deadlineDate = new Date(deadline);
+    return deadlineDate > today ? "Published" : "Expired";
+  };
 
-    const determineStatus = (deadline) => {
-      const today = new Date();
-      const deadlineDate = new Date(deadline);
-      return deadlineDate > today ? "Published" : "Expired";
-   };
-  
+  const SelectColumnFilter = ({
+    column: { filterValue, setFilter, preFilteredRows, id },
+  }) => {
+    const options = useMemo(() => {
+      const options = new Set();
+      preFilteredRows.forEach((row) => {
+        options.add(row.values[id]);
+      });
+      return [...options.values()];
+    }, [id, preFilteredRows]);
 
- 
+    return (
+      <select
+        value={filterValue}
+        onChange={(e) => {
+          setFilter(e.target.value || undefined);
+        }}
+        className="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-4"
+      >
+        <option value="">All</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    );
+  };
+
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    setSortBy([{ id: "deadline", desc: value === "latest" }]);
+  };
+
   const columns = useMemo(
     () => [
       {
-        Header: "Job",
-        accessor: "title",
-        sortType: "alphanumeric", // Set sortType for sorting
+        Header: "Title/JobPosition",
+        accessor: "categoryRole",
+        Cell: ({ cell: { row } }) => {
+          const { companyLogo, title, jobPosiiton } = row.original;
+          const defaultImage = "path/to/default/image.png"; // Replace with your default image path
+
+          return (
+            <div className="flex items-center">
+              <img
+                src={companyLogo || defaultImage}
+                alt="Profile"
+                className="w-10 h-10 rounded-full mr-4"
+              />
+              <div>
+                <div className="font-medium">{title}</div>
+                <div className="text-sm text-gray-500">{jobPosiiton}</div>
+              </div>
+            </div>
+          );
+        },
+        Filter: SelectColumnFilter,
+        filter: "includes",
       },
       {
-        Header: "Position",
-        accessor: "jobPosiiton",
-        sortType: "alphanumeric", // Set sortType for sorting
+        Header: "Employement Type",
+        accessor: "employeementType",
+        sortType: "alphanumeric",
+        Filter: SelectColumnFilter,
+        filter: "includes",
       },
-
+      {
+        Header: "Experiance",
+        accessor: "experiance",
+        sortType: "alphanumeric",
+        Filter: SelectColumnFilter,
+        filter: "includes",
+      },
       {
         Header: "Salary",
         accessor: "salaryRange",
@@ -205,6 +258,7 @@ const JobsList = () => {
     pageOptions,
     gotoPage,
     pageCount,
+    setSortBy,
   } = useTable(
     { columns, data },
     useFilters,
@@ -227,7 +281,7 @@ const JobsList = () => {
         <div className="flex flex-col bg-white p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-203C50 font-Vietnam text-[28px] font-medium">
-              jobs List
+              Jobs List
             </h5>
             <div className="flex items-center">
               <Link
@@ -253,7 +307,7 @@ const JobsList = () => {
           <label htmlFor="table-search" className="sr-only">
             Search
           </label>
-          <div className="relative">
+          <div className="relative flex items-center">
             <input
               type="text"
               id="table-search-users"
@@ -262,6 +316,69 @@ const JobsList = () => {
               value={globalFilter || ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
             />
+          </div>
+        </div>
+
+        <div className="my-4 flex flex-wrap">
+          <div className="mr-4">
+            <label
+              htmlFor="job-position-filter"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Job Position
+            </label>
+            {headerGroups[0].headers
+              .filter((column) => column.id === "categoryRole")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+          </div>
+          <div className="mr-4">
+            <label
+              htmlFor="employement-type-filter"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Employment Type
+            </label>
+            {headerGroups[0].headers
+              .filter((column) => column.id === "employeementType")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+          </div>
+          <div className="mr-4">
+            <label
+              htmlFor="experiance-filter"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Experience
+            </label>
+            {headerGroups[0].headers
+              .filter((column) => column.id === "experiance")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+          </div>
+          <div className="mr-4">
+            <label
+              htmlFor="sort-by"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Sort By
+            </label>
+            <select
+              onChange={handleSortChange}
+              className="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="latest">Latest</option>
+              <option value="oldest">Oldest</option>
+            </select>
           </div>
         </div>
 

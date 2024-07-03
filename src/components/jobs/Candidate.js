@@ -17,13 +17,10 @@ const Candidate = () => {
   const positions = useCandidate();
   const [successMessage, setSuccessMessage] = useState("");
 
- 
   const SliderRounded = ({ value, onToggle, id }) => {
     const user = useRequireAuth();
 
     const [isActive, setIsActive] = useState(value === "activated");
-
-    console.log();
 
     const handleClick = async () => {
       const newValue = !isActive;
@@ -68,8 +65,6 @@ const Candidate = () => {
     );
   };
 
-
-  // Dropdown filter for the "Account Status" column
   function SelectColumnFilter({
     column: { filterValue, setFilter, preFilteredRows, id },
   }) {
@@ -87,6 +82,7 @@ const Candidate = () => {
         onChange={(e) => {
           setFilter(e.target.value || undefined);
         }}
+        className="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-4"
       >
         <option value="">All</option>
         {options.map((option) => (
@@ -97,6 +93,11 @@ const Candidate = () => {
       </select>
     );
   }
+
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    setSortBy([{ id: "created_at", desc: value === "latest" }]);
+  };
 
   const columns = useMemo(
     () => [
@@ -143,6 +144,8 @@ const Candidate = () => {
             id={row.original.id}
           />
         ),
+        Filter: SelectColumnFilter,
+        filter: "includes",
       },
       {
         Header: "OTP Verification",
@@ -193,8 +196,13 @@ const Candidate = () => {
     pageOptions,
     gotoPage,
     pageCount,
+    setSortBy,
   } = useTable(
-    { columns, data },
+    {
+      columns,
+      data,
+      initialState: { sortBy: [{ id: "created_at", desc: true }] },
+    },
     useFilters,
     useGlobalFilter,
     useSortBy,
@@ -241,7 +249,7 @@ const Candidate = () => {
           <label htmlFor="table-search" className="sr-only">
             Search
           </label>
-          <div className="relative">
+          <div className="relative flex items-center">
             <input
               type="text"
               id="table-search-users"
@@ -250,6 +258,27 @@ const Candidate = () => {
               value={globalFilter || ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
             />
+            {headerGroups[0].headers
+              .filter((column) => column.id === "status")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+            {headerGroups[0].headers
+              .filter((column) => column.id === "otp_verified")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+            <select
+              onChange={handleSortChange}
+              className="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-4"
+            >
+              <option value="latest">Latest</option>
+              <option value="oldest">Oldest</option>
+            </select>
           </div>
         </div>
 

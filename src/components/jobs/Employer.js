@@ -15,10 +15,8 @@ import useRequireAuth from "../../utils/useRequireAuth";
 
 const SliderRounded = ({ value, onToggle, id }) => {
   const user = useRequireAuth();
-  
-  const [isActive, setIsActive] = useState(value === "activated");
 
-  console.log();
+  const [isActive, setIsActive] = useState(value === "activated");
 
   const handleClick = async () => {
     const newValue = !isActive;
@@ -62,11 +60,6 @@ const SliderRounded = ({ value, onToggle, id }) => {
     </div>
   );
 };
-   
- 
-  
- 
-
 
 const ProfileStatus = ({ value }) => {
   const isVerified = value === "verified";
@@ -82,41 +75,43 @@ const ProfileStatus = ({ value }) => {
   );
 };
 
+function SelectColumnFilter({
+  column: { filterValue, setFilter, preFilteredRows, id },
+}) {
+  const options = useMemo(() => {
+    const options = new Set();
+    preFilteredRows.forEach((row) => {
+      options.add(row.values[id]);
+    });
+    return [...options.values()];
+  }, [id, preFilteredRows]);
+
+  return (
+    <select
+      value={filterValue}
+      onChange={(e) => {
+        setFilter(e.target.value || undefined);
+      }}
+      className="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-4"
+    >
+      <option value="">All</option>
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  );
+}
+
 const Employer = () => {
   const positions = useEmployer();
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleDelete = (id) => {
-    console.log(`Delete job position with id: ${id}`);
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    setSortBy([{ id: "establishmentYear", desc: value === "latest" }]);
   };
-
-  function SelectColumnFilter({
-    column: { filterValue, setFilter, preFilteredRows, id },
-  }) {
-    const options = useMemo(() => {
-      const options = new Set();
-      preFilteredRows.forEach((row) => {
-        options.add(row.values[id]);
-      });
-      return [...options.values()];
-    }, [id, preFilteredRows]);
-
-    return (
-      <select
-        value={filterValue}
-        onChange={(e) => {
-          setFilter(e.target.value || undefined);
-        }}
-      >
-        <option value="">All</option>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    );
-  }
 
   const columns = useMemo(
     () => [
@@ -148,7 +143,7 @@ const Employer = () => {
         sortType: "alphanumeric",
         Filter: SelectColumnFilter,
         filter: "includes",
-      },
+      }, 
       {
         Header: "Active Job",
         accessor: "activeJob",
@@ -178,9 +173,10 @@ const Employer = () => {
             value={row.original.status}
             onToggle={() => {}}
             id={row.original.id}
-            
           />
         ),
+        Filter: SelectColumnFilter,
+        filter: "includes",
       },
       {
         Header: "OTP Verification",
@@ -236,8 +232,13 @@ const Employer = () => {
     pageOptions,
     gotoPage,
     pageCount,
+    setSortBy,
   } = useTable(
-    { columns, data },
+    {
+      columns,
+      data,
+      initialState: { sortBy: [{ id: "establishmentYear", desc: true }] },
+    },
     useFilters,
     useGlobalFilter,
     useSortBy,
@@ -284,7 +285,7 @@ const Employer = () => {
           <label htmlFor="table-search" className="sr-only">
             Search
           </label>
-          <div className="relative">
+          <div className="relative flex items-center">
             <input
               type="text"
               id="table-search-users"
@@ -293,6 +294,70 @@ const Employer = () => {
               value={globalFilter || ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
             />
+          </div>
+        </div>
+
+        <div className="my-4 flex flex-wrap">
+          <div className="mr-4">
+            <label
+              htmlFor="industry-type-filter"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Industry Type
+            </label>
+            {headerGroups[0].headers
+              .filter((column) => column.id === "industry_type")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+          </div>
+          <div className="mr-4">
+            <label
+              htmlFor="account-status-filter"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Account Status
+            </label>
+            {headerGroups[0].headers
+              .filter((column) => column.id === "status")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+          </div>
+          <div className="mr-4">
+            <label
+              htmlFor="otp-verified-filter"
+              className="block text-sm font-medium text-gray-700"
+            >
+              OTP Verification
+            </label>
+            {headerGroups[0].headers
+              .filter((column) => column.id === "otp_verified")
+              .map((column) => (
+                <div key={column.id}>
+                  {column.canFilter ? column.render("Filter") : null}
+                </div>
+              ))}
+          </div>
+          
+          <div className="mr-4">
+            <label
+              htmlFor="sort-by"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Sort By
+            </label>
+            <select
+              onChange={handleSortChange}
+              className="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="latest">Latest</option>
+              <option value="oldest">Oldest</option>
+            </select>
           </div>
         </div>
 
