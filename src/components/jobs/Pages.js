@@ -17,10 +17,9 @@ import { DELETE_CITY, DELETE_PAGE } from "../../utils/constants";
 import usePages from "../../hooks/usePages";
 
 const Pages = () => {
-
   const positions = usePages();
 
-  console.log("asdf",positions);
+  console.log("asdf", positions);
 
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -55,6 +54,12 @@ const Pages = () => {
       }
     }
   };
+
+  const stripHtmlTags = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  };
+
   // 'name_hindi', 'name_marathi', 'name_punjabi'
   const columns = useMemo(
     () => [
@@ -72,7 +77,8 @@ const Pages = () => {
         Header: "Descriptions",
         accessor: "descriptions",
         sortType: "alphanumeric", // Set sortType for sorting
-      }, 
+        Cell: ({ value }) => stripHtmlTags(value),
+      },
       {
         Header: "Actions",
         accessor: "id",
@@ -183,57 +189,60 @@ const Pages = () => {
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <table
-              className="bg-white min-w-full border border-neutral-200 text-center text-sm text-surface text-gray-500 font-poppins"
-              {...getTableProps()}
-            >
-              <thead className="border-neutral-200 border bg-gray-200">
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th
-                        scope="col"
-                        className="font-medium px-4 py-2 text-left border text-sm text-gray-700 bg-gray-200"
-                        {...column.getHeaderProps(
-                          column.getSortByToggleProps()
-                        )} // Add getSortByToggleProps
-                      >
-                        {column.render("Header")}
-                        <span>
-                          {column.isSorted
-                            ? column.isSortedDesc
-                              ? " 🔽"
-                              : " 🔼"
-                            : ""}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-
-              <tbody className="border" {...getTableBodyProps()}>
-                {page.map((row) => {
-                  prepareRow(row);
-                  return (
-                    <tr
-                      key={row.id}
-                      className="border border-neutral-200"
-                      {...row.getRowProps()}
-                    >
-                      {row.cells.map((cell) => (
-                        <td
-                          className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left"
-                          {...cell.getCellProps()}
+            <div className="overflow-x-auto">
+              <table
+                className="bg-white min-w-full border border-neutral-200 text-center text-sm text-surface text-gray-500 font-poppins"
+                {...getTableProps()}
+                style={{ minWidth: "1000px" }}
+              >
+                <thead className="border-neutral-200 border bg-gray-200">
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th
+                          scope="col"
+                          className="font-medium px-4 py-2 text-left border text-sm text-gray-700 bg-gray-200"
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )} // Add getSortByToggleProps
                         >
-                          {cell.render("Cell")}
-                        </td>
+                          {column.render("Header")}
+                          <span>
+                            {column.isSorted
+                              ? column.isSortedDesc
+                                ? " 🔽"
+                                : " 🔼"
+                              : ""}
+                          </span>
+                        </th>
                       ))}
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  ))}
+                </thead>
+
+                <tbody className="border" {...getTableBodyProps()}>
+                  {page.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr
+                        key={row.id}
+                        className="border border-neutral-200"
+                        {...row.getRowProps()}
+                      >
+                        {row.cells.map((cell) => (
+                          <td
+                            className="whitespace-nowrap border-b border-e border-neutral-200 px-6 py-2 text-2C495D font-normal text-left"
+                            {...cell.getCellProps()}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
             <div className="pagination mt-4">
               <button
                 onClick={() => previousPage()}
