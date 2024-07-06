@@ -1,5 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import ProtectedRoute from "../utils/ProtectedRoute";
@@ -54,6 +56,7 @@ import Pages from "./jobs/Pages";
 import CreatePage from "./jobs/CreatePage";
 import EditPage from "./jobs/EditPage";
 import EditJob from "./jobs/EditJob";
+import EditEmailTemplate from "./jobs/EditEmailTemplate";
 
 const Body = () => {
   return (
@@ -132,6 +135,8 @@ const Body = () => {
             <Route path="/pages" element={<Pages />} />
             <Route path="/create_page" element={<CreatePage />} />
             <Route path="/edit_page/:id" element={<EditPage />} />
+            <Route path="/edit_email_template/:id" element={<EditEmailTemplate />} />
+
           </Route>
         </Routes>
       </Router>

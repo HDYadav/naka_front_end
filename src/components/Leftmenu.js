@@ -411,6 +411,15 @@ function Leftmenu(props) {
                     Pages
                   </Link>
                 </li>
+
+                <li>
+                  <Link
+                    to={"/edit_email_template/1"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Email Template
+                  </Link>
+                </li>
               </ul>
             </li>
           </ul>
