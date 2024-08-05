@@ -10,8 +10,11 @@ import logo from '../assets/images/logo.webp';
  
 
 const Login = () => {
+
  
-    useRedirectIfLoggedIn();
+  //  useRedirectIfLoggedIn();
+
+  //console.log("afsd");
     const dispatch = useDispatch();  
     const Navigate = useNavigate();     
     const email = useRef(null);
@@ -43,7 +46,7 @@ const Login = () => {
       });
       const data = await response.json();   
 
-      console.log(data);
+      
 
       if (data.error) {
         let loginerr = document.getElementById("loginerror");
@@ -51,7 +54,7 @@ const Login = () => {
         return; 
       }
       
-      if (data.sucess == true)
+      if (data.sucess === true)
       {
         dispatch(addUser(data?.data));
         Navigate("/dashboard");
