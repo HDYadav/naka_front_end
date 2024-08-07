@@ -1,6 +1,6 @@
 
-const BASE_URL = "http://139.59.48.132:3000/";
-export const PROFILE_PIC_URL = `http://139.59.48.132:3000/`;
+const BASE_URL = "http://139.59.48.132/";
+export const PROFILE_PIC_URL = `http://139.59.48.132/`;
 
 
  
