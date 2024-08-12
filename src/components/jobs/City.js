@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
-//import useJobsPosition from "../../hooks/useJobsPosition";
-import useCompany from "../../hooks/useCompany";
-
+import useCity from "../../hooks/useCity";
+import { useSelector } from "react-redux";
 import {
   useTable,
   useGlobalFilter,
@@ -11,20 +10,13 @@ import {
   usePagination,
   useSortBy, // Import useSortBy hook
 } from "react-table";
-import useCity from "../../hooks/useCity";
-import { useSelector } from "react-redux";
 import { DELETE_CITY } from "../../utils/constants";
 
 const City = () => {
-
   const positions = useCity();
-
-  //console.log("asdf",positions);
-
   const [successMessage, setSuccessMessage] = useState("");
 
   const user = useSelector((state) => state.user);
-  
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
@@ -41,47 +33,44 @@ const City = () => {
         });
 
         if (response.ok) {
-          // Handle success (e.g., show a success message or refresh the data)
           alert("Record deleted successfully!");
-          window.location.reload(); // Refresh the page or fetch the data again
+          window.location.reload(); // Refresh the page after deletion
         } else {
-          // Handle errors (e.g., show an error message)
           alert("Failed to delete record. Please try again later.");
         }
       } catch (error) {
-        // Handle errors (e.g., show an error message)
         console.error("Error deleting record:", error);
         alert("Failed to delete record. Please try again later.");
       }
     }
   };
-  // 'name_hindi', 'name_marathi', 'name_punjabi'
+
   const columns = useMemo(
     () => [
       {
         Header: "State Name",
         accessor: "state_name",
-        sortType: "alphanumeric", // Set sortType for sorting
+        sortType: "alphanumeric",
       },
       {
         Header: "City Name",
         accessor: "name",
-        sortType: "alphanumeric", // Set sortType for sorting
+        sortType: "alphanumeric",
       },
       {
         Header: "Hindi",
         accessor: "name_hindi",
-        sortType: "alphanumeric", // Set sortType for sorting
+        sortType: "alphanumeric",
       },
       {
         Header: "Marathi",
         accessor: "name_marathi",
-        sortType: "alphanumeric", // Set sortType for sorting
+        sortType: "alphanumeric",
       },
       {
         Header: "Punjabi",
         accessor: "name_punjabi",
-        sortType: "alphanumeric", // Set sortType for sorting
+        sortType: "alphanumeric",
       },
       {
         Header: "Actions",
@@ -135,10 +124,9 @@ const City = () => {
 
   const { globalFilter, pageIndex } = state;
 
-  // Example function to simulate a success message after creating a new job position
   const handleCreateSuccess = () => {
-    setSuccessMessage("Job position created successfully!");
-    setTimeout(() => setSuccessMessage(""), 3000); // Clear the message after 3 seconds
+    setSuccessMessage("City created successfully!");
+    setTimeout(() => setSuccessMessage(""), 3000);
   };
 
   return (
@@ -152,9 +140,9 @@ const City = () => {
             <div className="flex items-center">
               <Link
                 to="/create_city"
-                className="bg-1D4469 rounded-sm text-white rounded p-2 px-5 text-[14px]"
+                className="bg-1D4469 rounded-sm text-white p-2 px-5 text-[14px]"
                 type="button"
-                onClick={handleCreateSuccess} // Trigger success message on button click
+                onClick={handleCreateSuccess}
               >
                 + Create
               </Link>
@@ -206,7 +194,7 @@ const City = () => {
                         className="font-medium px-4 py-2 text-left border text-sm text-gray-700 bg-gray-200"
                         {...column.getHeaderProps(
                           column.getSortByToggleProps()
-                        )} // Add getSortByToggleProps
+                        )}
                       >
                         {column.render("Header")}
                         <span>
