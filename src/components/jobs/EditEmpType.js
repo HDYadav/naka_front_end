@@ -212,7 +212,7 @@ const EditEmpType = () => {
                               htmlFor="emptype_punjabi"
                               className="block mb-2 text-535252 text-16 font-400"
                             >
-                              Employment Type  Punjabi
+                              Employment Type Punjabi
                             </label>
 
                             <input
@@ -237,7 +237,7 @@ const EditEmpType = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/jobs_position">
+                    <Link to="/employment_type">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"

@@ -191,7 +191,7 @@ const CreateState = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/education">
+                    <Link to="/state">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"

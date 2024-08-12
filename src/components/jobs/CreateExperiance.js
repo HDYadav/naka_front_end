@@ -104,7 +104,7 @@ const CreateExperiance = () => {
                           </div>
                         )}
                       </Field>
-                    
+
                       <Field name="name_hindi">
                         {({ field }) => (
                           <div>
@@ -169,7 +169,7 @@ const CreateExperiance = () => {
                                 htmlFor="Punjabi"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
-                               Experiance
+                                Experiance
                               </label>
                             </div>
 
@@ -194,7 +194,7 @@ const CreateExperiance = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/industry_type">
+                    <Link to="/experiance">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
