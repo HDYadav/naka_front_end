@@ -14,6 +14,8 @@ import { DELETE_CITY } from "../../utils/constants";
 
 const City = () => {
   const positions = useCity();
+
+  console.log(positions);
   const [successMessage, setSuccessMessage] = useState("");
 
   const user = useSelector((state) => state.user);
