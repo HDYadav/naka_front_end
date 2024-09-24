@@ -5,12 +5,11 @@ import {  UPDATE_CANDIDATE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
 import { useNavigate } from "react-router-dom";
 import LayoutHOC from "../LayoutHOC";
-import { useParams, Link } from "react-router-dom";
- 
+import { useParams, Link } from "react-router-dom"; 
 import useCompany from "../../hooks/useCompany";
 import useEditCandidate from "../../hooks/useEditCandidate";
- import DatePicker from "react-datepicker";
- import "react-datepicker/dist/react-datepicker.css"; // Ensure you import the CSS for DatePicker
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; // Ensure you import the CSS for DatePicker
 
 const EditCandidate = () => {
 
@@ -18,17 +17,10 @@ const EditCandidate = () => {
   const user = useRequireAuth(); 
   const navigate = useNavigate(); 
 
-  const { candidate } = useEditCandidate(id) || {}; 
-  
- 
- 
-
-  const [selectedDate, setSelectedDate] = useState(null);
-  
-  const company = useCompany();
-  
+  const { candidate } = useEditCandidate(id) || {};  
+  const [selectedDate, setSelectedDate] = useState(null);  
+  const company = useCompany();  
   //console.log(company?.data?.languages);
-
   const [initialValues, setInitialValues] = useState({
     id: id, // Assuming id is a string
     name: "",
@@ -70,7 +62,7 @@ const EditCandidate = () => {
       });
       setSelectedDate(new Date(candidate.dob)); 
     }
-  }, [candidate]);
+  }, []);
 
   const validationSchema = Yup.object().shape({
     id: Yup.string().required("ID is required"), // Validation schema for ID
@@ -330,7 +322,7 @@ const EditCandidate = () => {
                       <Field name="experience">
                         {({ field }) => (
                           <div className="mb-4">
-                            {" "}
+                            
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="experience"
@@ -366,7 +358,7 @@ const EditCandidate = () => {
                       <Field name="jobPosiiton">
                         {({ field }) => (
                           <div className="mb-4">
-                            {" "}
+                            
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="jobPosiiton"
@@ -404,7 +396,7 @@ const EditCandidate = () => {
                       <Field name="education">
                         {({ field }) => (
                           <div className="mb-4">
-                            {" "}
+                          
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="education"
@@ -437,7 +429,7 @@ const EditCandidate = () => {
                       <Field name="skills">
                         {({ field, form }) => (
                           <div className="mb-4">
-                            {" "}
+                            
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="skills"

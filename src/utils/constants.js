@@ -1,6 +1,6 @@
 
-const BASE_URL = "http://thegiftwala.in/api/";
-export const PROFILE_PIC_URL = `http://thegiftwala.in/api/`;
+const BASE_URL = "https://api.naka.co.in/";
+export const PROFILE_PIC_URL = `https://api.naka.co.in/`;
 
 // const BASE_URL = "http://127.0.0.1:8000/";
 // export const PROFILE_PIC_URL = "http://127.0.0.1:8000/"; 
@@ -35,25 +35,22 @@ export const CREATE_STATE = `${BASE_URL}api/attributes/state_add_update`;
 export const GET_STATE = `${BASE_URL}api/attributes/get_state/`;
 export const CREATE_CITY = `${BASE_URL}api/attributes/city_add_update`;
 export const GET_CITY = `${BASE_URL}api/attributes/get_city/`;
-export const GET_CITY_LIST = `${BASE_URL}api/attributes/city_list/`;
+export const GET_CITY_LIST = `${BASE_URL}api/attributes/city_list`;
 export const CREATE_SALARY_TYPE = `${BASE_URL}api/attributes/salary_type_add_update`;
 export const GET_SALARY_TYPE = `${BASE_URL}api/attributes/get_salary_type/`;
 export const CREATE_PROMOTE = `${BASE_URL}api/attributes/promote_add_update`;
 export const GET_PROMOTE = `${BASE_URL}api/attributes/get_promote/`;
 export const GET_ADMIN_JOB_APPLYED = `${BASE_URL}api/jobs/get_applyed_job_admin`;
 export const JOB_DETAILS_ADMIN = `${BASE_URL}api/jobs/get_applyed_job_details_admin/`;
-
-
-export const GET_CANDIDATES = `${BASE_URL}api/get_candidates/`;
+export const GET_CANDIDATES = `${BASE_URL}api/get_candidates`;
 export const GET_CANDIDATES_DETAILS = `${BASE_URL}api/candidates_details/`;
 export const CREATE_CANDIDATES = `${BASE_URL}api/create_candidate/`;
 export const UPDATE_CANDIDATE = `${BASE_URL}api/create_candidate/`;
 export const GET_CANDIDATES_EDIT = `${BASE_URL}api/get_candidates_edit/`;
 export const DELETE_CANDIDATE = `${BASE_URL}api/delete_candidate/`;
-
-export const GET_EMPLOYER = `${BASE_URL}api/get_employer/`;
+export const GET_EMPLOYER = `${BASE_URL}api/get_employer`;
 export const GET_EMPLOYER_DETAILS = `${BASE_URL}api/employer_details/`;
-export const CREATE_EMPLOYER = `${BASE_URL}api/employer_register_admin/`;
+export const CREATE_EMPLOYER = `${BASE_URL}api/employer_register_admin`;
 export const EDIT_EMPLOYER = `${BASE_URL}api/employer/update/`;
 export const GET_EMPLOYER_EDIT = `${BASE_URL}api/get_employer_edit/`; 
 export const GET_EMP_JOB = `${BASE_URL}api/admin_get_emp_jobs/`;
@@ -69,18 +66,15 @@ export const DELETE_EDUCATION = `${BASE_URL}api/attributes/delete_educations/`;
  export const DELETE_WORKPLACE = `${BASE_URL}api/attributes/delete_workplace/`;
  export const DELETE_PROMOTE = `${BASE_URL}api/attributes/delete_promote/`;
  export const DELETE_JOB = `${BASE_URL}api/attributes/delete_job/`; 
-export const GET_PAGES_LIST = `${BASE_URL}api/attributes/page_list/`;
-export const PAGES_CREATE_UPDATE = `${BASE_URL}api/attributes/pages_add_update/`;
+export const GET_PAGES_LIST = `${BASE_URL}api/attributes/page_list`;
+export const PAGES_CREATE_UPDATE = `${BASE_URL}api/attributes/pages_add_update`;
 export const DELETE_PAGE = `${BASE_URL}api/attributes/delete_page/`;
-export const GET_PAGE_EDIT = `${BASE_URL}api/attributes/get_page/`;
-export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update/`;
-export const ACCOUNT_STATUS = `${BASE_URL}api/users/account_status_change/`;
-export const EDIT_JOB = `${BASE_URL}api/jobs/get_edit_jobs/`;
-
-
+export const GET_PAGE_EDIT = `${BASE_URL}api/attributes/get_page`;
+export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update`;
+export const ACCOUNT_STATUS = `${BASE_URL}api/users/account_status_change`;
+export const EDIT_JOB = `${BASE_URL}api/jobs/get_edit_jobs`;
 export const GET_EMAIL_TEMPLATE_EDIT = `${BASE_URL}api/attributes/get_email_template/`;
-
-export const EMAIL_TEMPLATE_UPDATE = `${BASE_URL}api/attributes/email_template_update/`;
+export const EMAIL_TEMPLATE_UPDATE = `${BASE_URL}api/attributes/email_template_update`;
 
 
  

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { GET_CANDIDATES_DETAILS, GET_EMPLOYER_DETAILS } from "../utils/constants";
+import { GET_EMPLOYER_DETAILS } from "../utils/constants";
 
 const useEmployerDetails = (id) => {
   const user = useSelector((state) => state.user);

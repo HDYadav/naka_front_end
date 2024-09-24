@@ -1,18 +1,18 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { CREATE_EDUCATION, CREATE_PROMOTE, CREATE_WORKPLACE } from "../../utils/constants";
+import {
+  CREATE_EDUCATION,
+  CREATE_PROMOTE,
+  CREATE_WORKPLACE,
+} from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
-
 import { useNavigate } from "react-router-dom";
-import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 
 const CreatePromote = () => {
-
   const user = useRequireAuth();
-
   const navigate = useNavigate();
 
   const initialValues = {
@@ -22,7 +22,7 @@ const CreatePromote = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("default name  is required"),
+    name: Yup.string().required("Default name is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
@@ -43,9 +43,6 @@ const CreatePromote = () => {
         body: formDataWithFile,
       });
 
-      // console.log(response);
-      // return false;
-
       navigate(`/promote/`);
       setSubmitting(false);
     } catch (error) {
@@ -53,13 +50,14 @@ const CreatePromote = () => {
       setSubmitting(false);
     }
   };
+
   return (
     <main className="p-4 sm:ml-64">
       <div className="p-4 mt-14">
         <div className="bg-F1F6F9 font-poppins">
           <div className="flex flex-col bg-white p-4 ">
             <div className="ms-4 flex justify-between items-center">
-              <h5 className=" text-203C50 font-Vietnam text-32 font-medium ">
+              <h5 className="text-203C50 font-Vietnam text-32 font-medium ">
                 Create Promote
               </h5>
             </div>
@@ -83,7 +81,7 @@ const CreatePromote = () => {
                           <div className="mb-3">
                             <label
                               htmlFor="name"
-                              className="block mb-2 text-535252 text-16 font-400 text-535252"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               English
                             </label>
@@ -91,7 +89,7 @@ const CreatePromote = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter workplace in English..."
                             />
                             <ErrorMessage
                               name="name"
@@ -107,18 +105,16 @@ const CreatePromote = () => {
                           <div>
                             <label
                               htmlFor="name_hindi"
-                              className="block mb-2 text-535252 text-16  font-400"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               Hindi
                             </label>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter workplace in Hindi..."
                             />
-
                             <ErrorMessage
                               name="name_hindi"
                               component="div"
@@ -127,54 +123,45 @@ const CreatePromote = () => {
                           </div>
                         )}
                       </Field>
+
                       <Field name="name_marathi">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="Marathi"
-                              className="block mb-2  text-535252 text-16  font-400 "
+                              htmlFor="name_marathi"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               Marathi
                             </label>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter marathi emptype ..."
+                              placeholder="Enter workplace in Marathi..."
                             />
-
                             <ErrorMessage
                               name="name_marathi"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-
-                            <ErrorMessage
-                              name="ind_type_marathi"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                         )}
                       </Field>
+
                       <Field name="name_punjabi">
                         {({ field }) => (
                           <div>
-                            <div className="mb-2">
-                              <label
-                                htmlFor="Punjabi"
-                                className="mb-1 text-535252 text-16 font-400"
-                              >
-                                WorkPlace
-                              </label>
-                            </div>
-
+                            <label
+                              htmlFor="name_punjabi"
+                              className="block mb-2 text-535252 text-16 font-400"
+                            >
+                              Punjabi
+                            </label>
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter total_vacancies..."
+                              placeholder="Enter workplace in Punjabi..."
                             />
                             <ErrorMessage
                               name="name_punjabi"

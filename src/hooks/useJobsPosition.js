@@ -4,7 +4,7 @@ import { ATTRIBUTES_ALL } from "../utils/constants";
 
 const useJobsPosition = () => {
   const user = useSelector((state) => state.user);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {

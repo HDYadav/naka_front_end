@@ -12,6 +12,8 @@ import useEmployer from "../../hooks/useEmployer";
 import OTPStatus from "./OTPStatus";
 import { ACCOUNT_STATUS } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
+import { MdDelete } from "react-icons/md";
+import { DELETE_CANDIDATE } from "../../utils/constants";
 
 const SliderRounded = ({ value, onToggle, id }) => {
   const user = useRequireAuth();
@@ -105,6 +107,8 @@ function SelectColumnFilter({
 }
 
 const Employer = () => {
+   const user = useRequireAuth();
+  
   const positions = useEmployer();
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -112,6 +116,38 @@ const Employer = () => {
     const value = e.target.value;
     setSortBy([{ id: "establishmentYear", desc: value === "latest" }]);
   };
+
+
+   const handleDelete = async (id) => {
+     const confirmDelete = window.confirm("Are you sure you want to delete?");
+
+     if (confirmDelete) {
+       try {
+         const { token } = user;
+
+         const response = await fetch(`${DELETE_CANDIDATE}${id}`, {
+           method: "DELETE",
+           headers: {
+             Authorization: `Bearer ${token}`,
+           },
+         });
+
+         if (response.ok) {
+           // Handle success (e.g., show a success message or refresh the data)
+           alert("Record deleted successfully!");
+           window.location.reload(); // Refresh the page or fetch the data again
+         } else {
+           // Handle errors (e.g., show an error message)
+           alert("Failed to delete record. Please try again later.");
+         }
+       } catch (error) {
+         // Handle errors (e.g., show an error message)
+         console.error("Error deleting record:", error);
+         alert("Failed to delete record. Please try again later.");
+       }
+     }
+  };
+  
 
   const columns = useMemo(
     () => [
@@ -143,7 +179,7 @@ const Employer = () => {
         sortType: "alphanumeric",
         Filter: SelectColumnFilter,
         filter: "includes",
-      }, 
+      },
       {
         Header: "Active Job",
         accessor: "activeJob",
@@ -202,11 +238,24 @@ const Employer = () => {
         Cell: ({ row }) => (
           <div className="flex items-center space-x-4">
             <Link
-              to={{ pathname: `/view_doc/${row.values.id}` }}
+              to={{ pathname: `/employer_details/${row.values.id}` }}
               className="text-blue-500 hover:underline"
             >
-              DOC
+              View profile
             </Link>
+
+            <Link
+              to={`/edit_employer/${row.values.id}`}
+              className="text-blue-500 hover:underline"
+            >
+              Edit
+            </Link>
+            <button
+              onClick={() => handleDelete(row.values.id)}
+              className="text-red-500 hover:underline"
+            >
+              Delete
+            </button>
           </div>
         ),
       },

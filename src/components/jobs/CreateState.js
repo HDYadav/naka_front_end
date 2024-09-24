@@ -3,16 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { CREATE_EDUCATION, CREATE_STATE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
-
 import { useNavigate } from "react-router-dom";
 import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 
 const CreateState = () => {
-  
   const user = useRequireAuth();
-
   const navigate = useNavigate();
 
   const initialValues = {
@@ -22,7 +19,7 @@ const CreateState = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("default name  is required"),
+    name: Yup.string().required("Default name is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
@@ -43,9 +40,6 @@ const CreateState = () => {
         body: formDataWithFile,
       });
 
-      // console.log(response);
-      // return false;
-
       navigate(`/state/`);
       setSubmitting(false);
     } catch (error) {
@@ -53,6 +47,7 @@ const CreateState = () => {
       setSubmitting(false);
     }
   };
+
   return (
     <main className="p-4 sm:ml-64">
       <div className="p-4 mt-14">
@@ -91,7 +86,7 @@ const CreateState = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter state name in English..."
                             />
                             <ErrorMessage
                               name="name"
@@ -116,7 +111,7 @@ const CreateState = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter state name in Hindi..."
                             />
 
                             <ErrorMessage
@@ -127,6 +122,7 @@ const CreateState = () => {
                           </div>
                         )}
                       </Field>
+
                       <Field name="name_marathi">
                         {({ field }) => (
                           <div>
@@ -141,7 +137,7 @@ const CreateState = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter ..."
+                              placeholder="Enter state name in Marathi..."
                             />
 
                             <ErrorMessage
@@ -149,15 +145,10 @@ const CreateState = () => {
                               component="div"
                               className="text-red-500 text-sm"
                             />
-
-                            <ErrorMessage
-                              name="ind_type_marathi"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
                           </div>
                         )}
                       </Field>
+
                       <Field name="name_punjabi">
                         {({ field }) => (
                           <div>
@@ -174,7 +165,7 @@ const CreateState = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter ..."
+                              placeholder="Enter state name in Punjabi..."
                             />
                             <ErrorMessage
                               name="name_punjabi"

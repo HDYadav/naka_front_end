@@ -94,7 +94,7 @@ const CreatePage = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter page name"
                             />
                             <ErrorMessage
                               name="page_name"
@@ -119,7 +119,7 @@ const CreatePage = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter heading"
                             />
 
                             <ErrorMessage

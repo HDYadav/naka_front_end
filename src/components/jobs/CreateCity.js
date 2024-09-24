@@ -88,7 +88,7 @@ const CreateCity = () => {
                           <div>
                             <label
                               htmlFor="state"
-                              className="block mb-2 text-535252 text-16  font-400"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               Select State *
                             </label>
@@ -116,14 +116,12 @@ const CreateCity = () => {
                         )}
                       </Field>
 
-
-
                       <Field name="name">
                         {({ field }) => (
                           <div className="mb-3">
                             <label
                               htmlFor="name"
-                              className="block mb-2 text-535252 text-16 font-400 text-535252"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               English
                             </label>
@@ -131,7 +129,7 @@ const CreateCity = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter city name in English..."
                             />
                             <ErrorMessage
                               name="name"
@@ -147,18 +145,16 @@ const CreateCity = () => {
                           <div>
                             <label
                               htmlFor="name_hindi"
-                              className="block mb-2 text-535252 text-16  font-400"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               Hindi
                             </label>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter city name in Hindi..."
                             />
-
                             <ErrorMessage
                               name="name_hindi"
                               component="div"
@@ -167,54 +163,47 @@ const CreateCity = () => {
                           </div>
                         )}
                       </Field>
+
                       <Field name="name_marathi">
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="Marathi"
-                              className="block mb-2  text-535252 text-16  font-400 "
+                              htmlFor="name_marathi"
+                              className="block mb-2 text-535252 text-16 font-400"
                             >
                               Marathi
                             </label>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter marathi emptype ..."
+                              placeholder="Enter city name in Marathi..."
                             />
-
                             <ErrorMessage
                               name="name_marathi"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-
-                            <ErrorMessage
-                              name="ind_type_marathi"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                         )}
                       </Field>
+
                       <Field name="name_punjabi">
                         {({ field }) => (
                           <div>
                             <div className="mb-2">
                               <label
-                                htmlFor="Punjabi"
+                                htmlFor="name_punjabi"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
-                                City
+                                Punjabi
                               </label>
                             </div>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter total_vacancies..."
+                              placeholder="Enter city name in Punjabi..."
                             />
                             <ErrorMessage
                               name="name_punjabi"

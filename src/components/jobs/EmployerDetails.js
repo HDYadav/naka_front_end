@@ -65,9 +65,7 @@ const EmployerDetails = () => {
               <FaEdit />
             </Link>
 
-            {/* <Link to="/candidate" className="text-blue-600 mx-2">
-              <MdDelete className="text-red-600" />
-            </Link> */}
+           
 
             <Link
               to="/employer"

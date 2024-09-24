@@ -1,32 +1,26 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { 
-  CREATE_INDUSTRY_TYPE
-} from "../../utils/constants";
+import { CREATE_INDUSTRY_TYPE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
- 
+
 import { useNavigate } from "react-router-dom";
-import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
- 
 
 const CreateIndustryType = () => {
   const user = useRequireAuth();
- 
   const navigate = useNavigate();
- 
 
   const initialValues = {
     ind_type_hindi: "",
     ind_type_marathi: "",
-    ind_type_punjabi: "" 
-    
+    ind_type_punjabi: "",
+    name: "", // Ensure name is included in the initial values
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("default name  is required"),
+    name: Yup.string().required("Default name is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
@@ -39,16 +33,13 @@ const CreateIndustryType = () => {
       formDataWithFile.append("ind_type_marathi", values.ind_type_marathi);
       formDataWithFile.append("ind_type_punjabi", values.ind_type_punjabi);
 
-     const response = await fetch(CREATE_INDUSTRY_TYPE, {
-       method: "POST",
-       headers: {
-         Authorization: `Bearer ${Authtoken}`,
-       },
-       body: formDataWithFile,
-     });
-
-        // console.log(response);
-        // return false;
+      const response = await fetch(CREATE_INDUSTRY_TYPE, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${Authtoken}`,
+        },
+        body: formDataWithFile,
+      });
 
       navigate(`/industry_type/`);
       setSubmitting(false);
@@ -57,6 +48,7 @@ const CreateIndustryType = () => {
       setSubmitting(false);
     }
   };
+
   return (
     <main className="p-4 sm:ml-64">
       <div className="p-4 mt-14">
@@ -95,7 +87,7 @@ const CreateIndustryType = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter industry type in English"
                             />
                             <ErrorMessage
                               name="name"
@@ -120,7 +112,7 @@ const CreateIndustryType = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter industry type in Hindi"
                             />
 
                             <ErrorMessage
@@ -136,7 +128,7 @@ const CreateIndustryType = () => {
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="emptype"
+                              htmlFor="ind_type_marathi"
                               className="block mb-2  text-535252 text-16  font-400 "
                             >
                               Marathi
@@ -146,13 +138,7 @@ const CreateIndustryType = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter marathi emptype ..."
-                            />
-
-                            <ErrorMessage
-                              name="ind_type_marathi"
-                              component="div"
-                              className="text-red-500 text-sm"
+                              placeholder="Enter industry type in Marathi"
                             />
 
                             <ErrorMessage
@@ -172,7 +158,7 @@ const CreateIndustryType = () => {
                                 htmlFor="ind_type_punjabi"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
-                                Employment Type Punjabi
+                                Punjabi
                               </label>
                             </div>
 
@@ -180,7 +166,7 @@ const CreateIndustryType = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter total_vacancies..."
+                              placeholder="Enter industry type in Punjabi"
                             />
                             <ErrorMessage
                               name="ind_type_punjabi"
@@ -222,7 +208,5 @@ const CreateIndustryType = () => {
     </main>
   );
 };
-
- 
 
 export default LayoutHOC(CreateIndustryType);

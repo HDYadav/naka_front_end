@@ -3,15 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { CREATE_INDUSTRY_TYPE, CREATE_SKILLS } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
-
 import { useNavigate } from "react-router-dom";
-import { Base64 } from "js-base64";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 
 const CreateSkills = () => {
   const user = useRequireAuth();
-
   const navigate = useNavigate();
 
   const initialValues = {
@@ -21,7 +18,7 @@ const CreateSkills = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("default name  is required"),
+    name: Yup.string().required("Default name is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
@@ -42,9 +39,6 @@ const CreateSkills = () => {
         body: formDataWithFile,
       });
 
-      // console.log(response);
-      // return false;
-
       navigate(`/skills/`);
       setSubmitting(false);
     } catch (error) {
@@ -52,13 +46,14 @@ const CreateSkills = () => {
       setSubmitting(false);
     }
   };
+
   return (
     <main className="p-4 sm:ml-64">
       <div className="p-4 mt-14">
         <div className="bg-F1F6F9 font-poppins">
           <div className="flex flex-col bg-white p-4 ">
             <div className="ms-4 flex justify-between items-center">
-              <h5 className=" text-203C50 font-Vietnam text-32 font-medium ">
+              <h5 className="text-203C50 font-Vietnam text-32 font-medium ">
                 Create Skills
               </h5>
             </div>
@@ -73,7 +68,7 @@ const CreateSkills = () => {
               <Form id="companyProfileForm" encType="multipart/form-data">
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                   Skills
+                    Skills
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
@@ -90,7 +85,7 @@ const CreateSkills = () => {
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter skill title in English..."
                             />
                             <ErrorMessage
                               name="name"
@@ -110,14 +105,12 @@ const CreateSkills = () => {
                             >
                               Hindi
                             </label>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter title..."
+                              placeholder="Enter skill title in Hindi..."
                             />
-
                             <ErrorMessage
                               name="skills_hindi"
                               component="div"
@@ -131,25 +124,17 @@ const CreateSkills = () => {
                         {({ field }) => (
                           <div>
                             <label
-                              htmlFor="emptype"
-                              className="block mb-2  text-535252 text-16  font-400 "
+                              htmlFor="skills_marathi"
+                              className="block mb-2 text-535252 text-16  font-400 "
                             >
                               Marathi
                             </label>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter marathi emptype ..."
+                              placeholder="Enter skill title in Marathi..."
                             />
-
-                            <ErrorMessage
-                              name="skills_marathi"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-
                             <ErrorMessage
                               name="skills_marathi"
                               component="div"
@@ -167,15 +152,14 @@ const CreateSkills = () => {
                                 htmlFor="skills_punjabi"
                                 className="mb-1 text-535252 text-16 font-400"
                               >
-                                Employment Type Punjabi
+                                Punjabi
                               </label>
                             </div>
-
                             <input
                               {...field}
                               className="inputBorder text-sm block w-full p-2.5 italic"
                               type="text"
-                              placeholder="Enter total_vacancies..."
+                              placeholder="Enter skill title in Punjabi..."
                             />
                             <ErrorMessage
                               name="skills_punjabi"

@@ -26,6 +26,8 @@ const CandidateDetails = () => {
   const details = useCandidateDetails(id);
   const user = useSelector((state) => state.user);
 
+  console.log(details);
+
   const Skills = details?.data?.skills;
   const Languages = details?.data?.languages;
   const profilePicUrl = PROFILE_PIC_URL + details?.data?.profilePic;

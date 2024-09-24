@@ -123,14 +123,13 @@ function Leftmenu(props) {
           </a>
           <ul className={`space-y-2 font-extralight `}>
             <li className="parentmenu">
-              <a
-                href="#"
+              <Link
+                to="/dashboard" // Replace with your target route
                 className="sidebarmenutab flex items-center p-2 text-CCE6FF rounded-lg hover:bg-sky-600 group"
-                onClick={() => handleToggleMenu(0)}
               >
                 <i className="bi bi-speedometer2 text-xl text-CCE6FF"></i>
-                <span className={`ms-3 parenttext`}>Dashboard</span>
-              </a>
+                <span className="ms-3 parenttext">Dashboard</span>
+              </Link>
             </li>
             <li className="menubottomborder parentmenu pb-2">
               <button
@@ -170,6 +169,7 @@ function Leftmenu(props) {
                   <Link
                     to={"/state"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                    onClick={() => handleToggleMenu(1)}
                   >
                     State
                   </Link>
@@ -305,7 +305,6 @@ function Leftmenu(props) {
                     Candidate
                   </Link>
                 </li>
-
                 <li>
                   <Link
                     to={"/employer"}
@@ -316,12 +315,13 @@ function Leftmenu(props) {
                 </li>
               </ul>
             </li>
+
             <li className="menubottomborder parentmenu pb-2">
               <button
                 type="button"
                 className="sidebarmenutab flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg group hover:bg-sky-600"
-                aria-controls="payroll-menu"
-                data-collapse-toggle="payroll-menu"
+                aria-controls="jobs-menu"
+                data-collapse-toggle="jobs-menu"
                 onClick={() => handleToggleMenu(5)}
               >
                 <i className="bi bi-person-raised-hand text-xl text-CCE6FF"></i>
@@ -345,6 +345,7 @@ function Leftmenu(props) {
                 </svg>
               </button>
               <ul
+                id="jobs-menu"
                 className={`py-2 space-y-2 submenuchildtext ${
                   isMenuOpen(5) ? "" : "hidden"
                 }`}
@@ -356,15 +357,14 @@ function Leftmenu(props) {
                   >
                     Jobs List
                   </Link>
-
-                  <li>
-                    <Link
-                      to={"/applyed_job"}
-                      className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
-                    >
-                      Applyed Job
-                    </Link>
-                  </li>
+                </li>
+                <li>
+                  <Link
+                    to={"/applyed_job"}
+                    className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                  >
+                    Applied Job
+                  </Link>
                 </li>
               </ul>
             </li>
