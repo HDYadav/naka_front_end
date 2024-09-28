@@ -124,7 +124,7 @@ function Leftmenu(props) {
           <ul className={`space-y-2 font-extralight `}>
             <li className="parentmenu">
               <Link
-                to={"/applyed_job"} // Replace with your target route
+                to={"/dashboard"} // Replace with your target route
                 className="sidebarmenutab flex items-center p-2 text-CCE6FF rounded-lg hover:bg-sky-600 group"
               >
                 <i className="bi bi-speedometer2 text-xl text-CCE6FF"></i>

@@ -22,9 +22,11 @@ const EmployerDetails = () => {
   const { id } = useParams();
   const details = useEmployerDetails(id);
   const user = useSelector((state) => state.user);  
+
+ 
  
   
-  const profilePicUrl = PROFILE_PIC_URL + details?.companyLogo;
+  const profilePicUrl = details?.companyLogo;
   const resume = PROFILE_PIC_URL + details?.resume;
 
   const handleDelete = async () => {
@@ -63,10 +65,7 @@ const EmployerDetails = () => {
           <div className="flex gap-1 items-center justify-between">
             <Link to={`/edit_employer/${id}`} className="text-blue-600 mx-2">
               <FaEdit />
-            </Link>
-
-           
-
+            </Link> 
             <Link
               to="/employer"
               className="text-blue-600 mx-2"
@@ -93,7 +92,7 @@ const EmployerDetails = () => {
             <h2 className="text-base leading-5">
               {details?.jobPosiiton} <br />
               <small className="text-xs">
-                <strong>Name:-</strong> {details?.company_name}
+                <strong>Name:-</strong> {details?.name}
               </small>
             </h2>
             <div className="flex gap-2">
@@ -157,7 +156,7 @@ const EmployerDetails = () => {
                 <h4 className="text-base">{details?.establishmentYear}</h4>
               </div>
 
-              <div className="flex gap-1 flex-col font-medium">
+              {/* <div className="flex gap-1 flex-col font-medium">
                 <a
                   href={resume}
                   download="resume.pdf"
@@ -172,7 +171,7 @@ const EmployerDetails = () => {
                     <AiTwotoneFilePdf className="text-red-600" />
                   </h4>
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -206,7 +206,7 @@ const Candidate = () => {
             </Link>
 
             <Link
-              to={`/edit_employer/${row.values.id}`}
+              to={`/edit_candidate/${row.values.id}`}
               className="text-blue-500 hover:underline"
             >
               Edit
@@ -217,7 +217,6 @@ const Candidate = () => {
             >
               Delete
             </button>
-
           </div>
         ),
       },

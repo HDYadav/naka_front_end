@@ -1,9 +1,9 @@
 
-const BASE_URL = "https://api.naka.co.in/";
-export const PROFILE_PIC_URL = `https://api.naka.co.in/`;
+// const BASE_URL = "https://api.naka.co.in/";
+// export const PROFILE_PIC_URL = `https://api.naka.co.in/`;
 
-// const BASE_URL = "http://127.0.0.1:8000/";
-// export const PROFILE_PIC_URL = "http://127.0.0.1:8000/"; 
+const BASE_URL = "http://127.0.0.1:8000/";
+export const PROFILE_PIC_URL = "http://127.0.0.1:8000/"; 
 
 
 export const LOGIN_URL =  `${BASE_URL}api/admin_login`;
@@ -69,12 +69,18 @@ export const DELETE_EDUCATION = `${BASE_URL}api/attributes/delete_educations/`;
 export const GET_PAGES_LIST = `${BASE_URL}api/attributes/page_list`;
 export const PAGES_CREATE_UPDATE = `${BASE_URL}api/attributes/pages_add_update`;
 export const DELETE_PAGE = `${BASE_URL}api/attributes/delete_page/`;
-export const GET_PAGE_EDIT = `${BASE_URL}api/attributes/get_page`;
-export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update`;
+export const GET_PAGE_EDIT = `${BASE_URL}api/attributes/get_page/`;
+export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update/`;
 export const ACCOUNT_STATUS = `${BASE_URL}api/users/account_status_change`;
-export const EDIT_JOB = `${BASE_URL}api/jobs/get_edit_jobs`;
+export const EDIT_JOB = `${BASE_URL}api/jobs/get_edit_jobs/`;
 export const GET_EMAIL_TEMPLATE_EDIT = `${BASE_URL}api/attributes/get_email_template/`;
 export const EMAIL_TEMPLATE_UPDATE = `${BASE_URL}api/attributes/email_template_update`;
+
+export const GET_DASHBOARD_COUNT = `${BASE_URL}api/dashboard/get_dashboard`;
+
+
+ 
+
 
 
  

@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { UPDATE_CANDIDATE } from "../../utils/constants";
+import {  UPDATE_CANDIDATE } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LayoutHOC from "../LayoutHOC";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"; 
 import useCompany from "../../hooks/useCompany";
+import useEditCandidate from "../../hooks/useEditCandidate";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import useEditEmployer from "../../hooks/useEditEmployer";
-import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css"; // Ensure you import the CSS for DatePicker
 
 const EditCandidate = () => {
-  const { id } = useParams();
-  const user = useRequireAuth();
-  const navigate = useNavigate();
-  const company = useCompany();
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [file, setFile] = useState(null);
-  const employerData = useEditEmployer(id); 
-  const [successMessage, setSuccessMessage] = useState("");
-  
 
+  const { id } = useParams();  
+  const user = useRequireAuth(); 
+  const navigate = useNavigate(); 
+
+  //const { candidate } = useEditCandidate(id) || {};
+  
+  const { candidate } = useEditCandidate(id); 
+
+
+  const [selectedDate, setSelectedDate] = useState(null);  
+  const company = useCompany();  
+  //console.log(company?.data?.languages);
   const [initialValues, setInitialValues] = useState({
     id: id, // Assuming id is a string
     name: "",
     email: "",
     mobile: "",
     //date_of_birth: null,
-    dob: null,
+    dob:null,
     password: "",
     experience: "",
     jobPosiiton: "",
@@ -42,37 +44,32 @@ const EditCandidate = () => {
     gender: "",
   });
 
+  const [successMessage, setSuccessMessage] = useState("");
+
   useEffect(() => {
-    if (employerData) {
+    if (candidate) {
       setInitialValues({
         ...initialValues,
-        name: employerData.name || "",
-        email: employerData.email || "",
-        mobile: employerData.mobile || "",
-
-        // company_size: employerData.company_size || "",
-        // organizationType: employerData.organizationType || "",
-        // website: employerData.website || "",
-        // industryTypeId: employerData.industryTypeId || "",
-         date_of_birth: employerData.dob || "",
-        jobPosiiton: employerData.professionId || "",
-        experience: employerData.experienced || "",
-        education: employerData.educationId || "",
-        skills: employerData.skills || "",
-        languages: employerData.languages || "",
-        maritalStatus: employerData.maritalStatus || "",
-        gender: employerData.gender || "",
-        resume: employerData.resume || "",
-        about: employerData.about || "",
-        password: employerData.password || "",
+        name: candidate.name || "",
+        email: candidate.email || "",
+        mobile: candidate.mobile || "",
+        // password: candidate.password || "",
+        experience: candidate.experienced || "",
+        jobPosiiton: candidate.professionId || "",
+        education: candidate.educationId || "",
+        skills: candidate.skills || "",
+        languages: candidate.languages || "",
+        maritalStatus: candidate.maritalStatus || "",
+        gender: candidate.gender || "",
+        resume: candidate.resume || "",
+        date_of_birth: candidate?.dob || "",
       });
-      setSelectedDate(
-        employerData.dob
-          ? new Date(employerData.dob)
-          : null
-      );
+      // setSelectedDate(new Date(candidate.dob));
+      
+       setSelectedDate(candidate.dob ? new Date(candidate.dob) : null);
+      
     }
-  }, [employerData]);
+  });
 
   const validationSchema = Yup.object().shape({
     id: Yup.string().required("ID is required"), // Validation schema for ID
@@ -80,10 +77,9 @@ const EditCandidate = () => {
     date_of_birth: Yup.string().required("Date Of Birthe is required"),
   });
 
-
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
-     
     try {
+
       let dateOfBirth = values.date_of_birth;
 
       if (typeof dateOfBirth === "string") {
@@ -96,11 +92,14 @@ const EditCandidate = () => {
       const month = (dateOfBirth.getMonth() + 1).toString().padStart(2, "0"); // Get month (zero-indexed) and pad with zero if necessary
       const year = dateOfBirth.getFullYear(); // Get full year
 
-      //const formattedDate = `${day} ${month} ${year}`;
+      const formattedDate = `${day} ${month} ${year}`;
+      
+       //const formattedDate = `${year}-${month}-${day}`;
 
-      const formattedDate = `${year}-${month}-${day}`;
 
       //console.log(formattedDate);
+
+
 
       const Authtoken = user.token;
       const formDataWithFile = new FormData();
@@ -152,17 +151,28 @@ const EditCandidate = () => {
     }
   };
 
+  if (!candidate) {
+    // Handle loading state or error state if positions is undefined
+    return <div>Loading...</div>;
+  }
+
   return (
     <main className="p-4 sm:ml-64">
       <div className="p-4 mt-14">
         <div className="bg-F1F6F9 font-poppins">
-          <div className="flex flex-col bg-white p-4 ">
+          <div className="flex flex-col bg-white p-4">
             <div className="ms-4 flex justify-between items-center">
               <h5 className="text-203C50 font-Vietnam text-32 font-medium">
-                Edit Candidate
+                Update Candidate
               </h5>
             </div>
           </div>
+
+          {successMessage && (
+            <div className="bg-green-200 text-green-800 p-3 mt-4 mb-4 rounded-md">
+              {successMessage}
+            </div>
+          )}
 
           <Formik
             initialValues={initialValues}
@@ -171,10 +181,14 @@ const EditCandidate = () => {
             enableReinitialize
           >
             {({ isSubmitting, setFieldValue }) => (
-              <Form id="employerForm" encType="multipart/form-data">
+              <Form id="jobPositionForm" encType="multipart/form-data">
+                <Field name="id" type="hidden">
+                  {({ field }) => <input {...field} type="hidden" />}
+                </Field>
+
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                    Edit Candidate
+                    Candidate
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
@@ -313,13 +327,14 @@ const EditCandidate = () => {
 
                 <section className="bg-white mt-5 pt-0 py-8">
                   <h3 className="text-base p-3 border-b border-gray-200 mb-4">
-                    Additional Information
+                    Attributes
                   </h3>
                   <div className="flex px-5 justify-between mb-4 w-full">
                     <div className="ps-3 gap-x-8 justify-around font-poppins flex-wrap grid grid-cols-3 w-full">
                       <Field name="experience">
                         {({ field }) => (
                           <div className="mb-4">
+                            
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="experience"
@@ -355,6 +370,7 @@ const EditCandidate = () => {
                       <Field name="jobPosiiton">
                         {({ field }) => (
                           <div className="mb-4">
+                            
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="jobPosiiton"
@@ -392,6 +408,7 @@ const EditCandidate = () => {
                       <Field name="education">
                         {({ field }) => (
                           <div className="mb-4">
+                          
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="education"
@@ -424,6 +441,7 @@ const EditCandidate = () => {
                       <Field name="skills">
                         {({ field, form }) => (
                           <div className="mb-4">
+                            
                             {/* Added margin-bottom */}
                             <label
                               htmlFor="skills"
@@ -649,7 +667,7 @@ const EditCandidate = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <Link to="/employer">
+                    <Link to="/city">
                       <button
                         type="button"
                         className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
