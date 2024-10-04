@@ -13,13 +13,16 @@ function Leftmenu(props) {
   const [asideWidth, setAsideWidth] = useState(null);
   const [sideBarColl, setSideBarColl] = useState(false);
 
-  const handleToggleMenu = (menuIndex) => {
-    if (openMenus.includes(menuIndex)) {
-      setOpenMenus(openMenus.filter((index) => index !== menuIndex));
-    } else {
-      setOpenMenus([...openMenus, menuIndex]);
-    }
-  };
+ const handleToggleMenu = (menuIndex) => {
+   setOpenMenus((prevOpenMenus) => {
+     if (prevOpenMenus.includes(menuIndex)) {
+       return prevOpenMenus.filter((index) => index !== menuIndex);
+     } else {
+       return [...prevOpenMenus, menuIndex];
+     }
+   });
+ };
+
 
   const isMenuOpen = (menuIndex) => {
     return openMenus.includes(menuIndex);
@@ -53,6 +56,13 @@ function Leftmenu(props) {
   const Expandside = () => {
     setSideBarColl(!sideBarColl);
   };
+
+
+
+
+
+
+
 
   return (
     <Fragment>
@@ -369,6 +379,7 @@ function Leftmenu(props) {
               </ul>
             </li>
 
+           
             <li className="menubottomborder parentmenu pb-2">
               <button
                 type="button"
@@ -407,6 +418,7 @@ function Leftmenu(props) {
                   <Link
                     to={"/pages"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                    onClick={() => handleToggleMenu(6)}
                   >
                     Pages
                   </Link>
@@ -416,6 +428,7 @@ function Leftmenu(props) {
                   <Link
                     to={"/edit_email_template/1"}
                     className="flex items-center w-full p-2 text-CCE6FF transition duration-75 rounded-lg pl-11 group hover:bg-sky-600"
+                    onClick={() => handleToggleMenu(6, true)}
                   >
                     Email Template
                   </Link>

@@ -94,7 +94,7 @@ const JobsList = () => {
     () => [
       {
         Header: "Title/JobPosition",
-        accessor: "categoryRole",
+        accessor: (row) => `${row.title} ${row.jobPosiiton}`,
         Cell: ({ cell: { row } }) => {
           const { companyLogo, title, jobPosiiton } = row.original;
           const defaultImage = "path/to/default/image.png"; // Replace with your default image path
@@ -312,7 +312,7 @@ const JobsList = () => {
               type="text"
               id="table-search-users"
               className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search"
+              placeholder="Search job title job position"
               value={globalFilter || ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
             />
@@ -320,21 +320,6 @@ const JobsList = () => {
         </div>
 
         <div className="my-4 flex flex-wrap">
-          <div className="mr-4">
-            <label
-              htmlFor="job-position-filter"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Job Position
-            </label>
-            {headerGroups[0].headers
-              .filter((column) => column.id === "categoryRole")
-              .map((column) => (
-                <div key={column.id}>
-                  {column.canFilter ? column.render("Filter") : null}
-                </div>
-              ))}
-          </div>
           <div className="mr-4">
             <label
               htmlFor="employement-type-filter"

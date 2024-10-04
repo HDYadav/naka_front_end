@@ -5,7 +5,7 @@ import { CREATE_JOB } from "../../utils/constants";
 import useRequireAuth from "../../utils/useRequireAuth";
 import { useDispatch } from "react-redux";
 import { setProfile } from "../../utils/companyProfileSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -727,12 +727,15 @@ const CreateJob = () => {
                 <div className="flex px-10 font-poppins pt-3 justify-between">
                   <div></div>
                   <div className="flex gap-4">
-                    <button
-                      type="button"
-                      className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
-                    >
-                      CANCEL
-                    </button>
+                    <Link to="/jobs_list">
+                      <button
+                        type="button"
+                        className="px-6 py-2 text-base rounded font-normal bg-F4F4F4 focus:outline-none"
+                      >
+                        CANCEL
+                      </button>
+                    </Link>
+
                     <button
                       type="submit"
                       className="px-6 py-2 text-base rounded font-normal bg-1D4469 text-white focus:outline-none"

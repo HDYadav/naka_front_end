@@ -136,7 +136,7 @@ const Candidate = () => {
     () => [
       {
         Header: "Candidate Info",
-        accessor: "candidateInfo",
+        accessor: (row) => `${row.name} ${row.email}`,
         Cell: ({ cell: { row } }) => {
           const { profilePic, email, name } = row.original;
           const defaultImage = "path/to/default/image.png"; // Replace this with the path to your default image
@@ -332,7 +332,7 @@ const Candidate = () => {
               type="text"
               id="table-search-users"
               className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search"
+              placeholder="Search Candidate Info"
               value={globalFilter || ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
             />

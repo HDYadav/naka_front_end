@@ -4,6 +4,7 @@ import LayoutHOC from "./LayoutHOC";
 import useDashboardCount from "../hooks/useDashboardCount";
 import JobsList from "./jobs/JobsList";
 import Candidate from "./jobs/Candidate";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const rowData = useDashboardCount();
@@ -19,30 +20,60 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="flex flex-col bg-white p-4 shadow rounded">
             <h5 className="text-203C50 font-Vietnam text-[24px] font-medium">
-              Companies
+              <Link
+                to={"/employer"}
+                className="flex items-center w-full p-2 text-black font-500 transition duration-75 rounded-lg pl-11 group hover:text-blue-500"
+              >
+                Companies
+              </Link>
             </h5>
-            <p className="text-2xl font-bold">{rowData?.employer}</p>
+            <p className="flex items-end w-full p-2 text-black font-800 transition duration-75 rounded-lg pl-28 group">
+              {rowData?.employer}
+            </p>
           </div>
 
           <div className="flex flex-col bg-white p-4 shadow rounded">
             <h5 className="text-203C50 font-Vietnam text-[24px] font-medium">
-              Active Companies
+              <Link
+                to={"/employer"}
+                className="flex items-center w-full p-2 text-black font-500 transition duration-75 rounded-lg pl-11 group hover:text-blue-500"
+              >
+                Active Companies
+              </Link>
             </h5>
-            <p className="text-2xl font-bold">{rowData?.active_employer}</p>
+
+            <p className="flex items-end w-full p-2 text-black font-800 transition duration-75 rounded-lg pl-28 group">
+              {rowData?.active_employer}
+            </p>
           </div>
 
           <div className="flex flex-col bg-white p-4 shadow rounded">
             <h5 className="text-203C50 font-Vietnam text-[24px] font-medium">
-              All Jobs
+              <Link
+                to={"/jobs_list"}
+                className="flex items-center w-full p-2 text-black font-500 transition duration-75 rounded-lg pl-11 group hover:text-blue-500"
+              >
+                All Jobs
+              </Link>
             </h5>
-            <p className="text-2xl font-bold">{rowData?.all_jobs}</p>
+
+            <p className="flex items-end w-full p-2 text-black font-800 transition duration-75 rounded-lg pl-28 group">
+              {rowData?.all_jobs}
+            </p>
           </div>
 
           <div className="flex flex-col bg-white p-4 shadow rounded">
             <h5 className="text-203C50 font-Vietnam text-[24px] font-medium">
-              Active Jobs
+              <Link
+                to={"/jobs_list"}
+                className="flex items-center w-full p-2 text-black font-500 transition duration-75 rounded-lg pl-11 group hover:text-blue-500"
+              >
+                Active Jobs
+              </Link>
             </h5>
-            <p className="text-2xl font-bold">{rowData?.active_job}</p>
+            <p className="flex items-end w-full p-2 text-black font-800 transition duration-75 rounded-lg pl-28 group">
+              {rowData?.active_job}
+            </p>
           </div>
         </div>
 
@@ -54,25 +85,36 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
           <div className="flex flex-col bg-white p-4 shadow rounded">
             <h5 className="text-203C50 font-Vietnam text-[24px] font-medium">
-              Total Candidates
+              <Link
+                to={"/candidate"}
+                className="flex items-center w-full p-2 text-black font-500 transition duration-75 rounded-lg pl-11 group hover:text-blue-500"
+              >
+                Total Candidates
+              </Link>
             </h5>
-            <p className="text-2xl font-bold">{rowData?.candidate}</p>
+            <p className="flex items-end w-full p-2 text-black font-800 transition duration-75 rounded-lg pl-28 group">
+              {rowData?.candidate}
+            </p>
           </div>
 
           <div className="flex flex-col bg-white p-4 shadow rounded">
             <h5 className="text-203C50 font-Vietnam text-[24px] font-medium">
-              Active Candidates
+              <Link
+                to={"/candidate"}
+                className="flex items-center w-full p-2 text-black font-500 transition duration-75 rounded-lg pl-11 group hover:text-blue-500"
+              >
+                Active Candidates
+              </Link>
             </h5>
-            <p className="text-2xl font-bold">{rowData?.active_candidate}</p>
+            <p className="flex items-end w-full p-2 text-black font-800 transition duration-75 rounded-lg pl-28 group">
+              {rowData?.active_candidate}
+            </p>
+            
           </div>
         </div>
 
-        
-
         {/* Section 3 */}
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-8">
-          
-
           <div className="flex flex-col bg-white p-4 shadow rounded">
             {/* <h5 className="text-203C50 font-Vietnam text-[24px] font-medium">
               Job List
