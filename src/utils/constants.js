@@ -1,9 +1,9 @@
 
-// const BASE_URL = "https://api.naka.co.in/";
-// export const PROFILE_PIC_URL = `https://api.naka.co.in/`;
+const BASE_URL = "https://api.naka.co.in/";
+export const PROFILE_PIC_URL = `https://api.naka.co.in/`;
 
-const BASE_URL = "http://127.0.0.1:8000/";
-export const PROFILE_PIC_URL = "http://127.0.0.1:8000/"; 
+// const BASE_URL = "http://127.0.0.1:8000/";
+// export const PROFILE_PIC_URL = "http://127.0.0.1:8000/"; 
 
 
 export const LOGIN_URL =  `${BASE_URL}api/admin_login`;
@@ -46,6 +46,12 @@ export const GET_CANDIDATES = `${BASE_URL}api/get_candidates`;
 export const GET_CANDIDATES_DETAILS = `${BASE_URL}api/candidates_details/`;
 export const CREATE_CANDIDATES = `${BASE_URL}api/create_candidate`;
 export const UPDATE_CANDIDATE = `${BASE_URL}api/create_candidate`;
+
+
+export const UPDATE_PROFILE_PIC = `${BASE_URL}api/update_profile_pic/`;
+
+
+
 export const GET_CANDIDATES_EDIT = `${BASE_URL}api/get_candidates_edit/`;
 export const DELETE_CANDIDATE = `${BASE_URL}api/delete_candidate/`;
 export const GET_EMPLOYER = `${BASE_URL}api/get_employer`;

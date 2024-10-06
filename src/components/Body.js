@@ -57,6 +57,7 @@ import CreatePage from "./jobs/CreatePage";
 import EditPage from "./jobs/EditPage";
 import EditJob from "./jobs/EditJob";
 import EditEmailTemplate from "./jobs/EditEmailTemplate";
+import AdminSetting from "./jobs/AdminSetting";
 
 const Body = () => {
   return (
@@ -135,8 +136,12 @@ const Body = () => {
             <Route path="/pages" element={<Pages />} />
             <Route path="/create_page" element={<CreatePage />} />
             <Route path="/edit_page/:id" element={<EditPage />} />
-            <Route path="/edit_email_template/:id" element={<EditEmailTemplate />} />
+            <Route
+              path="/edit_email_template/:id"
+              element={<EditEmailTemplate />}
+            />
 
+            <Route path="/admin_seting/:id" element={<AdminSetting />} />
           </Route>
         </Routes>
       </Router>
