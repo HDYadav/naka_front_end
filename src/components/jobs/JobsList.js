@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import LayoutHOC from "../LayoutHOC";
 import { Link } from "react-router-dom";
 import useJobsList from "../../hooks/useJobsList";
-
+import { JOB_STATUS } from "../../utils/constants";
 
 import {
   useTable,
@@ -19,6 +19,64 @@ const JobsList = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const user = useSelector((state) => state.user);
+
+
+
+  const SliderRounded = ({ value, onToggle, id }) => {
+      
+      const isInitialActive = value === 1; // Use number 1 to check if it's active
+      const [isActive, setIsActive] = useState(isInitialActive);
+
+      useEffect(() => {
+        setIsActive(value === 1); // Update state when value changes
+      }, [value]);
+
+      const handleClick = async () => {
+        const newValue = !isActive;
+        setIsActive(newValue);
+
+        if (onToggle) {
+          onToggle(newValue ? 1 : 0); // Send 1 for active, 0 for pending
+        }
+
+        try {
+          const authToken = user.token;
+          const formData = new FormData();
+          formData.append("admin_status", newValue ? 1 : 0);
+
+          const response = await fetch(`${JOB_STATUS}${id}`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to update status");
+          }
+
+         // const result = await response.json();
+         // console.log(result.message,"Hari");
+        } catch (error) {
+          console.error("Error updating status:", error);
+        }
+      };
+
+      
+
+      return (
+        <div
+          onClick={handleClick}
+          className={`cursor-pointer rounded-full w-12 h-6 flex items-center justify-${
+            isActive ? "start" : "end"
+          } p-1 bg-${isActive ? "green" : "gray"}-300`}
+        >
+          <div className="rounded-full w-4 h-4 bg-white" />
+        </div>
+      );
+  };
+  
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete?");
@@ -208,6 +266,20 @@ const JobsList = () => {
             </div>
           );
         },
+      },
+      {
+        Header: "Admin Status",
+        accessor: "admin_status",
+        sortType: "alphanumeric",
+        Cell: ({ row }) => (
+          <SliderRounded
+            value={row.values.admin_status}
+            onToggle={() => {}}
+            id={row.values.id}
+          />
+        ),
+        Filter: SelectColumnFilter,
+        filter: "includes",
       },
       {
         Header: "Actions",

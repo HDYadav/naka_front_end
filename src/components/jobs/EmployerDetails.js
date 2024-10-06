@@ -2,7 +2,7 @@ import React from "react";
 import LayoutHOC from "../LayoutHOC";
 import { useParams } from "react-router-dom"; 
 import { MdOutlineRealEstateAgent } from "react-icons/md";
-import { FaCity } from "react-icons/fa";
+import { FaCity, FaEnvelope, FaIndustry, FaPhoneAlt, FaUsers } from "react-icons/fa";
 import { MdOutlineViewCompactAlt } from "react-icons/md"; 
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom"; 
@@ -65,7 +65,7 @@ const EmployerDetails = () => {
           <div className="flex gap-1 items-center justify-between">
             <Link to={`/edit_employer/${id}`} className="text-blue-600 mx-2">
               <FaEdit />
-            </Link> 
+            </Link>
             <Link
               to="/employer"
               className="text-blue-600 mx-2"
@@ -110,35 +110,32 @@ const EmployerDetails = () => {
               </h3>
             </div>
           </div>
+
           <div className="flex gap-5 flex-wrap">
             <div className="flex gap-1 flex-col font-medium">
-              <MdOutlineRealEstateAgent className="text-blue-600" />
-
+              <FaIndustry className="text-blue-600" />
               <span className="text-xs">Industry Type</span>
               <h4 className="text-base">{details?.industry_type}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
-              <FaCity className="text-blue-600" />
-
+              <FaUsers className="text-blue-600" />
               <span className="text-xs">Team Size</span>
               <h4 className="text-base">{details?.team_size}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
-              <MdOutlineViewCompactAlt className="text-blue-600" />
-
+              <FaPhoneAlt className="text-blue-600" />
               <span className="text-xs">Phone</span>
               <h4 className="text-base">{details?.mobile}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
-              <MdOutlineViewCompactAlt className="text-blue-600" />
-
+              <FaEnvelope className="text-blue-600" />
               <span className="text-xs">Contact Email</span>
               <h4 className="text-base">{details?.email}</h4>
             </div>
           </div>
         </div>
 
-        <div className="h-20"></div>
+        <div className="h-10"></div>
 
         <div className="border-t border-gray-300 grid gap-1 grid-cols-[70%,1fr]">
           <div className="px-2">
@@ -155,33 +152,43 @@ const EmployerDetails = () => {
                 <span className="text-xs">Establishment Date</span>
                 <h4 className="text-base">{details?.establishmentYear}</h4>
               </div>
-
-              {/* <div className="flex gap-1 flex-col font-medium">
-                <a
-                  href={resume}
-                  download="resume.pdf"
-                  className="flex gap-1 flex-col items-center"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GoDownload className="text-blue-600" />
-
-                  <span className="text-xs">Documents</span>
-                  <h4 className="text-base">
-                    <AiTwotoneFilePdf className="text-red-600" />
-                  </h4>
-                </a>
-              </div> */}
             </div>
           </div>
         </div>
 
-        <div className="h-20"></div>
+        <div className="border border-gray-300 rounded-lg p-4 shadow-md bg-white grid gap-4 grid-cols-[50%,50%]">
+          <div className="px-2">
+            <h3 className="my-3 text-lg font-semibold text-gray-700 border-b pb-2">
+              Documents
+            </h3>
+            <div className="py-2 text-gray-800 font-medium">AADHAR CARD</div>
+            <div className="py-2 text-gray-800 font-medium">PAN CARD</div>
+            <div className="py-2 text-gray-800 font-medium">CIN</div>
+            <div className="py-2 text-gray-800 font-medium">GST</div>
+          </div>
+          <div className="px-2">
+            <h3 className="my-3 text-lg font-semibold text-gray-700 border-b pb-2">
+              Details/Status
+            </h3>
+            <div className="py-2 text-gray-600">
+              {details?.data?.aadharCardNumber || "Pending"}
+            </div>
+            <div className="py-2 text-gray-600">
+              {details?.data?.panCardNumber || "Pending"}
+            </div>
+            <div className="py-2 text-gray-600">
+              {details?.data?.cinNumber || "Pending"}
+            </div>
+            <div className="py-2 text-gray-600">
+              {details?.data?.gstNumber || "Pending"}
+            </div>
+          </div>
+        </div>
+
+        <div className="h-10"></div>
 
         <div className="border-t border-gray-300 grid gap-1 grid-cols-[90%,1fr]">
-          {/* <EmpJob empData={{ empId: details?.id }} /> */}
-
-          <EmpJob empData={{ empId:id }} />
+          <EmpJob empData={{ empId: id }} />
         </div>
       </div>
     </main>

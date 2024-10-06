@@ -56,35 +56,35 @@ const Candidate = () => {
       }
     };
 
-    const handleDelete = async (id) => {
-      const confirmDelete = window.confirm("Are you sure you want to delete?");
+    // const handleDelete = async (id) => {
+    //   const confirmDelete = window.confirm("Are you sure you want to delete?");
 
-      if (confirmDelete) {
-        try {
-          const { token } = user;
+    //   if (confirmDelete) {
+    //     try {
+    //       const { token } = user;
 
-          const response = await fetch(`${DELETE_CANDIDATE}${id}`, {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+    //       const response = await fetch(`${DELETE_CANDIDATE}${id}`, {
+    //         method: "DELETE",
+    //         headers: {
+    //           Authorization: `Bearer ${token}`,
+    //         },
+    //       });
 
-          if (response.ok) {
-            // Handle success (e.g., show a success message or refresh the data)
-            alert("Record deleted successfully!");
-            window.location.reload(); // Refresh the page or fetch the data again
-          } else {
-            // Handle errors (e.g., show an error message)
-            alert("Failed to delete record. Please try again later.");
-          }
-        } catch (error) {
-          // Handle errors (e.g., show an error message)
-          console.error("Error deleting record:", error);
-          alert("Failed to delete record. Please try again later.");
-        }
-      }
-    };
+    //       if (response.ok) {
+    //         // Handle success (e.g., show a success message or refresh the data)
+    //         alert("Record deleted successfully!");
+    //         window.location.reload(); // Refresh the page or fetch the data again
+    //       } else {
+    //         // Handle errors (e.g., show an error message)
+    //         alert("Failed to delete record. Please try again later.");
+    //       }
+    //     } catch (error) {
+    //       // Handle errors (e.g., show an error message)
+    //       console.error("Error deleting record:", error);
+    //       alert("Failed to delete record. Please try again later.");
+    //     }
+    //   }
+    // };
 
     return (
       <div

@@ -71,7 +71,10 @@ export const PAGES_CREATE_UPDATE = `${BASE_URL}api/attributes/pages_add_update`;
 export const DELETE_PAGE = `${BASE_URL}api/attributes/delete_page/`;
 export const GET_PAGE_EDIT = `${BASE_URL}api/attributes/get_page/`;
 export const PAGES_UPDATE = `${BASE_URL}api/attributes/pages_update/`;
-export const ACCOUNT_STATUS = `${BASE_URL}api/users/account_status_change`;
+export const ACCOUNT_STATUS = `${BASE_URL}api/users/account_status_change/`;
+
+export const JOB_STATUS = `${BASE_URL}api/users/job_status_change/`;
+
 export const EDIT_JOB = `${BASE_URL}api/jobs/get_edit_jobs/`;
 export const GET_EMAIL_TEMPLATE_EDIT = `${BASE_URL}api/attributes/get_email_template/`;
 export const EMAIL_TEMPLATE_UPDATE = `${BASE_URL}api/attributes/email_template_update`;

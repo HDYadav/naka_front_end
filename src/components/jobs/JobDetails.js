@@ -1,33 +1,27 @@
 import React from "react";
-import LayoutHOC from "../LayoutHOC";
-import { BiEdit } from "react-icons/bi";
-import { MdDeleteOutline } from "react-icons/md";
-import { FaMoneyCheck } from "react-icons/fa";
-import { BsGraphUpArrow } from "react-icons/bs";
-import { JOB_DETAILS } from "../../utils/constants";
+import LayoutHOC from "../LayoutHOC"; 
 import { useParams } from "react-router-dom";
-import useJobsDetails from "../../hooks/useJobsDetails";
-import { FaNetworkWired } from "react-icons/fa";
-import { MdOutlineRealEstateAgent } from "react-icons/md";
-import { FaCity } from "react-icons/fa";
-import { MdOutlineViewCompactAlt } from "react-icons/md";
-import { FaRupeeSign } from "react-icons/fa";
-import { FaBuromobelexperte } from "react-icons/fa6";
-import { MdOutlineCastForEducation } from "react-icons/md";
-import { TbListDetails } from "react-icons/tb";
+import useJobsDetails from "../../hooks/useJobsDetails"; 
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+
+import {
+  FaRupeeSign,
+  FaBuilding,
+  FaMapMarkerAlt,
+  FaCity,
+  FaBriefcase,
+} from "react-icons/fa";
+import { MdOutlineCastForEducation } from "react-icons/md";
+
+
 
 
 const JobDetails = () => {
 
   const { id } = useParams();
   const details = useJobsDetails(id);  
-
-  console.log(details?.data?.employeementType);
-  
-const Skills = details?.data?.skills;
-
+  const Skills = details?.data?.skills; 
  
 
   return (
@@ -39,12 +33,9 @@ const Skills = details?.data?.skills;
             <Link to="/jobs_list" className="text-blue-600">
               <IoMdArrowBack />
             </Link>
-
-            {/* <BiEdit className="text-xl" />
-            <MdDeleteOutline className="text-xl" /> */}
           </div>
         </div>
-        {/* Details section */}
+
         <div className="grid gap-1 grid-cols-[120px,250px,1fr] my-3">
           <div className="w-[110px] h-[110px]">
             <img
@@ -57,62 +48,57 @@ const Skills = details?.data?.skills;
             <h2 className="text-base leading-5">
               {details?.data?.jobPosiiton} <br />
               <small className="text-xs">
-                Employeement Type · {details?.data?.employeementType}
+                Employment Type · {details?.data?.employeementType}
               </small>
             </h2>
             <div className="flex gap-2">
               <FaRupeeSign className="text-blue-600" />
               <h3 className="text-base leading-5">
-                {details?.data?.minSalary} -{details?.data?.maxSalary}
+                {details?.data?.minSalary} - {details?.data?.maxSalary}
                 <small className="text-xs"> Monthly</small>
               </h3>
-            </div>
+            </div> 
+            
           </div>
           <div className="flex gap-5 flex-wrap">
             <div className="flex gap-1 flex-col font-medium">
-              <FaNetworkWired className="text-blue-600" />
-
+              <FaBuilding className="text-blue-600" />
               <span className="text-xs">Work Place</span>
               <h4 className="text-base">{details?.data?.workPlace}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
-              <MdOutlineRealEstateAgent className="text-blue-600" />
-
+              <FaMapMarkerAlt className="text-blue-600" />
               <span className="text-xs">State</span>
               <h4 className="text-base">{details?.data?.state}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <FaCity className="text-blue-600" />
-
               <span className="text-xs">City</span>
               <h4 className="text-base">{details?.data?.city}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
-              <MdOutlineViewCompactAlt className="text-blue-600" />
-
+              <FaBuilding className="text-blue-600" />
               <span className="text-xs">Company</span>
               <h4 className="text-base">{details?.data?.company}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <FaRupeeSign className="text-blue-600" />
-
               <span className="text-xs">Salary Type</span>
               <h4 className="text-base">{details?.data?.salaryType}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
-              <FaBuromobelexperte className="text-blue-600" />
-
+              <FaBriefcase className="text-blue-600" />
               <span className="text-xs">Experience</span>
               <h4 className="text-base">{details?.data?.experience}</h4>
             </div>
             <div className="flex gap-1 flex-col font-medium">
               <MdOutlineCastForEducation className="text-blue-600" />
-
               <span className="text-xs">Education</span>
               <h4 className="text-base">{details?.data?.education}</h4>
             </div>
           </div>
         </div>
+
         <div className="border-t border-gray-300 grid gap-1 grid-cols-[70%,1fr]">
           <div className="px-2">
             <h3 className="my-3 text-base">Description</h3>
